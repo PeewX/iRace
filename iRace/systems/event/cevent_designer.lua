@@ -28,7 +28,7 @@ function evt.updateEventWindow()
 
     local cX, cY, cX2, r, ab = 7, 25/1080*y, evt.infoBox.w*0.5, evt.infoBox.w - 7, 18/1080*y
     dxDrawText("You can win:", cX, cY, x, y, tocolor(255, 255, 255), 1, iFont[12])                 dxDrawText(convertNumber(evt.event.price) .. "$", cX2, cY, r, y, tocolor(255, 255, 255), 1, iFont[12], "right")
-    dxDrawText("Event ends in:", cX, cY + ab, x, y, tocolor(255, 255, 255), 1, iFont[12])          dxDrawText(getRealTimeString(evt.event.stop), cX2, cY + ab, r, y, tocolor(255, 255, 255), 1, iFont[12], "right")
+    dxDrawText("Event ends:", cX, cY + ab, x, y, tocolor(255, 255, 255), 1, iFont[12])             dxDrawText(getRealTimeString(evt.event.stop), cX2, cY + ab, r, y, tocolor(255, 255, 255), 1, iFont[12], "right")
     dxDrawText("Multiplicator:", cX, cY + ab*2, x, y, tocolor(255, 255, 255), 1, iFont[12])        dxDrawText("x" .. evt.event.cm, cX2, cY + ab*2, r, y, tocolor(255, 255, 255), 1, iFont[12], "right")
     dxDrawLine(cX, cY+(20/1080*y)*3, evt.infoBox.w - cX, cY+(20/1080*y)*3, tocolor(80, 80, 80), 1)
     local cY = cY+(20/1080*y)*3+5
