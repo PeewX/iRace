@@ -42,6 +42,13 @@ function tst.saveTeams()
 end
 addEventHandler("onResourceStop", resroot, tst.saveTeams)
 
+setTimer(
+    function()
+        tst.saveTeams()
+        outputDebugString("Teams synchronized with database")
+    end
+, 3600000, -1)
+
 function tst.onPlayerLogin(client)
     local pTeam = gtst.getPlayerTeam(client)
     if pTeam then
@@ -532,6 +539,7 @@ addEventHandler("onPlayerQuit", root, function()
     if pTeam then
         local pA = getAccountName(getPlayerAccount(source))
         tst.setPlayerStat(pA, pTeam, "lastonline", getRealTime().timestamp)
+        tst.setPlayerStat(pA, pTeam, "lastusername", removeColorCodes(getPlayerName(source)))
 
         if pTeam.datas.notes.editor == source then
             pTeam.datas.notes.editor = false
