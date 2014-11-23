@@ -233,9 +233,9 @@ function gevt.onPlayerWasted(player)
 
         local lastPlayer = evt.getRaceAlivePlayers()
         if #lastPlayer == 1 then
+             evt.pickedPlayers[lastPlayer[1]] = true
              for _, item in ipairs(evt.event.items) do
                 if item.source == lastPlayer[1] then
-                    evt.pickedPlayers[lastPlayer[1]] = true
                     --item.points = item.points + evt.points[1]
                     item.points = item.points + (#activePlayers - 1)
                     changed = true
@@ -256,11 +256,12 @@ function gevt.onPlayerWasted(player)
 
         local lastPlayer = evt.getRaceAlivePlayers()
         if #lastPlayer == 1 then
+            evt.pickedPlayers[lastPlayer[1]] = true
             local team =  gtst.getPlayerTeam(lastPlayer[1])
             if not team then return end
             for _, item in ipairs(evt.event.items) do
                 if item.datas == team.datas then
-                    item.points = item.points + (#activePlayers - evt.getPlayerRank())
+                    item.points = item.points + (#activePlayers - 1)
                     changed = true
                 end
             end
