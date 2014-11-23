@@ -17,8 +17,7 @@ local function containsBadChars(n)
 end
 
 local function isPlayerRegistered(player)
-	local pS = getPlayerSerial(player)
-    if #getAccountsBySerial(pS) ~= 0 then return true else return false end
+    if #getAccountsBySerial(getPlayerSerial(player)) ~= 0 then return true else return false end
 end
 
 local function isAccountRegistered(n)
