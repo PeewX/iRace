@@ -1,0 +1,23 @@
+Changelog iRace 1.0.4
+
+Neu:
+ - Komplett neues Login/Register Panel
+ - iRace Resource wurde komplett neu strukturiert
+ - Neuer CarHider mit den folgender Auswahlmöglichkeit: none, classic, extended, full
+ - Temporäres ignorieren anderer Spieler (Chat/PM) /ignore [add/rem/list]
+ - Den Spieler den man spectated, wird nun angezeigt
+ - Nickchanges kosten kein Geld mehr. Bei Ruhemodus/Mute wird es nur dem Spieler ausgegeben
+ - Spieler die in die Fun-Area spawnen, sind solange der Spieler selbst gefreezt ist, für die Gegner nicht sichtbar
+ - Warps im respawn Modus nutzbar: /sw (oder Taste: j) zum speicher | /lw (oder Taste: k) zum laden
+ - Der Algorithmus für Random Maps wurde neu geschrieben
+ - Timeleft einer Map auf 15 Minuten erhöht
+ - Mapeinstellung 'respawn' ist nun standardmäßig ausgeschaltet (none) und muss nicht mehr in der meta angepasst werden
+
+Bugs:
+ - Der Befehl /random startet nun nicht mehr die nächste Map
+ - Wird eine Map neugestartet (redo), so wird die nächste Map nicht mehr überschrieben
+ - Script durch Entfernung Resourcenfressende Scriptteile stabiler/schneller
+ - In der Fun Area kann es nun nicht mehr vorkommen, dass Spieler unsichtbar sind
+ - Einige GUI Elemente werden nun ebenfalls ausgeblendet, sobald man das Userpanel offen hat
+ - Drive Again Spieler sind nicht mehr sichtbar
+ - Viele nicht nennenswerte Fehlerbehebungen

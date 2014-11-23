@@ -1,0 +1,97 @@
+<meta>
+    <info author="HorrorClown (PewX)" name="iRace" version="1.1.0" type="script" description="iRace addon"/>
+    <min_mta_version server="1.4" client="1.4"></min_mta_version>
+
+    <!--shared-->
+    <script src="shared/sUtil.lua"	type = "server" />
+    <script src="shared/cUtil.lua"	type = "client" cache = "false" />
+    <script src="shared/shared.lua"	type = "shared" cache = "false" />
+    <file 	src="shared/files.xml"	type = "shared" cache = "false" />
+
+    <!--Main-->
+    <script src="main/sMainscript.lua"	type = "server" />-->
+    <script src="main/cMainscript.lua"	type = "client" cache = "false" />-->
+    <script src="main/cUP_designer.lua"	type = "client" cache = "false" />-->
+    <script src="main/cUP.lua"	        type = "client" cache = "false" />-->
+    <script src="main/textlib.lua"	    type = "client" cache = "false" />-->
+
+    <!--MySQL-->
+    <script src="mysql/mysql.lua"		type = "server" />
+    <!--<script src="mysql/sSettings.lua"	type = "server" />-->
+
+    <!--Systems-->
+        <!--Login-->
+        <script src="systems/login/sLogin.lua"                      type = "server" />
+        <script src="systems/login/cLogin.lua"                      type = "client" cache = "false" />
+        <script src="systems/login/cLogin_designer.lua"             type = "client" cache = "false" />
+
+        <!--Downloader-->
+        <script src="systems/downloader/sDownloader.lua"			type = "server" />
+        <script src="systems/downloader/cDownloader.lua"			type = "client" cache = "false" />
+        <script src="systems/downloader/cDownloader_designer.lua"	type = "client" cache = "false" />
+
+        <!--Spectators-->
+        <script src="systems/spectators/sSpectator.lua"             type = "server" />
+        <script src="systems/spectators/cSpectator.lua"             type = "client" cache = "false" />
+
+        <!--MapType-->
+        <script src="systems/mapType/sMapType.lua"                  type = "server" />
+        <script src="systems/mapType/cMapType.lua"                  type = "client" cache = "false" />
+
+        <!--TeamSystem-->
+        <script src="systems/teams/sTS_core.lua"                    type = "server" />
+        <script src="systems/teams/cTS_designer.lua"                type = "client" cache = "false" />
+
+        <!--event-->
+        <script src="systems/event/sEvent_core.lua"                 type = "server" />
+        <script src="systems/event/cEvent_designer.lua"             type = "client" cache = "false" />
+
+        <!--RespawnSystem-->
+        <script src="systems/respawn/sRespawn.lua"                  type = "server" />
+        <script src="systems/respawn/cRespawn.lua"                  type = "client" cache = "false" />
+        <script src="systems/respawn/cRespawn_designer.lua"         type = "client" cache = "false" />
+
+        <!--ReportSystem-->
+        <script src="systems/report/sReport.lua"                    type = "server" />
+
+        <!--blacklistedMaps-->
+        <script src="systems/blacklistedMaps/sBlacklistedMaps.lua"  type = "server" />
+
+        <!--Music-->
+        <script src="systems/music/sMusic.lua"                      type = "server" />
+        <script src="systems/music/cMusic.lua"                      type = "client" cache = "false" />
+
+        <script src="systems/afk/sAFK.lua"                          type = "server" />
+        <script src="systems/afk/cAFK.lua"                          type = "client" cache = "false" />
+        <script src="systems/afk/cAFK_designer.lua"                 type = "client" cache = "false" />
+
+        <!--Tools-->
+            <script src="systems/tools/sAdmin.lua"                  type = "server" />
+            <script src="systems/tools/sAntiCheat.lua"              type = "server" />
+            <script src="systems/tools/sScoreboard.lua"             type = "server" />
+            <script src="systems/tools/sServerchat.lua"             type = "server" />
+            <script src="systems/tools/sPrivateMessage.lua"         type = "server" />
+            <script src="systems/tools/sReload.lua"                 type = "server" />
+            <script src="systems/tools/sShop.lua"                   type = "server" />
+            <script src="systems/tools/sNickchange.lua"             type = "server" />
+            <script src="systems/tools/cDXDrawings.lua"             type = "client" cache = "false" />
+            <script src="systems/tools/cInfobox.lua"                type = "client" cache = "false" />
+            <script src="systems/tools/cMessages.lua"               type = "client" cache = "false" />
+            <script src="systems/tools/cCarHide.lua"                type = "client" cache = "false" />
+            <script src="systems/tools/cAntiBounce.lua"             type = "client" cache = "false" />
+    <!--//Systems-->
+
+    <!--Files-->
+    <file src="files/fonts/calibrii.ttf" />
+    <!--<file src="files/images/download_bg.png" />-->
+    <!--<file src="files/images/download_rbar.png" />-->
+    <!--<file src="files/images/download_lbar.png" />-->
+
+
+    <export function="hasBoughtLMS" type="server" />
+    <export function="hasBoughtLMS" type="server" />
+    <export function="isPlayerRespawnMode" type="server" />
+    <export function="isMapType" type="server" />
+    <export function="isPlayerRespawnMode" type="client" />
+
+</meta>

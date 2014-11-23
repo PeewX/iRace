@@ -1,0 +1,194 @@
+﻿local me = getLocalPlayer()
+local mindis = 50
+local maxdis = 6
+local runningmapname = "none"
+local rendercarstatus = false
+
+function onClientMapResourceStart(res)
+	runningmapname = res
+end
+addEvent("onClientMapResourceStart", true)
+addEventHandler("onClientMapResourceStart", getLocalPlayer(), onClientMapResourceStart)
+
+--[[function isDM()
+	if runningmapname then
+		if string.find(string.upper(runningmapname), "[DM]") > 0 then
+			return true
+		else
+			return false
+		end
+	end
+end]]
+
+function isDM()
+	for i, pu in pairs (getElementsByType("racepickup")) do
+		local puType = getElementData(pu, "type")
+		if (puType == "vehiclechange") then
+			local puVehicle = tonumber(getElementData(pu, "vehicle"))
+			if puVehicle == 425 then
+				return true
+			end
+		end
+	end
+	return false
+end
+
+function toggleHideAll()
+	setElementData(me, "hideAllPlayers", not getElementData(me, "hideAllPlayers"), false) 
+	local e = getElementData(me,"hideAllPlayers")
+	triggerEvent("displayClientInfo", me, "Vehicles", "Vehicles are " .. (e and "invisible now" or "visible now" ) .. "!", 0, 150, 255, 1, 5)
+end
+bindKey("f1", "down", toggleHideAll)
+
+function getPlayers()
+	return getElementsByType("player")
+end
+
+function renderCars()
+	for id, player in ipairs(getElementsByType("player")) do
+		if player ~= me then
+			local veh = getPedOccupiedVehicle(player)
+			setElementAlpha(veh, 100)
+			setElementAlpha(player, 100)
+			--[[local x,y,z = getElementPosition(player)
+			local x1,y1,z1 = getElementPosition(me)
+			local dis = getDistanceBetweenPoints3D(x1,y1,z1,x,y,z)
+			--if dis < maxdis then
+				--setElementAlpha(veh, 60)
+				--setElementAlpha(player, 60)
+			if dis < mindis then
+				local render = 255*dis/mindis
+				setElementAlpha(veh, render)
+				setElementAlpha(player, render)
+			else
+				setElementAlpha(veh, 255)
+				setElementAlpha(player, 255)
+			end]]
+		end
+	end
+end
+				
+
+function hidePlayer(player)
+	local vehicle = getPedOccupiedVehicle(player)
+	if vehicle then
+		if getElementModel(vehicle) == 425 then
+			showPlayer(player)
+			return
+		end
+		if getElementDimension(vehicle) ~= 999 then
+			setElementDimension(vehicle, 999)
+			setElementDimension(player, 999)
+		end
+	end
+end
+
+function showPlayer(player)
+	local vehicle = getPedOccupiedVehicle(player)
+	if vehicle then
+		if getElementDimension(vehicle) ~= 0 or getElementDimension(player) ~= 0 or getElementInterior(player) ~= 0 or getElementInterior(vehicle) ~= 0 then
+			setElementDimension(vehicle, 0)
+			setElementDimension(player, 0)
+		end
+	end
+end
+--[[
+function toggleHideAllDeko()
+	setElementData(me, "hideAllDeko", not getElementData(me, "hideAllDeko"), false) 
+	local e = getElementData(me,"hideAllDeko")
+	local r,g,b = 50,255,0
+	if e then
+		r,g,b = 50,255,0
+	else
+		r,g,b = 255,20,0
+	end	
+	displayClientInfo("Anti lag #2",'#FFFFFFDecoration is '.. ( e and "hidden" or "visible" )..' now.', r, g, b )
+end
+bindKey("f2", "down", toggleHideAllDeko)
+
+
+function hideDeko()
+	outputChatBox("test3")
+	for _,object in ipairs(getElementsByType("object")) do
+		if getElementModel(object) == 8558 then
+			setElementAlpha(object, 0)
+			setElementCollisionsEnabled(object, false)
+		end
+	end
+end
+
+function showDeko()
+	for _,object in ipairs(getElementsByType("object")) do
+		if getElementModel(object) == 8558 then
+			setElementAlpha(object, 255)
+			setElementCollisionsEnabled(object, true)
+		end
+	end
+end]]
+
+
+setTimer(
+	function()
+		if getElementData(me, "state") ~= "alive" then
+			if rendercarstatus then
+				removeEventHandler("onClientRender", root, renderCars)
+				rendercarstatus = false
+			end
+			for id, player in ipairs(getElementsByType("player")) do
+				if getElementData(player,"state") == "alive" then
+					showPlayer(player)
+				end
+			end
+		elseif getPedOccupiedVehicle(me) then
+			if getElementModel(getPedOccupiedVehicle(me)) == 425 then
+				if rendercarstatus then
+					removeEventHandler("onClientRender", root, renderCars)
+					rendercarstatus = false
+				end
+				for id, player in ipairs(getElementsByType("player")) do
+					if getElementData(player,"state") == "alive" then
+						showPlayer(player)
+					end
+				end
+			end
+		elseif getPedOccupiedVehicle(me) then
+			outputChatBox("ist in kein auto")
+		else
+			if getElementData(me, "hideAllPlayers") and isDM() then
+				if rendercarstatus then
+					removeEventHandler("onClientRender", root, renderCars)
+					rendercarstatus = false
+				end
+				for id, player in ipairs(getElementsByType("player")) do
+					if player ~= me then
+						hidePlayer(player)
+					end
+				end
+				return
+			elseif isDM() then
+				for id, player in ipairs(getElementsByType("player")) do
+					showPlayer(player)
+				end
+				if not rendercarstatus then
+					addEventHandler("onClientRender", root, renderCars)
+					rendercarstatus = true
+				end
+				return
+			else
+				if rendercarstatus then
+					removeEventHandler("onClientRender", root, renderCars)
+					rendercarstatus = false
+				end
+				for id, player in ipairs(getElementsByType("player")) do
+					showPlayer(player)
+				end
+			end
+			--if getElementData(me,"hideAllDeko") and getElementData(me,"state") == "alive" then
+				--hideDeko()
+			--else
+				--showDeko()
+			--end
+		end
+	end,
+700,0
+)

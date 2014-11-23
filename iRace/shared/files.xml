@@ -1,0 +1,172 @@
+<files>
+	<images>
+		<file src="downloader/download_bg.png"/>
+		<file src="downloader/download_lbar.png"/>
+		<file src="downloader/download_rbar.png"/>
+
+        <!--Login-->
+		<file src="login/pixel.png" />
+		<file src="login/donut.png" />
+		<file src="login/love.png" />
+		<file src="login/christmas.png" />
+		<file src="login/dot.png" />
+		<file src="login/login.png" />
+		<file src="login/register.png" />
+		<file src="login/info.png" />
+		<file src="login/execute.png" />
+		<file src="login/egg.png" />
+		<file src="login/halloween.png" />
+
+        <!--Event-->
+        <file src="event/bg.png" />
+
+        <!--Environment-->
+        <file src="environment/afk.png"/>
+        <file src="environment/background.png"/>
+        <file src="environment/help.png"/>
+        <file src="environment/locked.png"/>
+        <file src="environment/unlocked.png"/>
+        <file src="environment/star.png"/>
+        <file src="environment/tab.png"/>
+
+        <!--Avatars-->
+        <file src="avatars/ReWrite.png" />
+        <file src="avatars/Dawi.png" />
+        <file src="avatars/MrSir.png" />
+        <file src="avatars/Nick.png" />
+        <file src="avatars/alien.png" />
+        <file src="avatars/alien2.png" />
+        <file src="avatars/alienglubsch.png" />
+        <file src="avatars/angrybird.png" />
+        <file src="avatars/applejack.png" />
+        <file src="avatars/aquaheart.png" />
+        <file src="avatars/atomic.png" />
+        <file src="avatars/banana.png" />
+        <file src="avatars/birne.png" />
+        <file src="avatars/bobmarley.png" />
+        <file src="avatars/brazil.png" />
+        <file src="avatars/cobra.png" />
+        <file src="avatars/deagle.png" />
+        <file src="avatars/dislike.png" />
+        <file src="avatars/fire.png" />
+        <file src="avatars/frankenstein.png" />
+        <file src="avatars/germany.png" />
+        <file src="avatars/gta.png" />
+        <file src="avatars/HammerSmiley.png" />
+        <file src="avatars/hellokitty.png" />
+        <file src="avatars/highsmiley.png" />
+        <file src="avatars/HorrorClown.png" />
+        <file src="avatars/ironman.png" />
+        <file src="avatars/jack_skellington.png" />
+        <file src="avatars/kuh.png" />
+        <file src="avatars/luigi.png" />
+        <file src="avatars/monkey.png" />
+        <file src="avatars/mushroom.png" />
+        <file src="avatars/netherland.png" />
+        <file src="avatars/network.png" />
+        <file src="avatars/pedobaer.png" />
+        <file src="avatars/pokeball.png" />
+        <file src="avatars/portugal.png" />
+        <file src="avatars/Pyro.png" />
+        <file src="avatars/redgirl.png" />
+        <file src="avatars/shockface.png" />
+        <file src="avatars/smile1.png" />
+        <file src="avatars/smile2.png" />
+        <file src="avatars/smile3.png" />
+        <file src="avatars/smile4.png" />
+        <file src="avatars/smile5.png" />
+        <file src="avatars/smile6.png" />
+        <file src="avatars/smile7.png" />
+        <file src="avatars/smile8.png" />
+        <file src="avatars/smile9.png" />
+        <file src="avatars/smile10.png" />
+        <file src="avatars/smile11.png" />
+        <file src="avatars/smile12.png" />
+        <file src="avatars/smile13.png" />
+        <file src="avatars/smile14.png" />
+        <file src="avatars/smile15.png" />
+        <file src="avatars/smile16.png" />
+        <file src="avatars/smile17.png" />
+        <file src="avatars/smile18.png" />
+        <file src="avatars/smile19.png" />
+        <file src="avatars/smile20.png" />
+        <file src="avatars/smile21.png" />
+        <file src="avatars/smile22.png" />
+        <file src="avatars/smile23.png" />
+        <file src="avatars/smile24.png" />
+        <file src="avatars/smile25.png" />
+        <file src="avatars/smile26.png" />
+        <file src="avatars/smile27.png" />
+        <file src="avatars/smile28.png" />
+        <file src="avatars/smile29.png" />
+        <file src="avatars/smile30.png" />
+        <file src="avatars/smile31.png" />
+        <file src="avatars/smile32.png" />
+        <file src="avatars/smile33.png" />
+        <file src="avatars/smile34.png" />
+        <file src="avatars/smile35.png" />
+        <file src="avatars/smile36.png" />
+        <file src="avatars/smile37.png" />
+        <file src="avatars/smile38.png" />
+        <file src="avatars/smile39.png" />
+        <file src="avatars/smile40.png" />
+        <file src="avatars/smile41.png" />
+        <file src="avatars/smile42.png" />
+        <file src="avatars/smile43.png" />
+        <file src="avatars/smile44.png" />
+        <file src="avatars/smile45.png" />
+        <file src="avatars/smile46.png" />
+        <file src="avatars/smile47.png" />
+        <file src="avatars/smile48.png" />
+        <file src="avatars/smile49.png" />
+        <file src="avatars/smile50.png" />
+        <file src="avatars/smile51.png" />
+        <file src="avatars/smile52.png" />
+        <file src="avatars/smile53.png" />
+        <file src="avatars/smile54.png" />
+        <file src="avatars/smile55.png" />
+        <file src="avatars/smile56.png" />
+        <file src="avatars/smile57.png" />
+        <file src="avatars/smile58.png" />
+        <file src="avatars/smile59.png" />
+        <file src="avatars/smile60.png" />
+        <file src="avatars/smile61.png" />
+        <file src="avatars/smile62.png" />
+        <file src="avatars/smile63.png" />
+        <file src="avatars/smile64.png" />
+        <file src="avatars/smile65.png" />
+        <file src="avatars/smile66.png" />
+        <file src="avatars/smile67.png" />
+        <file src="avatars/smile68.png" />
+        <file src="avatars/smile69.png" />
+        <file src="avatars/smile70.png" />
+        <file src="avatars/smile71.png" />
+        <file src="avatars/smile72.png" />
+        <file src="avatars/smile73.png" />
+        <file src="avatars/smile74.png" />
+        <file src="avatars/smile75.png" />
+        <file src="avatars/smile76.png" />
+        <file src="avatars/smile77.png" />
+        <file src="avatars/smile78.png" />
+        <file src="avatars/smile79.png" />
+        <file src="avatars/smile80.png" />
+        <file src="avatars/spongebob.png" />
+        <file src="avatars/summsumm.png" />
+        <file src="avatars/Triforce.png" />
+        <file src="avatars/turkey.png" />
+        <file src="avatars/uglybird.png" />
+        <file src="avatars/usa.png" />
+        <file src="avatars/USK18.png" />
+        <file src="avatars/vision.png" />
+        <file src="avatars/weed.png" />
+        <file src="avatars/yoshi.png" />
+        <file src="avatars/zelda.png" />
+        <file src="avatars/settings.png" />
+	</images>
+	<shader>
+	</shader>
+	<sounds>
+	</sounds>
+	<mods>
+	</mods>
+</files>

@@ -1,0 +1,7 @@
+<maps>
+    <map name = "iRace Dev Respawnmap"  author = "iR|PewX"      filename = "devMap.map"         joinedCount = "0"   maptype = "shooter" jump = "true" rockets = "true" boost = "true"  />
+    <map name = "Primes Hunter Area"    author = "iR|Prime"     filename = "HunterArea.map"     joinedCount = "0"   maptype = "shooter" jump = "true" rockets = "true" boost = "true" />
+    <map name = "Homunos Jagd Paradis"  author = "iR|Homuno"    filename = "HomunoJagd.map"     joinedCount = "0"   maptype = "shooter" jump = "true" rockets = "true" boost = "true" />
+    <map name = "iRaceTeam Hey"         author = "iRace Team"   filename = "iRace.map"          joinedCount = "0"   maptype = "shooter" jump = "true" rockets = "true" boost = "true" />
+    <map name = "Hypnotic II"           author = "iR|PewX"      filename = "hypnotic.map"       joinedCount = "26"  maptype = "shooter" jump = "true" rockets = "false" boost = "true" />
+</maps>

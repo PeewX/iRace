@@ -1,0 +1,4 @@
+<meta>	
+	<file src="flakes/real_tile.png"/>
+	<script src="script_c.lua" type="client"/>
+</meta>

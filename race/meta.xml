@@ -1,0 +1,520 @@
+<meta>
+	<info name="Race" description="arc_'s MTA Race implementation" author="arc_" type="gamemode" version="0.8.3" build="r652 07Nov10" edf:definition="edf/race.edf"/>
+	
+	<!--<include resource="votemanager"/>-->
+	
+	<file src="snow/flakes/real_tile.png"/>
+	<script src="snow/script_c.lua" type="client"/>
+	
+	<script src="tools/maptype_s.lua" />
+	<script src="_common.lua" type="server"/>
+	<script src="_joiner.lua" type="server"/>
+	<script src="util_server.lua" type="server"/>
+	<script src="racemap.lua" type="server"/>
+	<script src="countdown.lua" type="server"/>
+	<script src="rankingboard.lua" type="server" />
+	<script src="modes/base.lua" type="server"/>
+	<script src="modes/destructionderby.lua" type="server"/>
+	<script src="modes/freeroam.lua" type="server"/>
+	<script src="modes/sprint.lua" type="server"/>
+	<script src="fixedvehiclecolors.lua" type="server"/>
+	<script src="race_server.lua" type="server"/>
+	<script src="racevoting_server.lua" type="server"/>
+	<script src="racestates_server.lua" type="server"/>
+	<script src="config_server.lua" type="server"/>
+	<script src="override_server.lua" type="server"/>
+	<script src="editor_support_server.lua" type="server"/>
+	<script src="rate_server.lua" type="server"/>
+	<script src="bottominterface.lua" type="client"/>
+	
+	<script src="_common.lua" type="client"/>
+	<script src="_joiner_client.lua" type="client"/>
+	<script src="util_client.lua" type="client"/>
+	<script src="fancyprogress.lua" type="client"/>
+	<script src="nametags.lua" type="client" />
+	<script src="client_anim.lua" type="client"/>
+	<script src="countdown_client.lua" type="client"/>
+	<script src="rankingboard_client.lua" type="client"/>
+	<script src="race_client.lua" type="client"/>
+	<script src="textlib.lua" type="client" />
+	<script src="textlib_anim.lua" type="client"/>
+	<script src="config_client.lua" type="client"/>
+	<script src="override_client.lua" type="client"/>
+	<script src="editor_support_client.lua" type="client"/>	
+	<script src="modes/destructionderby_c.lua" type="client"/>
+	<script src="radar/client.lua" type="client" />
+	<!--<script src="tools/jq_client.lua" type="client"/>
+	<script src="tools/jq_server.lua" type="server"/>-->
+	<!--<script src="tools/dg_client.lua" type="client"/>
+	<script src="tools/dg_server.lua" type="server"/>-->
+	
+	<file src="audio/Ready.wav"/>
+	<file src="audio/DestructionBegin.wav"/>
+	<file src="audio/3.mp3"/>
+	<file src="audio/2.mp3"/>
+	<file src="audio/1.mp3"/>
+	<file src="audio/countgo.wav"/>
+	
+	<file src="img/progress_health_bg.png"/>
+	<file src="img/progress_health.png"/>
+	<file src="img/progress_speed_bg.png"/>
+	<file src="img/progress_speed.png"/>
+	<file src="img/countdown_3.png"/>
+	<file src="img/countdown_2.png"/>
+	<file src="img/countdown_1.png"/>
+	<file src="img/countdown_0.png"/>
+	<file src="img/timeleft.png"/>
+	<file src="img/hurry.png"/>
+	<file src="img/blank.png"/>
+	<file src="img/title.png"/>
+	<file src="img/travelling.png"/>
+	<file src="img/killmessage.png"/>
+	<file src="img/healthbar1.png"/>
+	<file src="img/healthbar2.png"/>
+	<file src="img/healthbar3.png"/>
+	
+	<file src="img/bottominterface.png"/>
+	<file src="calibri.ttf"/>
+	
+	<file src="radar/img/blip.png"/>
+	<file src="radar/img/blipdown.png"/>
+	<file src="radar/img/blipup.png"/>
+	<file src="radar/img/local.png"/>
+	<file src="radar/img/radar.png"/>
+	<file src="radar/img/north.png"/>
+	<file src="radar/img/shade.png"/>
+	<file src="radar/img/smallshadedark.png"/>
+	<file src="radar/img/shadedark.png"/>
+	<file src="radar/img/road.png"/>
+	<file src="radar/img/hunter.png"/>
+	<file src="radar/img/rotor.png"/>
+	<file src="radar/img/healthbar.png"/>
+	<file src="radar/img/plasticgate.png"/>
+	<file src="radar/img/white.png"/>
+	
+	<file src="tools/images/flags/ac.png" />
+	<file src="tools/images/flags/ad.png" />
+	<file src="tools/images/flags/ae.png" />
+	<file src="tools/images/flags/af.png" />
+	<file src="tools/images/flags/ag.png" />
+	<file src="tools/images/flags/ai.png" />
+	<file src="tools/images/flags/al.png" />
+	<file src="tools/images/flags/am.png" />
+	<file src="tools/images/flags/an.png" />
+	<file src="tools/images/flags/ao.png" />
+	<file src="tools/images/flags/aq.png" />
+	<file src="tools/images/flags/ar.png" />
+	<file src="tools/images/flags/as.png" />
+	<file src="tools/images/flags/at.png" />
+	<file src="tools/images/flags/au.png" />
+	<file src="tools/images/flags/aw.png" />
+	<file src="tools/images/flags/ax.png" />
+	<file src="tools/images/flags/az.png" />
+	<file src="tools/images/flags/ba.png" />
+	<file src="tools/images/flags/bb.png" />
+	<file src="tools/images/flags/bd.png" />
+	<file src="tools/images/flags/be.png" />
+	<file src="tools/images/flags/bf.png" />
+	<file src="tools/images/flags/bg.png" />
+	<file src="tools/images/flags/bh.png" />
+	<file src="tools/images/flags/bi.png" />
+	<file src="tools/images/flags/bj.png" />
+	<file src="tools/images/flags/bm.png" />
+	<file src="tools/images/flags/bn.png" />
+	<file src="tools/images/flags/bo.png" />
+	<file src="tools/images/flags/br.png" />
+	<file src="tools/images/flags/bs.png" />
+	<file src="tools/images/flags/bt.png" />
+	<file src="tools/images/flags/bv.png" />
+	<file src="tools/images/flags/bw.png" />
+	<file src="tools/images/flags/by.png" />
+	<file src="tools/images/flags/bz.png" />
+	<file src="tools/images/flags/ca.png" />
+	<file src="tools/images/flags/cc.png" />
+	<file src="tools/images/flags/cd.png" />
+	<file src="tools/images/flags/cf.png" />
+	<file src="tools/images/flags/cg.png" />
+	<file src="tools/images/flags/ch.png" />
+	<file src="tools/images/flags/ci.png" />
+	<file src="tools/images/flags/ck.png" />
+	<file src="tools/images/flags/cl.png" />
+	<file src="tools/images/flags/cm.png" />
+	<file src="tools/images/flags/cn.png" />
+	<file src="tools/images/flags/co.png" />
+	<file src="tools/images/flags/cr.png" />
+	<file src="tools/images/flags/cs.png" />
+	<file src="tools/images/flags/cu.png" />
+	<file src="tools/images/flags/cv.png" />
+	<file src="tools/images/flags/cx.png" />
+	<file src="tools/images/flags/cy.png" />
+	<file src="tools/images/flags/cz.png" />
+	<file src="tools/images/flags/de.png" />
+	<file src="tools/images/flags/dj.png" />
+	<file src="tools/images/flags/dk.png" />
+	<file src="tools/images/flags/dm.png" />
+	<file src="tools/images/flags/do.png" />
+	<file src="tools/images/flags/dz.png" />
+	<file src="tools/images/flags/ec.png" />
+	<file src="tools/images/flags/ee.png" />
+	<file src="tools/images/flags/eg.png" />
+	<file src="tools/images/flags/eh.png" />
+	<file src="tools/images/flags/er.png" />
+	<file src="tools/images/flags/es.png" />
+	<file src="tools/images/flags/et.png" />
+	<file src="tools/images/flags/eu.png" />
+	<file src="tools/images/flags/fi.png" />
+	<file src="tools/images/flags/fo.png" />
+	<file src="tools/images/flags/fr.png" />
+	<file src="tools/images/flags/ga.png" />
+	<file src="tools/images/flags/gb.png" />
+	<file src="tools/images/flags/gd.png" />
+	<file src="tools/images/flags/gl.png" />
+	<file src="tools/images/flags/gm.png" />
+	<file src="tools/images/flags/gw.png" />
+	<file src="tools/images/flags/gy.png" />
+	<file src="tools/images/flags/hu.png" />
+	<file src="tools/images/flags/id.png" />
+	<file src="tools/images/flags/ie.png" />
+	<file src="tools/images/flags/il.png" />
+	<file src="tools/images/flags/in.png" />
+	<file src="tools/images/flags/iq.png" />
+	<file src="tools/images/flags/is.png" />
+	<file src="tools/images/flags/it.png" />
+	<file src="tools/images/flags/ja.png" />
+	<file src="tools/images/flags/jm.png" />
+	<file src="tools/images/flags/jp.png" />
+	<file src="tools/images/flags/kw.png" />
+	<file src="tools/images/flags/lt.png" />
+	<file src="tools/images/flags/lu.png" />
+	<file src="tools/images/flags/lv.png" />
+	<file src="tools/images/flags/ly.png" />
+	<file src="tools/images/flags/mc.png" />
+	<file src="tools/images/flags/mg.png" />
+	<file src="tools/images/flags/mh.png" />
+	<file src="tools/images/flags/mt.png" />
+	<file src="tools/images/flags/ng.png" />
+	<file src="tools/images/flags/nl.png" />
+	<file src="tools/images/flags/no.png" />
+	<file src="tools/images/flags/nr.png" />
+	<file src="tools/images/flags/pa.png" />
+	<file src="tools/images/flags/pe.png" />
+	<file src="tools/images/flags/ph.png" />
+	<file src="tools/images/flags/pk.png" />
+	<file src="tools/images/flags/pl.png" />
+	<file src="tools/images/flags/pr.png" />
+	<file src="tools/images/flags/ps.png" />
+	<file src="tools/images/flags/pt.png" />
+	<file src="tools/images/flags/qa.png" />
+	<file src="tools/images/flags/re.png" />
+	<file src="tools/images/flags/ro.png" />
+	<file src="tools/images/flags/ru.png" />
+	<file src="tools/images/flags/rw.png" />
+	<file src="tools/images/flags/se.png" />
+	<file src="tools/images/flags/sj.png" />
+	<file src="tools/images/flags/sl.png" />
+	<file src="tools/images/flags/so.png" />
+	<file src="tools/images/flags/sy.png" />
+	<file src="tools/images/flags/td.png" />
+	<file src="tools/images/flags/to.png" />
+	<file src="tools/images/flags/tv.png" />
+	<file src="tools/images/flags/ua.png" />
+	<file src="tools/images/flags/uk.png" />
+	<file src="tools/images/flags/um.png" />
+	<file src="tools/images/flags/us.png" />
+	<file src="tools/images/flags/vn.png" />
+	<file src="tools/images/flags/wf.png" />
+	<file src="tools/images/flags/ws.png" />
+	<file src="tools/images/flags/ye.png" />
+	<file src="tools/images/flags/yt.png" />
+	<file src="tools/images/flags/yu.png" />
+	<file src="tools/images/flags/za.png" />
+	<file src="tools/images/flags/logout.png" />
+	<file src="tools/images/flags/login.png" />
+	<file src="tools/images/flags/away.png" />
+	<file src="tools/images/flags/mapchange.png" />
+	<file src="tools/images/flags/toptime.png" />
+	
+	<file src="audio/mission_accomplished.mp3"/>
+
+	<file src="model/nitro.dff"/>
+	<file src="model/nitro.txd"/>
+	<file src="model/repair.dff"/>
+	<file src="model/repair.txd"/>
+	<file src="model/vehiclechange.dff"/>
+	<file src="model/vehiclechange.txd"/>
+	
+	<file src="edf/checkpoint.png"/>
+	<file src="edf/pickup.png"/>
+	<file src="edf/spawnpoint.png"/>
+	<file src="ltfont.ttf"/>	
+	<file src="ocrastd.ttf"/>
+	
+	<export function="getTimePassed" type="server"/>
+	<export function="getPlayerRank" type="server"/>
+	<export function="isPlayerFinished" type="server"/>
+	<export function="getPlayerVehicle" type="server"/>
+	<export function="ddplayerwin" type="server"/>
+	<export function="getNextMap" type="server"/>
+	<export function="getSpawnpoints" type="server"/>
+	<export function="setRaceGuiEnabled" type="client"/>
+	
+	<settings>
+		<!-- *****************************************************
+			 All these settings are adjustable in the Admin Panel:
+				1. start admin
+				2. press 'p'
+				3. select Resources tab
+				4. double click on 'race'
+			 ***************************************************** -->
+
+		<setting name="*color" value="#D27350"
+					friendlyname="Message color"
+					group="Display"
+					accept="*"
+					examples="#FF0000,#776655"
+					desc="Color of the Race chat box messages."
+					/>
+
+		<setting name="*hurrytime" value="15"
+					friendlyname="Hurry time"
+					accept="0-120"
+					group="Gameplay"
+					desc="Display HURRY! message this many seconds before the time runs out."
+					/>
+
+		<setting name="*timeafterfirstfinish" value="30"
+					friendlyname="Finish race time"
+					accept="0-120"
+					group="Gameplay"
+					desc="The number of seconds the race continues for after someone wins."
+					/>
+
+		<setting name="*respawnmode" value="none"
+					friendlyname="Respawn mode"
+					accept="timelimit,none"
+					group="Gameplay"
+					desc="Default respawn mode, if one is not set in the map."
+					/>
+
+		<setting name="*respawntime" value="10"
+					friendlyname="Respawn time"
+					accept="0-60"
+					group="Gameplay"
+					desc="Default respawn time in seconds, if one is not set in the map."
+					/>
+
+		<setting name="*duration" value="600"
+					friendlyname="Map duration"
+					accept="1-3600"
+					group="Gameplay"
+					desc="Default duration in seconds, if one is not set in the map."
+					/>
+
+		<setting name="*ghostmode" value="false"
+					friendlyname="Ghost mode"
+					accept="false,true"
+					group="Gameplay"
+					desc="Set to true to disable collisions."
+					/>
+
+        <setting name="*ghostalpha" value="false"
+					friendlyname="Ghost alpha"
+					accept="false,true"
+					group="Graphics"
+					desc="Set to true to make vehicle semi-transparent when collisions are disabled."
+					/>
+
+        <setting name="*randommaps" value="false"
+					friendlyname="Random maps"
+					accept="false,true"
+					group="Gameplay"
+					desc="Set to true to make the next map selection automatic."
+					/>
+
+        <setting name="#statskey" value="name"
+					accept="name,serial"
+					group="none"
+					desc="To identify players for stats."
+					/>
+
+        <setting name="*vehiclecolors" value="random"
+					friendlyname="Vehicle colors"
+					accept="file,random"
+					group="Graphics"
+					desc="Set to file to use the server file: mods\deathmatch\vehiclecolors.conf"
+					/>
+
+        <setting name="*skins" value="cj"
+					friendlyname="Driver skin"
+					group="Graphics"
+					accept="*"
+					examples="cj,random,7 10 16-20 15"
+					desc="Choose a driver skin. Acceptable values can be 'cj' or 'random' or a range list like this:'7 10 16-20 15'"
+					/>
+
+        <setting name="*vehicleweapons" value="true"
+					friendlyname="Vehicle weapons"
+					group="Gameplay"
+					accept="false,true"
+					desc="Set to true to allow vehicle weapons."
+					/>
+
+        <setting name="*autopimp" value="true"
+					friendlyname="Auto pimp"
+					group="Graphics"
+					accept="false,true"
+					desc="Set to true to apply a selection of visual upgrades to vehicles."
+					/>
+
+        <setting name="*firewater" value="false"
+					friendlyname="Fire water"
+					group="Graphics"
+					accept="false,true"
+					desc="Set to true to explode the player when entering the water."
+					/>
+
+		<setting name="*admingroup" value="Admin,SuperModerator"
+					friendlyname="Admin group list"
+					group="_Advanced"
+					accept="*"
+					examples="Admin,Moderator,SuperModerator"
+					desc="To issue certain commands, the player must belong to one of the groups listed."
+					/>
+
+		<setting name="#addons" value="race_toptimes,race_traffic_sensor"
+					accept="*"
+					desc="List of race addon resources to load automatically"
+					/>
+
+		<setting name="*blur" value="36"
+					friendlyname="Blur level"
+					group="Display"
+					accept="0-36"
+					desc="Set to 0 to turn off blur."
+					/>
+
+		<setting name="*clouds" value="true"
+					friendlyname="Clouds enable"
+					group="Display"
+					accept="false,true"
+					desc="Set to false to turn off clouds."
+					/>
+
+		<setting name="*joinspectating" value="true"
+					friendlyname="Join spectating"
+					group="Spectating"
+					accept="false,true"
+					desc="Set to true to make joining players spectate the race in progress."
+					/>
+
+		<setting name="*stealthspectate" value="true"
+					friendlyname="Admin stealth spectate"
+					group="Spectating"
+					accept="false,true"
+					desc="Set to true to hide the state of spectating admins."
+					/>
+
+		<setting name="*classicchangez" value="true"
+					friendlyname="Classic change Z"
+					group="_Advanced"
+					accept="false,true"
+					desc="Set to true to move the player up when changing vehicles."
+					/>
+
+		<setting name="*countdowneffect" value="true"
+					friendlyname="Countdown effect"
+					group="Display"
+					accept="false,true"
+					desc="Set to true for a fancy effect on the last countdown image."
+					/>
+
+		<setting name="*showmapname" value="true"
+					friendlyname="Show map name"
+					group="Display"
+					accept="false,true"
+					desc="Set to true to show the current map name in the bottom left."
+					/>
+
+		<setting name="*hunterminigun" value="true"
+					friendlyname="Hunter minigun enable"
+					group="Gameplay"
+					accept="false,true"
+					desc="Set to true to allow the Hunter minigun."
+					/>
+
+		<setting name="*securitylevel" value="2"
+					friendlyname="Security level"
+					group="_Advanced"
+					accept="0-2"
+					desc="Detect fake packets. 0-No checks  1-Some checks  2-All checks."
+					/>
+
+		<setting name="*anyonecanspec" value="true"
+					friendlyname="Anyone can spectate"
+					group="Spectating"
+					accept="false,true"
+					desc="Allow any player to start spectating with the 'B' key. (Does not work in no repawn maps)"
+					/>
+
+		<setting name="*norsadminspectate" value="false"
+					friendlyname="Admin no respawn spectate"
+					group="Spectating"
+					accept="false,true"
+					desc="Allow admins to spectate while alive in no respawn maps."
+					/>
+
+		<setting name="*racerespawn" value="true"
+					friendlyname="Race respawn after spectate"
+					group="Spectating"
+					accept="false,true"
+					desc="Force players to spawn like after death."
+					/>
+
+		<setting name="*joinrandomvote" value="true"
+					friendlyname="Random vote on join"
+					group="Gameplay"
+					accept="false,true"
+					desc="If someone joins a lone player, start a vote to change to a random map."
+					/>
+
+		<setting name="*asyncloading" value="true"
+					friendlyname="Asynchronous Loading"
+					group="_Advanced"
+					accept="false,true"
+					desc="Enabling this can reduce model loading lag for certain maps. It is only applied for clients who have chosen the 'Auto' option for asynchronous loading in their main settings menu."
+					/>
+
+		<setting name="*showauthorname" value="true"
+					friendlyname="Show author name"
+					group="Display"
+					accept="false,true"
+					desc="Set to true to show the map author name on the travelling screen."
+					/>
+
+        <setting name="*ghostmode_map_can_override" friendlyname="Ghost mode map override" group="Gameplay" value="true" accept="false,true" desc="Set to true to allow the map to override this setting"/>
+		<setting name="*skins_map_can_override"  friendlyname="Driver skin map override" group="Graphics" value="true" accept="false,true" desc="Set to true to allow the map to override this setting"/>
+		<setting name="*vehicleweapons_map_can_override"  friendlyname="Vehicle weapons map override" group="Gameplay" value="true" accept="false,true" desc="Set to true to allow the map to override this setting"/>
+		<setting name="*autopimp_map_can_override"  friendlyname="Auto pimp map override" group="Graphics" value="true" accept="false,true" desc="Set to true to allow the map to override this setting"/>
+		<setting name="*firewater_map_can_override"  friendlyname="Firewater map override" group="Graphics" value="true" accept="false,true" desc="Set to true to allow the map to override this setting"/>
+		<setting name="*classicchangez_map_can_override"  friendlyname="Classic change Z map override" group="_Advanced" value="true" accept="false,true" desc="Set to true to allow the map to override this setting"/>
+		<setting name="*hunterminigun_map_can_override"  friendlyname="Hunter minigun map override" group="Gameplay" value="true" accept="false,true" desc="Set to true to allow the map to override this setting"/>
+
+		<setting name="*ghostmode_warning_if_map_override"  friendlyname="Ghost mode override warning" group="Gameplay" value="true" accept="false,true" desc="Set to true to issue a warning to players in the chatbox, if the map overrides this setting"/>
+		<setting name="*vehicleweapons_warning_if_map_override"  friendlyname="Vehicle weapons override warning" group="Gameplay" value="true" accept="false,true" desc="Set to true to issue a warning to players in the chatbox, if the map overrides this setting"/>
+    </settings>
+
+
+    <!--
+        Settings in the map files
+        +++++++++++++++++++++++++
+        To add the 'ghostmode','skins','vehicleweapons','autopimp','firewater','classicchangez' or 'hunterminigun'
+        setting to a map, insert (or update) a <settings...> section into the maps meta.xml file.
+        For example:
+
+        <settings>
+            <setting name="*vehicleweapons" value="false"/>
+            <setting name="*autopimp" value="false"/>
+        </settings>
+    -->
+
+</meta>
