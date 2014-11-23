@@ -138,6 +138,7 @@ local accountS
 local MapBuylevel = 10
 local MapBuyPrice = 5000
 local ddMapTimer
+local shooterMapTimer
 -----------------
 
 --utility--
@@ -1701,10 +1702,18 @@ function buyMap(mapName)
                     if getMapTypeByName(mapName) == "DD" then -- Überprüfen ob die zu kaufende Map eine DD ist
                         if not isTimer(ddMapTimer) then -- Wenn DD Map ist, und dd timer noch nicht läuft, sette map und starte timer
                             triggerEvent("onNextmapBuy",client,mapName)
-                            ddMapTimer = setTimer(DDMapCanBoughtAgain, 1800000, 1)
+                            ddMapTimer = setTimer(DDMapCanBoughtAgain, 600000, 1)
                         else -- Wenn dd timer schon läuft, map nicht kaufen und fehlermeldung
                             local tl = getTimerDetails(ddMapTimer)
                             outputChatBox("|Map| #FF9900Please wait #ffffff" .. math.floor((tl/1000)/60) .. " #ff9900min to buy a DD Map again!",client,255,255,255,true)
+                        end
+                    elseif getMapTypeByName(mapName) == "SHOOTER" then
+                        if not isTimer(shooterMapTimer) then
+                            triggerEvent("onNextmapbuy", client, mapName)
+                            shooterMapTimer = setTimer(shoterCanBoughtAgain, 600000, 1)
+                        else
+                            local tl = getTimerDetails(shooterMapTimer)
+                            outputChatBox("|Map| #FF9900Please wait #ffffff" .. math.floor((tl/1000)/60) .. " #ff9900min to buy a Shooter Map again!",client,255,255,255,true)
                         end
                     else -- wenn zu kaufende map keine dd map ist
                         triggerEvent("onNextmapBuy",client,mapName)
@@ -1724,7 +1733,11 @@ addEvent("triggerbuyMap",true)
 addEventHandler( "triggerbuyMap", getRootElement(),buyMap )
 
 function DDMapCanBoughtAgain()
-    outputChatBox("|Map| #FF9900A destruction derby map can be bought again!", root, 255, 255, 255, true)
+    triggerClientEvent("addClientMessage", root, "|Map| #FF9900A destruction derby map can be bought again!", root, 255, 255, 255)
+end
+
+function shoterCanBoughtAgain()
+    triggerClientEvent("addClientMessage", root, "|Map| #FF9900A shooter map can be bought again!", root, 255, 255, 255)
 end
 
 function onBuyMapReady()
