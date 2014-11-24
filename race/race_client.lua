@@ -492,9 +492,12 @@ function handleHitPickup(pickup)
 			return
 		end
 		g_PrevVehicleHeight = getElementDistanceFromCentreOfMassToBaseOfModel(getPedOccupiedVehicle(g_Me))
-        alignVehicleWithUp()
-        setElementModel(getPedOccupiedVehicle(g_Me), tonumber(pickup.vehicle))
-        vehicleChanging(1, tonumber(pickup.vehicle))
+        setTimer(
+            function(pickup)
+                alignVehicleWithUp()
+                setElementModel(getPedOccupiedVehicle(g_Me), tonumber(pickup.vehicle))
+                vehicleChanging(1, tonumber(pickup.vehicle))
+            end, 50, 1, pickup)
     elseif pickup.type == 'repair' then
         fixVehicle(getPedOccupiedVehicle(g_Me))
     elseif pickup.type == 'nitro' then
