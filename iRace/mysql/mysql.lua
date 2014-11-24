@@ -7,7 +7,7 @@ local handler
 settings = {}
 
 addEventHandler("onResourceStart", resroot, function()
-    handler = dbConnect("mysql", "dbname=iRace_main;host=localhost", "root", "*y2563978Z*", "autoreconnect=1") --Host for lel 192.168.230.129
+    handler = dbConnect("mysql", "dbname=iRace_main;host=localhost", "root", "", "autoreconnect=1") --Host for lel 192.168.230.129
 end)
 
 function mysqlQuery(q, ...)
