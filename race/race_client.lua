@@ -501,7 +501,10 @@ function handleHitPickup(pickup)
     elseif pickup.type == 'repair' then
         fixVehicle(getPedOccupiedVehicle(g_Me))
     elseif pickup.type == 'nitro' then
-        addVehicleUpgrade(getPedOccupiedVehicle(g_Me), 1010)
+        setTimer(
+            function()
+                addVehicleUpgrade(getPedOccupiedVehicle(g_Me), 1010)
+            end, 50, 1)
     end
 	triggerServerEvent('onPlayerPickUpRacePickupInternal', g_Me, pickup.id, pickup.respawn)
 	playSoundFrontEnd(46)
