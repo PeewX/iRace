@@ -476,11 +476,11 @@ addEventHandler('onClientColShapeHit', g_Root,
 				return
 			end
 			if pickup.load then
-				handleHitPickup(pickup)
+				setTimer(handleHitPickup, 50, 1, pickup)
 			end
 		else
 			if pickup.load then
-				handleHitPickup(pickup)
+                setTimer(handleHitPickup, 50, 1, pickup)
 			end
 		end
 	end
@@ -492,19 +492,13 @@ function handleHitPickup(pickup)
 			return
 		end
 		g_PrevVehicleHeight = getElementDistanceFromCentreOfMassToBaseOfModel(getPedOccupiedVehicle(g_Me))
-        setTimer(
-            function(pickup)
-                alignVehicleWithUp()
-                setElementModel(getPedOccupiedVehicle(g_Me), tonumber(pickup.vehicle))
-                vehicleChanging(1, tonumber(pickup.vehicle))
-            end, 50, 1, pickup)
+        alignVehicleWithUp()
+        setElementModel(getPedOccupiedVehicle(g_Me), tonumber(pickup.vehicle))
+        vehicleChanging(1, tonumber(pickup.vehicle))
     elseif pickup.type == 'repair' then
         fixVehicle(getPedOccupiedVehicle(g_Me))
     elseif pickup.type == 'nitro' then
-        setTimer(
-            function()
-                addVehicleUpgrade(getPedOccupiedVehicle(g_Me), 1010)
-            end, 50, 1)
+        addVehicleUpgrade(getPedOccupiedVehicle(g_Me), 1010)
     end
 	triggerServerEvent('onPlayerPickUpRacePickupInternal', g_Me, pickup.id, pickup.respawn)
 	playSoundFrontEnd(46)
