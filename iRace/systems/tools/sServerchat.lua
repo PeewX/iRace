@@ -20,11 +20,13 @@ function setPlayerChatColor(message, messageType)
 
                 if isPlayerInAdminGroup(source) then
                     local _, adminColor = getPlayerAdminGroupColor(source)
-                    outputChatBox(adminColor .. "iR|#ffffff" .. thePlayer .. ": #ffffff" ..tostring(message), root, 255, 255, 255, true)
+                    outputChatBox(("%siR|#ffffff%s#ffffff: %s"):format(adminColor, thePlayer, tostring(message), root, 255, 255, 255, true)
+                    --outputChatBox(adminColor .. "iR|#ffffff" .. thePlayer .. ": #ffffff" ..tostring(message), root, 255, 255, 255, true)
                 else
                     for _, pl in ipairs(getElementsByType"player") do
                         if not isPlayerBlocksPlayer(source, pl) then
-                            outputChatBox(thePlayer .. ": #ffffff" .. tostring(message), pl, 255, 255, 255, true)
+                            outputChatBox(("%s#ffffff: %s"):format(thePlayer, tostring(message)), pl, 255, 255, 255, true)
+                            --outputChatBox(thePlayer .. ": #ffffff" .. tostring(message), pl, 255, 255, 255, true)
                         end
                     end
                 end
@@ -50,11 +52,13 @@ function setPlayerTeamChatColor(message, messageType)
             for _,v in ipairs(getElementsByType("player")) do
                 if (isGuestAccount(getPlayerAccount(v)) == false) then
                     if isPlayerInAdminGroup(v) then
-                        outputChatBox("|Adminchat| "..thePlayer.. ': #ddff22' ..tostring(message),v,255,255,255,true)
+                        outputChatBox(("|Adminchat| %s:#ddff22 %s"):format(thePlayer, message), v, 255, 255, 255, true)
+                        --outputChatBox("|Adminchat| "..thePlayer.. ': #ddff22' ..tostring(message),v,255,255,255,true)
                     end
                 end
             end
-            outputDebugString("|Adminchat| "..thePlayerWithoutColorcode.. ': ' ..tostring(message))
+            --outputDebugString("|Adminchat| "..thePlayerWithoutColorcode.. ': ' ..tostring(message))
+            outputDebugString(("|Adminchat| %s: %s"):format(thePlayerWithoutColorcode, message))
         end
     elseif getPlayerTeam(source) ~= "User" and getPlayerTeam(source) then
         if (messageType == 2) then
@@ -67,11 +71,13 @@ function setPlayerTeamChatColor(message, messageType)
                     local playerTeam = getPlayerTeam(v)
                     if playerTeam then
                         if getTeamName(playerTeam) == team then
-                            outputChatBox("#808080|#FFD04FTeamchat#808080|#ffffff "..thePlayer.. ': #ddff22' ..tostring(message),v,255,255,255,true)
+                            outputChatBox(("|Teamchat| %s:#ddff22 %s"):format(thePlayer, tostring(message)), v, 255, 255, 255, true)
+                            --outputChatBox("|Teamchat| "..thePlayer.. ': #ddff22' ..tostring(message),v,255,255,255,true)
                         end
                     end
                 end
-                outputDebugString("[Teamchat:" .. team .. "] "..thePlayerWithoutColorcode.. ': ' ..tostring(message))
+                --outputDebugString("[Teamchat:" .. team .. "] "..thePlayerWithoutColorcode.. ': ' ..tostring(message))
+                outputDebugString(("[Teamchat: %s] %s: %s"):format(team, thePlayerWithoutColorcode, tostring(message)))
             end
 
         end
@@ -81,10 +87,10 @@ addEventHandler( "onPlayerChat", root, setPlayerTeamChatColor)
 
 -----------------------------------------
 function isPlayerBlocksPlayer(source, target)
-    local t = getElementData(source, "blocktable")
+    local t = getElementData(target, "blocktable")
     if t then
         for _, player in ipairs(t) do
-            if player == target then
+            if player == source then
                 return true
             end
         end
