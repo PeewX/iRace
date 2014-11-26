@@ -20,7 +20,7 @@ function setPlayerChatColor(message, messageType)
 
                 if isPlayerInAdminGroup(source) then
                     local _, adminColor = getPlayerAdminGroupColor(source)
-                    outputChatBox(("%siR|#ffffff%s#ffffff: %s"):format(adminColor, thePlayer, tostring(message), root, 255, 255, 255, true)
+                    outputChatBox(("%siR|#ffffff%s#ffffff: %s"):format(adminColor, thePlayer, tostring(message)), root, 255, 255, 255, true)
                     --outputChatBox(adminColor .. "iR|#ffffff" .. thePlayer .. ": #ffffff" ..tostring(message), root, 255, 255, 255, true)
                 else
                     for _, pl in ipairs(getElementsByType"player") do
