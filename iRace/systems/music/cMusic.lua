@@ -28,17 +28,10 @@ end
 
 addEventHandler("onClientSoundStream", root,
     function(started)
-        if started and getElementData(source, "mapmusic") then mt.mapStreamFailed = false end
+        if started and not getElementData(source, "winsound") then mt.mapStreamFailed = false end
     end
 )
 
-addEventHandler("onClientSoundStarted", root,
-    function(rsn)
-        if rsn == "play" then
-            mt.mapStreamFailed = true
-        end
-    end
-)
 
 addEvent("onClientRaceStateChanging", true)
 addEventHandler("onClientRaceStateChanging", root,
@@ -48,9 +41,11 @@ addEventHandler("onClientRaceStateChanging", root,
                 if #mt.musicLists["irace_background"] == 0 then return end
                 local rnd, text = mt.getRandomMusic()
                 mt.play = playSound("http://pewx.de/res/sounds/irace_background/" .. rnd, true)
-                setElementData(mt.play, "mapmusic", true) --fucking element datas.. but im to lazy now to change that^^..
+                setElementData(mt.play, "mapmusic", true)
                 triggerEvent("addClientMessage", root, "|HorrorFM| #24BAE0" .. text, 255, 255, 255)
             end
+        elseif ns == "NoMap" then
+            mt.mapStreamFailed = true
         end
     end
 )
@@ -65,7 +60,7 @@ addEventHandler("onClientMapStopping", root,
         end
 
         if mt.specialPlay then
-            setElementData(mt.specialPlay, "speiclaMusic", nil)
+            setElementData(mt.specialPlay, "specialMusic", nil)
             stopSound(mt.specialPlay)
             mt.specialPlay = nil
         end
@@ -78,11 +73,10 @@ addEventHandler("onPlayerPlaySpecialMusic", root,
         if songOn then
             for _, sound in ipairs(getElementsByType("sound")) do
                 setSoundPaused(sound, true)
-                songOn = false
             end
         end
         mt.specialPlay = playSound("http://pewx.de/res/sounds/specialMusic/" .. song)
-        setElementData(mt.specialPlay, "speiclaMusic", true) --again.. fucking element datas.. but im to lazy again to change that shit^^..
+        setElementData(mt.specialPlay, "specialMusic", true)
     end
 )
 
@@ -94,18 +88,19 @@ addEventHandler("onClientPlayerRadioSwitch", getRootElement(), cancelRadioSwitch
 
 function soundToggle()
     if songOn == true then
+        songOn = false
         for _, sound in ipairs(getElementsByType("sound")) do
             if getElementData(sound, "mapmusic") then
                 setSoundPaused(sound, true)
-                songOn = false
+
             end
         end
         outputChatBox("|Music| #ffdd00disabled", 255, 255, 255, true)
     elseif songOn == false then
+        songOn = true
         for _, sound in ipairs(getElementsByType("sound")) do
             if getElementData(sound, "mapmusic") then
                 local b = setSoundPaused(sound, false)
-                songOn = true
             end
         end
         outputChatBox("|Music| #ffdd00enabled", 255, 255, 255, true)
@@ -114,12 +109,12 @@ end
 bindKey("m","down",soundToggle)
 
 addEventHandler("onClientSoundStream", getRootElement(), function(state, length, name)
-    if getElementData(source, "winsound") == false then
+    if not getElementData(source, "winsound") and not getElementData(source, "specialMusic")  then
         setElementData(source, "mapmusic", true)
         if songOn == false then
             setSoundPaused(source, true)
         end
-    elseif getElementData(source, "winsound") == true then
+    elseif getElementData(source, "winsound") or  getElementData(source, "specialMusic") then
         if length == 0 then
             for i,sound in ipairs (getElementsByType("sound")) do
                 if getElementData(sound, "mapmusic") then
@@ -161,6 +156,6 @@ addEventHandler("onAdminWin", root,
 addCommandHandler("winsound",
     function()
         mt.winSound = not mt.winSound
-        outputChatBox(("|Winsound| #00aaff%s!"):format(mt.winsound and "enabled" or "disabled"), 255, 255, 255, true)
+        outputChatBox(("|Winsound| #00aaff%s!"):format(mt.winSound and "enabled" or "disabled"), 255, 255, 255, true)
     end
 )

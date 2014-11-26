@@ -191,7 +191,7 @@ function buyPerPanel(theObject)
         local rndSongURL = getRandomSongURL()
         addStat(theAccount, "cash", -BoomBoomSongPrice)
         triggerClientEvent("onPlayerPlaySpecialMusic", root, rndSongURL)
-        triggerClientEvent("addClientMessage", root, ("|Music| #ff9900%s started a special music :>"):format(getPlayerName(client)) , 255, 255, 255)
+        triggerClientEvent("addClientMessage", root, ("|Music| %s #ff9900started a special music :>"):format(getPlayerName(client)) , 255, 255, 255)
         setTimer(function()
             isMusicPlaying = false
         end, 300000, 1)

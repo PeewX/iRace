@@ -82,50 +82,50 @@ function drawRadar()
 	
 	dxDrawImage(posx,posy,height,height, "radar/img/radar.png")
 	dxDrawImage(posx,posy,height,height, "radar/img/north.png", north)
-	for id, player in ipairs(getElementsByType("player")) do
-		if getElementData(player, "state") == "alive" or exports['iRace']:isPlayerRespawnMode(player) and player ~= lp then
-			if compareDimensions(getElementDimension(lp), getElementDimension(player)) then
-				local veh = getPedOccupiedVehicle(player)
-				if veh then
-					local _,_,rot = getElementRotation(veh)
-					if not rot then return end
-					local ex, ey, ez = getElementPosition(veh)
-					local dist = getDistanceBetweenPoints2D(px,py,ex,ey)
-					if dist > range then
-						dist = tonumber(range)
-					end
-					local angle = 180-north + findRotation(px,py,ex,ey)
-					local cblipx, cblipy = getDistanceRotation(0, 0, height*(dist/range)/2, angle)
-					local blipx = centerleft+cblipx-blipsize/2
-					local blipy = centertop+cblipy-blipsize/2
-					local yoff = 0
-					local r,g,b,a = 255,255,255,255
-					
-					if getPlayerTeam(player) then
-						r,g,b = getTeamColor( getPlayerTeam(player) )
-					end
-					
-					local img = "radar/img/blip.png"
-					if (ez - pz) >= 5 then
-						img = "radar/img/blipup.png"
-					elseif (ez - pz) <= -5 then
-						img = "radar/img/blipdown.png"
-					end
-					
-					if isAircraft(tonumber(getElementModel(veh))) then
-						--r, g, b, a = 255, 0, 0, 200
-						img = "radar/img/hunter.png"
-					end
-					
-					dxDrawImage(blipx, blipy, blipsize, blipsize, img, north-rot+45, 0, 0, tocolor(r,g,b,a))
-					
-					if img == "radar/img/hunter.png" then 
-						rotationRotator = rotationRotator + 1.25
-						dxDrawImage(blipx, blipy, blipsize, blipsize, "radar/img/rotor.png", north-rot+45+rotationRotator, 0, 0)
-					end
-				end
-			end
-		end
+	for id, player in ipairs(getElementsByType("player", root, true)) do
+        if getElementData(player, "state") == "alive" or exports['iRace']:isPlayerRespawnMode(player) and player ~= lp then
+            if compareDimensions(getElementDimension(lp), getElementDimension(player)) then
+                local veh = getPedOccupiedVehicle(player)
+                if veh then
+                    local _,_,rot = getElementRotation(veh)
+                    if not rot then return end
+                    local ex, ey, ez = getElementPosition(veh)
+                    local dist = getDistanceBetweenPoints2D(px,py,ex,ey)
+                    if dist > range then
+                        dist = tonumber(range)
+                    end
+                    local angle = 180-north + findRotation(px,py,ex,ey)
+                    local cblipx, cblipy = getDistanceRotation(0, 0, height*(dist/range)/2, angle)
+                    local blipx = centerleft+cblipx-blipsize/2
+                    local blipy = centertop+cblipy-blipsize/2
+                    local yoff = 0
+                    local r,g,b,a = 255,255,255,255
+
+                    if getPlayerTeam(player) then
+                        r,g,b = getTeamColor( getPlayerTeam(player) )
+                    end
+
+                    local img = "radar/img/blip.png"
+                    if (ez - pz) >= 5 then
+                        img = "radar/img/blipup.png"
+                    elseif (ez - pz) <= -5 then
+                        img = "radar/img/blipdown.png"
+                    end
+
+                    if isAircraft(tonumber(getElementModel(veh))) then
+                        --r, g, b, a = 255, 0, 0, 200
+                        img = "radar/img/hunter.png"
+                    end
+
+                    dxDrawImage(blipx, blipy, blipsize, blipsize, img, north-rot+45, 0, 0, tocolor(r,g,b,a))
+
+                    if img == "radar/img/hunter.png" then
+                        rotationRotator = rotationRotator + 1.25
+                        dxDrawImage(blipx, blipy, blipsize, blipsize, "radar/img/rotor.png", north-rot+45+rotationRotator, 0, 0)
+                    end
+                end
+            end
+        end
 	end
 	--Health
 			local vehicle = getPedOccupiedVehicle(lp)
@@ -147,7 +147,7 @@ function drawRadar()
 			dxDrawImage(centerleft - lpsize/2, centertop - lpsize/2, lpsize,lpsize, "radar/img/local.png", north-pr,0,0,tocolor(255-healthColor,healthColor/1.5 ,0,255))
 			end
 end
-addEventHandler("onClientHUDRender", getRootElement(), drawRadar)
+addEventHandler("onClientHUDRender", root, drawRadar)
 
 function compareDimensions(lpD, pD)
 	if (lpD == 0) and (pD == 0 or 2000) then
