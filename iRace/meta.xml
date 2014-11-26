@@ -76,6 +76,7 @@
             <script src="systems/tools/sNickchange.lua"             type = "server" />
             <script src="systems/tools/cDXDrawings.lua"             type = "client" cache = "false" />
             <script src="systems/tools/cInfobox.lua"                type = "client" cache = "false" />
+			<script src="systems/tools/cServerchat.lua"             type = "client" cache = "false" />
             <script src="systems/tools/cMessages.lua"               type = "client" cache = "false" />
             <script src="systems/tools/cCarHide.lua"                type = "client" cache = "false" />
             <script src="systems/tools/cAntiBounce.lua"             type = "client" cache = "false" />
