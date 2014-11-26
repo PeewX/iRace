@@ -48,6 +48,7 @@ function getRealTimeString(ts)
     return ("%s.%s.%s - %s:%s"):format(includeZero(time.monthday), getMonth(time.month), time.year + 1900, includeZero(time.hour), includeZero(time.minute))
 end
 
+--[[
 function getPlayerFromNamePart(namePart)
     if not namePart then return false end
     namePart = string.lower(namePart)
@@ -69,6 +70,26 @@ function getPlayerFromNamePart(namePart)
     else
         return false
     end
+end
+]]
+
+-- Another algorithm to find a player by namepart. Limited to 1 player. Returns flase otherwise.
+function getPlayerFromNamePart(name)
+	local found = {}
+    local name = name and name:gsub("#%x%x%x%x%x%x", ""):lower() or nil
+    if name then
+        for _, player in ipairs(getElementsByType("player")) do
+            local name_ = getPlayerName(player):gsub("#%x%x%x%x%x%x", ""):lower()
+            if name_:find(name, 1, true) then
+                table.insert(found, player)
+            end
+        end
+    end
+	if (#found == 1) then
+		return found[1]
+	else
+		return false
+	end
 end
 
 local presets = {{[true] = "#00ff00enabled", [false] = "#ff0000disabled"}}
