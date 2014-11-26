@@ -1642,6 +1642,13 @@ end
 addEvent("getServerMaps", true)
 addEventHandler("getServerMaps", root, getServerMaps)
 
+function reloadServerMaps()
+    if initialiseServerMaps() then
+        triggerClientEvent( "onClientLoadMapList", root, mapList)
+        return true
+    end
+end
+
 function sortCompareFunction(s1, s2)
     if type(s1) == "table" and type(s2) == "table" then
         s1, s2 = s1.name, s2.name

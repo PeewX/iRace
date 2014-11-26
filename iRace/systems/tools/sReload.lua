@@ -8,7 +8,7 @@ local rld = {}
 
 rld["hashs"] = refreshHashs
 rld["musics"] = refreshMusics
-rld["maplist"] = initialiseServerMaps
+rld["maplist"] = reloadServerMaps
 rld["eventmaps"] = gevt.reloadEventMaps
 rld["respawnmaps"] = grsp.reloadRespawnMaps
 

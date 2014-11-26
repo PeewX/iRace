@@ -92,7 +92,6 @@ function soundToggle()
         for _, sound in ipairs(getElementsByType("sound")) do
             if getElementData(sound, "mapmusic") then
                 setSoundPaused(sound, true)
-
             end
         end
         outputChatBox("|Music| #ffdd00disabled", 255, 255, 255, true)

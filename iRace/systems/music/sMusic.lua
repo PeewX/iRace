@@ -39,6 +39,10 @@ end
 
 function refreshMusics()
     mt.initialise()
+    setTimer(function()
+        triggerClientEvent("onServerSendMusicList", root, mt.musicLists)
+    end, 5000, 1)
+    return true
 end
 
 function getMusicList(list)
