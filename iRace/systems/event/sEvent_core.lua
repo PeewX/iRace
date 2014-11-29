@@ -175,10 +175,7 @@ end)
 function evt.info()
     if evt.event.started then return end
     if math.round((evt.event.start-evt.getRealTime().timestamp)/60/60) < 24 then
-        --outputChatBox(("%sA random event will start in %s"):format(evt.prefix, secondsToTimeDesc(evt.event.start-evt.getRealTime().timestamp)), root, 255, 255, true)
-        --outputChatBox(evt.prefix .. "A random event will start in " .. secondsToTimeDesc(evt.event.start-evt.getRealTime().timestamp), root, 255, 255, 255, true)
         triggerClientEvent("addClientMessage", root, ("%sA random event will start in %s"):format(evt.prefix, secondsToTimeDesc(evt.event.start-evt.getRealTime().timestamp)), 255, 255, 255)
-        --outputChatBox(evt.prefix .. "A random event will start in " .. secondsToTimeDesc(evt.event.start-evt.getRealTime().timestamp), root, 255, 255, 255, true)
     end
 end
 
@@ -198,8 +195,10 @@ end
 function evt.getRaceAlivePlayers()
     local t = {}
     for _, p in ipairs(activePlayers) do
-        if getElementData(p, "state") == "alive" then
-            table.insert(t, p)
+        if isElement(p) then
+            if getElementData(p, "state") == "alive" then
+                table.insert(t, p)
+            end
         end
     end
     return t
