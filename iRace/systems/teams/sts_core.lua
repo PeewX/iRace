@@ -326,9 +326,12 @@ addEventHandler("onClientBuyTeamChange", resroot, function(tn, r,g,b)
         local pAN = getAccountName(getPlayerAccount(client))
         if tst.getPlayerStat(pAN, pTeam, "rank") ~= 4 then tst.outputTeamPlayer(client, "Sorry, I can't let you do this :(") return end
         if tn == "" or #tn < 4 or #tn > 16 then tst.outputTeamPlayer(client, "Invalid teamname!") return end
-        if not tst.isTeamnameAvailable(tn) then tst.outputTeamPlayer(client, "Teamname is already in use!") return end
-
-        local cr, cg, cb = getColorFromString(pTeam.datas.color)
+        
+		if (tn ~= pTeam.datas.name) then
+			if not tst.isTeamnameAvailable(tn) then tst.outputTeamPlayer(client, "Teamname is already in use!") return end
+		end
+        
+		local cr, cg, cb = getColorFromString(pTeam.datas.color)
         local chgPrice = (math.abs(#tn-#pTeam.datas.name) + math.abs(cr-r) + math.abs(cg-g) + math.abs(cb-b))*10000
 
         if chgPrice < pTeam.datas.cash then
