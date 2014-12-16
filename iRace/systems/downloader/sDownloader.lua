@@ -1,4 +1,9 @@
---iR|HorrorClown (PewX) - iRace-mta.de - 05.06.2014--
+--
+-- HorrorClown (PewX)
+-- Using: IntelliJ IDEA 13 Ultimate
+-- Date: 26.07.2014 - Time: 17:27
+-- pewx.de // iGaming-mta.de // iRace-mta.de // iSurvival.de // mtasa.de
+--
 local fileTable = {}
 
 local function getFiles()
