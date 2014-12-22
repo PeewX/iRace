@@ -9,6 +9,7 @@ local lastVoteStarterName = ''
 local lastVoteStarterCount = 0
 local nextmapbought = false
 local mapRedo = false
+local voteRedo = false
 local g_ForcedNextMap
 
 ----------------------------------------------------------------------------
@@ -92,8 +93,13 @@ function startRandomMap(skipNextMap)
 	-- Handle forced nextmap setting
 	if not skipNextMap then
         if g_ForcedNextMap then
-            if exports.mapmanager:changeGamemodeMap (g_ForcedNextMap, nil, true ) then
-                g_IgnoreSpawnCountProblems = g_ForcedNextMap	                        -- @PewX: Please check that.. confused o.O
+			if voteRedo then
+				local currentMap = exports.mapmanager:getRunningGamemodeMap()
+				exports.mapmanager:changeGamemodeMap(currentMap, nil, true)
+				return
+			end
+            if exports.mapmanager:changeGamemodeMap(g_ForcedNextMap, nil, true) then
+                g_IgnoreSpawnCountProblems = g_ForcedNextMap	                        -- Todo: Check that.. confused o.O
                 g_ForcedNextMap = nil
                 return
             else
@@ -113,7 +119,12 @@ function startRandomMap(skipNextMap)
 	end
 end
 
-
+addEvent("onVoteRedoSuccess")
+addEventHandler("onVoteRedoSuccess", root,
+	function()
+		voteRedo = true
+	end
+)
 ----------------------------------------------------------------------------
 -- outputRace
 --
@@ -241,8 +252,9 @@ addEvent("toggleRaceEventTime")
 addEventHandler("toggleRaceEventTime", getRootElement(), toggleEventTime)
 
 function nextmapsetauto()
+	if voteRedo then voteRedo = false return end
+	if mapRedo then mapRedo = false return end
     if eventTime then return end
-    if mapRedo then mapRedo = false return end
 
     local map = getRandomMapCompatibleWithGamemode(getThisResource())
     g_ForcedNextMap = map
@@ -326,7 +338,7 @@ addEventHandler('midMapRestartVoteResult', getRootElement(),
 addCommandHandler('redo',
 	function(player)
 		if hasObjectPermissionTo ( player, "function.redo", false ) then
-            if eventTime then outputChatBox("|Event| You can't change the map while an event is running", player, 255, 0, 0) return end
+            --if eventTime then outputChatBox("|Event| You can't change the map while an event is running", player, 255, 0, 0) return end
             local currentMap = exports.mapmanager:getRunningGamemodeMap()
 			if currentMap then
                 mapRedo = true
@@ -346,7 +358,7 @@ addCommandHandler('redo',
 
 addCommandHandler('random',
 	function(player)
-        if eventTime then outputChatBox("|Event| You can't change the map while an event is running", player, 255, 0, 0) return end
+        --if eventTime then outputChatBox("|Event| You can't change the map while an event is running", player, 255, 0, 0) return end
 		if hasObjectPermissionTo ( player, "function.random", false ) then
 			if not stateAllowsRandomMapVote() or g_CurrentRaceMode:getTimeRemaining() < 1000 then
 				outputRace( "Random command only works during a race and when no polls are running.", player )
@@ -796,6 +808,7 @@ end
 local function sendInfoToClient()
 	local map = getMapName (exports.mapmanager:getRunningGamemodeMap())
 	local nextmap =  getNextMap()
+	if voteRedo then nextmap = map .. " <Redo>" end
 	for _, p in ipairs(getElementsByType("player")) do
 		local ping = getPlayerPing(p)
 		triggerClientEvent(p, "update_client_infos", p, ping, map, nextmap)

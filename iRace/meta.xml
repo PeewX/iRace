@@ -64,6 +64,11 @@
         <script src="systems/music/sMusic.lua"                      type = "server" />
         <script src="systems/music/cMusic.lua"                      type = "client" cache = "false" />
 
+        <!--VoteRedo System-->
+        <script src="systems/voteredo/sVR.lua"                      type = "server" />
+        <script src="systems/voteredo/cVR_designer.lua"             type = "client" cache = "false" />
+
+        <!--AFK-->
         <script src="systems/afk/sAFK.lua"                          type = "server" />
         <script src="systems/afk/cAFK.lua"                          type = "client" cache = "false" />
         <script src="systems/afk/cAFK_designer.lua"                 type = "client" cache = "false" />

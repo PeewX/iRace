@@ -184,8 +184,6 @@ addEventHandler("onRaceStateChanging", root, function(ns, os)
                 setElementHealth(player, 0)
             end
         end
-        --TODO: ADD BETA
-        --outputChatBox("AcitvePlayers: " .. #activePlayers)
     end
 end)
 

@@ -19,7 +19,7 @@ function mt.addMessage(text, r, g, b, image)
 
     local del = getTickCount() + 20000
 
-    table.insert(mt.messages, {text = text, color = {r,g,b, 0}, image = image, removeTime = del, sX = mt.startX, sY = mt.startY, font = iFont[10], state = "fadeIN"})
+    table.insert(mt.messages, {text = text, color = {r,g,b, 0}, image = image, removeTime = del, sX = mt.startX, sY = mt.startY, font = iFontU[10], state = "fadeIN"})
     outputConsole(("CM: %s"):format(removeColorCodes(text)))
 end
 addEvent("addClientMessage", true)

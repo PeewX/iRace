@@ -4,10 +4,12 @@ x, y = guiGetScreenSize()
 
 iFont = {}
 iFontB = {}
+iFontU = {}
 addEventHandler("onClientResourceStart", resroot, function()
 	for i = 8, 36 do
 		iFont[i] = dxCreateFont("files/fonts/calibrii.ttf", i/1080*y, false)
 		iFontB[i] = dxCreateFont("files/fonts/calibrii.ttf", i/1080*y, true)
+		iFontU[i] = dxCreateFont("files/fonts/calibrii.ttf", i, false)
 	end
 end)
 
