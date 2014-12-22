@@ -23,7 +23,7 @@ function mt.addMessage(text, r, g, b, image)
     outputConsole(("CM: %s"):format(removeColorCodes(text)))
 end
 addEvent("addClientMessage", true)
-addEventHandler("addClientMessage", me, mt.addMessage)
+addEventHandler("addClientMessage", root, mt.addMessage)
 
 function mt.render()
     for i, msg in ipairs(mt.messages) do

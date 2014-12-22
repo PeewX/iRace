@@ -42,7 +42,7 @@
         <script src="systems/teams/sTS_core.lua"                    type = "server" />
         <script src="systems/teams/cTS_designer.lua"                type = "client" cache = "false" />
 
-        <!--event-->
+        <!--EventSystem-->
         <script src="systems/event/sEvent_core.lua"                 type = "server" />
         <script src="systems/event/cEvent_designer.lua"             type = "client" cache = "false" />
 
@@ -50,6 +50,9 @@
         <script src="systems/respawn/sRespawn.lua"                  type = "server" />
         <script src="systems/respawn/cRespawn.lua"                  type = "client" cache = "false" />
         <script src="systems/respawn/cRespawn_designer.lua"         type = "client" cache = "false" />
+
+        <!--Player vs. Player System-->
+        <script src="systems/pvp/sPVP.lua"                          type = "server" />
 
         <!--ReportSystem-->
         <script src="systems/report/sReport.lua"                    type = "server" />

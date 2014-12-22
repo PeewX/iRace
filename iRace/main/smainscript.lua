@@ -118,7 +118,8 @@ local elementDataTable = {
     "mapsfinished",
     "funareakills",
     "antiBounce",
-    "rainbowcolorstate"}
+    "rainbowcolorstate",
+    "pvpwins"}
 
 local textDataTable = {
     "ranktitle",
@@ -1778,227 +1779,8 @@ function AntiSpamCommand(cmd)
 end
 addEventHandler("onPlayerCommand",getRootElement(),AntiSpamCommand)
 
---[[
---------------------------------------------------------------------
---PVPSystem
---------------------------------------------------------------------
-]]
-
-PVPdisabled	= false
-addCommandHandler("togglepvp",
-    function(playersource,command,whoban,reason)
-        if hasUserPermissionTo(playersource, "togglePvpState") then
-            if PVPdisabled == false then
-                PVPdisabled = true
-                outputChatBox("#ffffff[PvP] #ff6600PvP was disabled!", getRootElement(),255,255,255,true)
-            else
-                PVPdisabled = false
-                outputChatBox("#ffffff[PvP] #ff6600PvP was enabled!", getRootElement(),255,255,255,true)
-            end
-        else
-            outputChatBox("Youre not cool enough to do that",playersource)
-        end
-    end
-)
-
-function onPlayerGetPvPRequest(bet,wins,targetPlayer)
-    if tonumber(bet) <= 0 or tonumber(bet) > 10000 then
-        cancelEvent()
-    elseif tonumber (wins) <= 0 and tonumber (wins) > 5 then
-        cancelEvent()
-    elseif client == targetPlayer then
-        cancelEvent()
-    end
-
-    if getElementData(client,"isInPvP") == true then
-        outputChatBox("[PvP] #ff9900You are already in a PvP Match!",client,255,255,255,true)
-        return
-    end
-    if getElementData(client,"pvpEnemie") == true then
-        outputChatBox("[PvP] "..getPlayerName(client).." got allready a request from "..getPlayerName(getElementData(client,"pvpEnemie")).."!",client,255,255,255,true)
-        return
-    end
-    if getAccountData(getPlayerAccount(client),"cash") <= tonumber(bet) then
-        outputChatBox("[PvP] You#FF9900 don't got enought cash!",client,255,255,255,true)
-        return
-    end
-    if getAccountData(getPlayerAccount(targetPlayer),"cash") <= tonumber(bet) then
-        outputChatBox("[PvP] "..getPlayerName(requestedPlayer).." don't got enought cash.",client,255,255,255,true)
-        return
-    end
-    if PVPdisabled == true then
-        outputChatBox("[PvP] PVP is disabled",client,255,255,255,true)
-        return
-    end
-    if not getElementData(targetPlayer,"isInPvP") == true then
-        setElementData(targetPlayer,"pvpWins",nil)
-        setElementData(targetPlayer,"pvpBetAmount",nil)
-        setElementData(targetPlayer,"pvpEnemie",nil)
-        setElementData(targetPlayer,"pvpWinsNeeded",nil)
-        setElementData(client,"pvpWins",nil)
-        setElementData(client,"pvpBetAmount",nil)
-        setElementData(client,"pvpEnemie",nil)
-        setElementData(client,"pvpWinsNeeded",nil)
-        outputChatBox("[PvP] "..getPlayerName(client).."#FF9900 requested you for a PvP Match, go to the UserPanel to Accept it.!",targetPlayer,255,255,255,true)
-        outputChatBox("[PvP] Bet: "..bet.."$ Wins: "..wins.."!",targetPlayer,255,255,255,true)
-        outputChatBox("[PvP] Wait for Accept...",client,255,255,255,true)
-        setElementData(targetPlayer,"pvpEnemie",client)
-        setElementData(client,"pvpEnemie",targetPlayer)
-        setElementData(targetPlayer,"pvpWinsNeeded",wins)
-        setElementData(client,"pvpWinsNeeded",wins)
-        setElementData(targetPlayer,"pvpBetAmount",bet)
-        setElementData(client,"pvpBetAmount",bet)
-        setElementData(targetPlayer,"pvpRequest",true)
-        triggerClientEvent("setPlayerNameToAcceptButton",targetPlayer,getPlayerName(client))
-    else
-        outputChatBox("[PvP] "..getPlayerName(targetPlayer).."#FF9900 is already in a PvP Match!",client,255,255,255,true)
-    end
-end
-addEvent("onPlayerGetPvPRequest",true)
-addEventHandler("onPlayerGetPvPRequest",getRootElement(),onPlayerGetPvPRequest)
-
-function onPlayerAcceptPvPRequest ()
-    if getElementData(client,"isInPvP") == true then
-        outputChatBox("[PvP] You#FF9900 are already in a PvP Match!",client,255,255,255,true)
-        return
-    end
-    if getElementData(getElementData(client,"pvpEnemie"),"isInPvP") == true then
-        outputChatBox("[PvP] Enemie#FF9900 is already in a PvP Match!",client,255,255,255,true)
-        return
-    end
-    if getElementData(client,"pvpRequest") == true then
-        outputChatBox("[PvP] PvP will start next Map!",client,255,255,255,true)
-        outputChatBox("[PvP] PvP will start next Map!",getElementData(client,"pvpEnemie"),255,255,255,true)
-        setElementData(getElementData(client,"pvpEnemie"),"pvpEnemie",client)
-        setElementData(client,"isInPvP",true)
-        setElementData(getElementData(client,"pvpEnemie"),"isInPvP",true)
-        setElementData(getElementData(client,"pvpEnemie"),"pvpWins",0)
-        --setElementData(getElementData(client,"pvpEnemie"),"pvpBetAmount",getElementData(getElementData(client,"pvpEnemie"),"pvpBetAmount"))
-        setElementData(getElementData(client,"pvpEnemie"),"pvpEnemie",client)
-        setElementData(client,"pvpWins",0)
-        triggerClientEvent("setLabelsForPvP",client)
-        triggerClientEvent("setLabelsForPvP",getElementData(client,"pvpEnemie"))
-    end
-end
-addEvent("onPlayerAcceptPvPRequest",true)
-addEventHandler("onPlayerAcceptPvPRequest",getRootElement(),onPlayerAcceptPvPRequest)
-
-function onPlayerDeclinePvPRequest ()
-    if getElementData(client,"isInPvP") == true then
-        outputChatBox("[PvP] You#FF9900 are in a PvP Match!",client,255,255,255,true)
-        return
-    end
-    if getElementData(getElementData(client,"pvpEnemie"),"isInPvP") == true then
-        triggerClientEvent("setLabelsForPvP",client)
-        triggerClientEvent("setLabelsForPvP",getElementData(client,"pvpEnemie"))
-        outputChatBox("[PvP] PvP Request was declined!",client,255,255,255,true)
-        outputChatBox("[PvP] PvP will start next Map!",getElementData(client,"pvpEnemie"),255,255,255,true)
-    end
-end
-addEvent("onPlayerDeclinePvPRequest",true)
-addEventHandler("onPlayerDeclinePvPRequest",getRootElement(),onPlayerDeclinePvPRequest)
-
-function startPvPRound()
-    for i,player in ipairs(getElementsByType("player")) do
-        if getElementData(player,"isInPvP") == true then
-            outputChatBox("[PvP] PvP Match Started! Your wins:"..getElementData(player,"pvpWins").."/"..getElementData(player,"pvpWinsNeeded"),player,255,255,255,true)
-            addEventHandler("onPlayerWasted",player,playerWastedPvP)
-        end
-    end
-end
-addEvent("onMapStarting",true)
-addEventHandler("onMapStarting",getRootElement(),startPvPRound)
-
-function debugPvP(ps)
-    setElementData(ps,"isInPvP",false)
-    setElementData(ps,"pvpWins",nil)
-    setElementData(ps,"pvpBetAmount",nil)
-    setElementData(ps,"pvpEnemie",nil)
-    setElementData(ps,"pvpWinsNeeded",nil)
-    setElementData(source,"pvpRequest",false)
-    --outputChatBox("debuged")
-end
---addCommandHandler("i",debugPvP)
-
-function playerWastedPvP()
-    if isRespawnMode(source) then return end
-    if getElementData(source,"isInPvP") == true then
-        if getElementData(getElementData(source,"pvpEnemie"),"state") == "alive" then
-            setElementData(getElementData(source,"pvpEnemie"),"pvpWins",getElementData(getElementData(source,"pvpEnemie"),"pvpWins")+1)
-            outputChatBox("[PvP] "..getPlayerName(getElementData(source,"pvpEnemie")).." #FF9900won this PvP round!",source,255,255,255,true)
-            outputChatBox("[PvP] "..getPlayerName(getElementData(source,"pvpEnemie")).." #FF9900won this PvP round!",getElementData(source,"pvpEnemie"),255,255,255,true)
-        end
-        if tonumber(getElementData(getElementData(source,"pvpEnemie"),"pvpWins")) == tonumber(getElementData(getElementData(source,"pvpEnemie"),"pvpWinsNeeded")) then
-            outputChatBox("[PvP] "..getPlayerName(getElementData(source,"pvpEnemie")).." #FF9900won the PvP Match vs. "..getPlayerName(source).." #FF9900!",getRootElement(),255,255,255,true)
-            outputChatBox("[PvP] #FF6600He earned: "..tonumber(getElementData(source,"pvpBetAmount")).."$!",getRootElement(),255,255,255,true)
-            setElementData(getElementData(source,"pvpEnemie"),"isInPvP",false)
-            setElementData(getElementData(source,"pvpEnemie"),"isInPvP",false)
-            local cash = tonumber(getElementData(source,"pvpBetAmount"))
-            addStat(getPlayerAccount(getElementData(source,"pvpEnemie")),"cash",cash)
-            addStat(getPlayerAccount(source),"cash",-cash)
-            triggerClientEvent("resetAllPvPLabels",source)
-            triggerClientEvent("resetAllPvPLabels",getElementData(source,"pvpEnemie"))
-            debugPvP(getElementData(source,"pvpEnemie"))
-            debugPvP(source)
-        end
-        triggerClientEvent("setLabelsForPvP",source)
-        triggerClientEvent("setLabelsForPvP",getElementData(source,"pvpEnemie"))
-        removeEventHandler("onPlayerWasted",source,playerWastedPvP)
-        removeEventHandler("onPlayerWasted",getElementData(source,"pvpEnemie"),playerWastedPvP)
-    end
-end
-
-function playerQuitPvP(qt)
-    if getElementData(source,"isInPvP") == true then
-        --outputChatBox("[PvP] "..getPlayerName(source).." won this PvP round!",getElementData(source,"pvpEnemie"),255,255,255,true)
-        outputChatBox("[PvP] "..getPlayerName(getElementData(source,"pvpEnemie")).." #FF9900won the PvP Match vs. "..getPlayerName(source).." #FF9900!",getRootElement(),255,255,255,true)
-        outputChatBox("[PvP] #FF6600He earned: "..tonumber(getElementData(source,"pvpBetAmount")).."$!",getRootElement(),255,255,255,true)
-        local cash = tonumber(getElementData(source,"pvpBetAmount"))
-        addStat(getPlayerAccount(getElementData(source,"pvpEnemie")),"cash",cash)
-        addStat(getPlayerAccount(source),"cash",-cash)
-        triggerClientEvent("resetAllPvPLabels",getElementData(source,"pvpEnemie"))
-        debugPvP (getElementData(source,"pvpEnemie"))
-    end
-    if getElementData(source,"pvpEnemie") == true then
-        triggerClientEvent("resetAllPvPLabels",getElementData(source,"pvpEnemie"))
-        debugPvP (getElementData(source,"pvpEnemie"))
-        return
-    end
-end
-addEventHandler("onPlayerQuit",getRootElement(),playerQuitPvP)
-
-local classicraceposition = 1
-
---[[function classicRaceMapWin (dataName,oldValue)
-    if getElementType(source) == "player" then
-        if dataName == "state" then
-            local newValue = getElementData(source,dataName)
-            if newValue == "finished" then
-                local account = getPlayerAccount(source)
-                if not (isGuestAccount(account)) then
-                    local cash,summeWithLevel = calcCash(classicraceposition, source)
-                    cash = cash*2
-                    outputChatBox("#FFFFFF>>"..getPlayerName(source).."#00ccff hat das Rennen als Platz "..classicraceposition.." abgeschlossen!",getRootElement(),unpack(scriptcol[1]))
-                    outputChatBox("#FFFFFF>>#00ccffEr hat "..tostring(cash).." $ erhalten und für sein Level "..summeWithLevel.." $ extra erhalten!",getRootElement(),unpack(scriptcol[1]))
-                    classicraceposition = classicraceposition+1
-                    addStat(account,"ddsplayed",1)
-                    if classicRaceMapWin == 1 then
-                        addStat(account,"ddswon",1)
-                    end
-                    addStat(account,"cash",cash + summeWithLevel)
-                end
-            end
-        end
-    end
-end
-addEventHandler("onElementDataChange", getRootElement(), classicRaceMapWin)]]
-
---[[function classicRaceResetRank ()
-    classicraceposition = 1
-end
-addEventHandler("onMapStarting", getRootElement(), classicRaceResetRank)]]
-
-local wrapTable = {"shootersplayed", "shooterswon", "huntersplayed", "hunterswon" }
+--pvpwins
+local wrapTable = {"pvpWins"}
 addCommandHandler("wrap", function()
     local sT = getTickCount()
     for i, account in ipairs(getAccounts()) do
@@ -2010,3 +1792,16 @@ addCommandHandler("wrap", function()
     end
     outputChatBox("Wrapping done: " .. getTickCount() - sT .. "ms")
 end)
+
+--[[local wrapTable = {"shootersplayed", "shooterswon", "huntersplayed", "hunterswon" }
+addCommandHandler("wrap", function()
+    local sT = getTickCount()
+    for i, account in ipairs(getAccounts()) do
+        outputChatBox("Wraping account ID " .. i)
+        for _, data in ipairs(wrapTable) do
+            outputChatBox("Adding: " .. data)
+            setAccountData(account, data, 0)
+        end
+    end
+    outputChatBox("Wrapping done: " .. getTickCount() - sT .. "ms")
+end)]]

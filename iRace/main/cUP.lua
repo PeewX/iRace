@@ -318,7 +318,7 @@ addEventHandler("onDownloadFinished",resroot,
     --------------------------Stats--------------------------
     --General
         GUIEditor_Window[2] = guiCreateStaticImage(0,0,1,0.907,"files/images/environment/background.png",true)
-        guiCreateStaticImage(0,0,1,0.025,"files/tab.png",true,GUIEditor_Window[2])
+        guiCreateStaticImage(0,0,1,0.025,"files/images/environment/tab.png",true,GUIEditor_Window[2])
         GUIEditor_Label[1] = guiCreateLabel(0.025,0.2000,0.3811,0.1245,"General",true,GUIEditor_Window[2])
         guiLabelSetColor(GUIEditor_Label[1],255,153,0)
         guiSetFont(GUIEditor_Label[1],ltfontspecialBig)
@@ -534,7 +534,7 @@ addEventHandler("onDownloadFinished",resroot,
         guiSetFont(achive17StatsLabel,ltfontspecialMiddle)
         --------------------------buy options--------------------------
         GUIEditor_Window[3] = guiCreateStaticImage(0,0,1,0.907,"files/images/environment/background.png",true)
-        guiCreateStaticImage(0,0,1,0.025,"files/tab.png",true,GUIEditor_Window[3])
+        guiCreateStaticImage(0,0,1,0.025,"files/images/environment/tab.png",true,GUIEditor_Window[3])
         GUIEditor_Label[200] = guiCreateLabel(0.0258,0.0589,0.252,0.1159,"Settings",true,GUIEditor_Window[3])
         guiLabelSetColor(GUIEditor_Label[200],255,153,0)
         guiSetFont(GUIEditor_Label[200],ltfontspecialBig)
@@ -704,7 +704,7 @@ addEventHandler("onDownloadFinished",resroot,
         --------------------------------------
         --------------------------------BuyLists--------------------
         GUIEditor_Window[7] = guiCreateStaticImage(0,0,1,0.907,"files/images/environment/background.png",true)
-        guiCreateStaticImage(0,0,1,0.025,"files/tab.png",true,GUIEditor_Window[7])
+        guiCreateStaticImage(0,0,1,0.025,"files/images/environment/tab.png",true,GUIEditor_Window[7])
         GUIEditor_Label[70] = guiCreateLabel(0.0345,0.5776,0.2311,0.1245,"Description",true,GUIEditor_Window[7])
         guiSetFont(GUIEditor_Label[70],ltfontspecial)
         GUIEditor_Label[66] = guiCreateLabel(0.0345,0.0776,0.3811,0.1245,"Buylist",true,GUIEditor_Window[7])
@@ -753,7 +753,7 @@ addEventHandler("onDownloadFinished",resroot,
         guiSetFont(levelbuybutton,ltfontspecial)
         GUIEditor_Window["lt+"] = guiCreateStaticImage(0.25,0.25,0.5,0.5,"files/images/environment/background.png",true)
         guiSetVisible(GUIEditor_Window["lt+"],false)
-        guiCreateStaticImage(0,0,1,0.025,"files/tab.png",true,GUIEditor_Window["lt+"])
+        guiCreateStaticImage(0,0,1,0.025,"files/images/environment/tab.png",true,GUIEditor_Window["lt+"])
         ltPLUSbuttonClose = guiCreateButton(0.75,0.9,0.21,0.06,"Close",true,GUIEditor_Window["lt+"])
         guiSetFont(levelbuybutton,ltfontspecial)
         GUIEditor_Label["headlineLT+"] = guiCreateLabel(0.0345,0.0776,0.3811,0.1245,"iRace Panel",true,GUIEditor_Window["lt+"])
@@ -794,7 +794,7 @@ addEventHandler("onDownloadFinished",resroot,
         guiSetFont(GUIEditor_Button[68],ltfontspecial)
         --------------------------Archivements--------------------------
         GUIEditor_Window[4] = guiCreateStaticImage(0,0,1,0.907,"files/images/environment/background.png",true)
-        guiCreateStaticImage(0,0,1,0.025,"files/tab.png",true,GUIEditor_Window[4])
+        guiCreateStaticImage(0,0,1,0.025,"files/images/environment/tab.png",true,GUIEditor_Window[4])
         GUIEditor_Label[24] = guiCreateLabel(0.0345,0.0776,0.4502,0.1286,"Achievements",true,GUIEditor_Window[4])
         guiLabelSetColor(GUIEditor_Label[24],255,153,0)
         guiSetFont(GUIEditor_Label[24],ltfontspecialBig)
@@ -830,51 +830,70 @@ addEventHandler("onDownloadFinished",resroot,
         end
         --------------------------PvP--------------------------
         GUIEditor_Window["pvp"] = guiCreateStaticImage(0,0,1,0.907,"files/images/environment/background.png",true)
-        guiCreateStaticImage(0,0,1,0.025,"files/tab.png",true,GUIEditor_Window["pvp"])
+        guiCreateStaticImage(0,0,1,0.025,"files/images/environment/tab.png",true,GUIEditor_Window["pvp"])
         GUIEditor_Label["pvphead"] = guiCreateLabel(0.0345,0.1000,0.3811,0.1245,"PvP Mode",true,GUIEditor_Window["pvp"])
         guiLabelSetColor(GUIEditor_Label["pvphead"],255,153,0)
         guiSetFont(GUIEditor_Label["pvphead"],ltfontspecialBig)
         --Infos
-        GUIEditor_Label["pvpme"] = guiCreateLabel(0.25,0.25,0.25,0.25,"0",true,GUIEditor_Window["pvp"])
+        GUIEditor_Label["lbl"] = guiCreateLabel(0.54,0.2,0.25,0.25,"Statistics",true,GUIEditor_Window["pvp"])
+        guiLabelSetColor(GUIEditor_Label["lbl"],255,153,0)
+        guiSetFont(GUIEditor_Label["lbl"],ltfontspecialBig)
+        GUIEditor_Label["pvpme"] = guiCreateLabel(0.65,0.25,0.25,0.25,"-",true,GUIEditor_Window["pvp"])
         guiLabelSetColor(GUIEditor_Label["pvpme"],255,153,0)
-        guiSetFont(GUIEditor_Label["pvpme"],ltfontspecialBig)
-        GUIEditor_Label["pvpenemie"] = guiCreateLabel(0.75,0.25,0.25,0.25,"0",true,GUIEditor_Window["pvp"])
+        guiSetFont(GUIEditor_Label["pvpme"],ltfontspecialMiddle)
+        GUIEditor_Label["pvpenemie"] = guiCreateLabel(0.65,0.3,0.25,0.25,"-",true,GUIEditor_Window["pvp"])
         guiLabelSetColor(GUIEditor_Label["pvpenemie"],255,153,0)
-        guiSetFont(GUIEditor_Label["pvpenemie"],ltfontspecialBig)
-        GUIEditor_Label["pvpmeName"] = guiCreateLabel(0.05,0.25,0.25,0.25,string.gsub(getPlayerName(getLocalPlayer()), '#%x%x%x%x%x%x', '')..":",true,GUIEditor_Window["pvp"])
+        guiSetFont(GUIEditor_Label["pvpenemie"],ltfontspecialMiddle)
+        GUIEditor_Label["pvpmeName"] = guiCreateLabel(0.55,0.25,0.25,0.25,string.gsub(getPlayerName(getLocalPlayer()), '#%x%x%x%x%x%x', '')..":",true,GUIEditor_Window["pvp"])
         guiLabelSetColor(GUIEditor_Label["pvpmeName"],255,153,0)
-        guiSetFont(GUIEditor_Label["pvpmeName"],ltfontspecialBig)
-        GUIEditor_Label["pvpenemieName"] = guiCreateLabel(0.55,0.25,0.25,0.25,"Enemie:",true,GUIEditor_Window["pvp"])
+        guiSetFont(GUIEditor_Label["pvpmeName"],ltfontspecialMiddle)
+        GUIEditor_Label["pvpenemieName"] = guiCreateLabel(0.55,0.3,0.25,0.25,"Enemie",true,GUIEditor_Window["pvp"])
         guiLabelSetColor(GUIEditor_Label["pvpenemieName"],255,153,0)
-        guiSetFont(GUIEditor_Label["pvpenemieName"],ltfontspecialBig)
+        guiSetFont(GUIEditor_Label["pvpenemieName"],ltfontspecialMiddle)
+        GUIEditor_Label["pvpNeedWinsLBL"] = guiCreateLabel(0.55,0.35,0.25,0.25,"Wins:",true,GUIEditor_Window["pvp"])
+        guiLabelSetColor(GUIEditor_Label["pvpNeedWinsLBL"],255,153,0)
+        guiSetFont(GUIEditor_Label["pvpNeedWinsLBL"],ltfontspecialMiddle)
+        GUIEditor_Label["pvpBetLBL"] = guiCreateLabel(0.55,0.4,0.25,0.25,"Bet:",true,GUIEditor_Window["pvp"])
+        guiLabelSetColor(GUIEditor_Label["pvpBetLBL"],255,153,0)
+        guiSetFont(GUIEditor_Label["pvpBetLBL"],ltfontspecialMiddle)
+        GUIEditor_Label["pvpNeedWins"] = guiCreateLabel(0.65,0.35,0.25,0.25,"-",true,GUIEditor_Window["pvp"])
+        guiLabelSetColor(GUIEditor_Label["pvpNeedWins"],255,153,0)
+        guiSetFont(GUIEditor_Label["pvpNeedWins"],ltfontspecialMiddle)
+        GUIEditor_Label["pvpBetValue"] = guiCreateLabel(0.65,0.4,0.25,0.25,"-",true,GUIEditor_Window["pvp"])
+        guiLabelSetColor(GUIEditor_Label["pvpBetValue"],255,153,0)
+        guiSetFont(GUIEditor_Label["pvpBetValue"],ltfontspecialMiddle)
         --Settings
         --Name
-        GUIEditor_Label["pvpDescriptionName"] = guiCreateLabel(0.05,0.3+0.1,0.075,0.025,"Name:",true,GUIEditor_Window["pvp"])
+        GUIEditor_Label["pvpDescriptionName"] = guiCreateLabel(0.05,0.2+0.1,0.075,0.025,"Name:",true,GUIEditor_Window["pvp"])
         guiLabelSetColor(GUIEditor_Label["pvpDescriptionName"],255,153,0)
         guiSetFont(GUIEditor_Label["pvpDescriptionName"],ltfontspecialMiddle)
-        GUIEditor_Edit["pvpName"] = guiCreateEdit(0.05,0.35+0.1,0.075,0.035,"",true,GUIEditor_Window["pvp"])
+        GUIEditor_Edit["pvpName"] = guiCreateEdit(0.05,0.23+0.1,0.075,0.035,"",true,GUIEditor_Window["pvp"])
         --Bet
-        GUIEditor_Label["pvpDescriptionBet"] = guiCreateLabel(0.05,0.4+0.1,0.075,0.025,"Bet($):",true,GUIEditor_Window["pvp"])
+        GUIEditor_Label["pvpDescriptionBet"] = guiCreateLabel(0.05,0.3+0.1,0.1,0.025,"Bet  (max. 100.000$)",true,GUIEditor_Window["pvp"])
         guiLabelSetColor(GUIEditor_Label["pvpDescriptionBet"],255,153,0)
         guiSetFont(GUIEditor_Label["pvpDescriptionBet"],ltfontspecialMiddle)
-        GUIEditor_Edit["pvpBet"] = guiCreateEdit(0.05,0.45+0.1,0.075,0.035,"0",true,GUIEditor_Window["pvp"])
+        GUIEditor_Edit["pvpBet"] = guiCreateEdit(0.05,0.33+0.1,0.075,0.035,"0",true,GUIEditor_Window["pvp"])
         --Rounds
-        GUIEditor_Label["pvpDescriptionRounds"] = guiCreateLabel(0.05,0.5+0.1,0.075,0.025,"Wins:",true,GUIEditor_Window["pvp"])
+        GUIEditor_Label["pvpDescriptionRounds"] = guiCreateLabel(0.05,0.4+0.1,0.075,0.025,"Wins:",true,GUIEditor_Window["pvp"])
         guiLabelSetColor(GUIEditor_Label["pvpDescriptionRounds"],255,153,0)
         guiSetFont(GUIEditor_Label["pvpDescriptionRounds"],ltfontspecialMiddle)
-        GUIEditor_Edit["pvpRounds"] = guiCreateEdit(0.05,0.55+0.1,0.075,0.035,"1",true,GUIEditor_Window["pvp"])
+        GUIEditor_Edit["pvpRounds"] = guiCreateEdit(0.05,0.43+0.1,0.075,0.035,"1",true,GUIEditor_Window["pvp"])
         --Start Button
-        GUIEditor_Button["pvpStart"] = guiCreateButton(0.05,0.6+0.1,0.075,0.05,"Request",true,GUIEditor_Window["pvp"])
+        GUIEditor_Button["pvpStart"] = guiCreateButton(0.05,0.6,0.075,0.05,"Request",true,GUIEditor_Window["pvp"])
         guiSetFont(GUIEditor_Button["pvpStart"],ltfontspecial)
+
         --Accept
-        GUIEditor_Label["pvpDescriptionRequests"] = guiCreateLabel(0.05,0.76,0.3,0.1,"Request from: Nobody",true,GUIEditor_Window["pvp"])
+        GUIEditor_Label["pvpDescriptionRequests"] = guiCreateLabel(0.25,0.57, 0.3,0.1,"Request from: -",true, GUIEditor_Window["pvp"])   --GUIEditor_Label["pvpDescriptionRequests"] = guiCreateLabel(0.05,0.76,0.3,0.1,"Request from: -",true, GUIEditor_Window["pvp"])
+        GUIEditor_Button["pvpAccept"] = guiCreateButton(0.25,0.6, 0.075,0.05,"Accept",true,GUIEditor_Window["pvp"])                     --GUIEditor_Button["pvpAccept"] = guiCreateButton(0.05,0.8,0.075,0.075,"Accept",true,GUIEditor_Window["pvp"])
+        GUIEditor_Button["pvpDecline"] = guiCreateButton(0.35,0.6, 0.075,0.05,"Decline",true,GUIEditor_Window["pvp"])                     --GUIEditor_Button["pvpAccept"] = guiCreateButton(0.05,0.8,0.075,0.075,"Accept",true,GUIEditor_Window["pvp"])
+
         guiLabelSetColor(GUIEditor_Label["pvpDescriptionRequests"],255,153,0)
         guiSetFont(GUIEditor_Label["pvpDescriptionRequests"],ltfontspecialMiddle)
-        GUIEditor_Button["pvpAccept"] = guiCreateButton(0.05,0.8,0.075,0.075,"Accept",true,GUIEditor_Window["pvp"])
-        guiSetFont(GUIEditor_Button["pvpAccept"],ltfontspecial)
+        guiSetFont(GUIEditor_Button["pvpAccept"], ltfontspecial)
+        guiSetFont(GUIEditor_Button["pvpDecline"], ltfontspecial)
         --------------------------Top--------------------------
         GUIEditor_Window[6] = guiCreateStaticImage(0,0,1,0.907,"files/images/environment/background.png",true)
-        guiCreateStaticImage(0,0,1,0.025,"files/tab.png",true,GUIEditor_Window[6])
+        guiCreateStaticImage(0,0,1,0.025,"files/images/environment/tab.png",true,GUIEditor_Window[6])
         GUIEditor_Label[26] = guiCreateLabel(0.0345,0.0776,0.4502,0.1286,"Top Players",true,GUIEditor_Window[6])
         guiLabelSetColor(GUIEditor_Label[26],255,153,0)
         guiSetFont(GUIEditor_Label[26],ltfontspecialBig)
@@ -1060,51 +1079,60 @@ function sendPvPInfos (button,state)
         local bet = guiGetText (GUIEditor_Edit["pvpBet"])
         local wins = guiGetText (GUIEditor_Edit["pvpRounds"])
         --getPlayer
-        local targetPlayer = getPlayerWildcard(name)
+        local targetPlayer = getPlayerFromNamePart(name)
         if not targetPlayer then
             initialiseInfobox("PvP", "Can't find the player!", 255, 50, 0, 1, 5)
             return
         end
         --getBet
-        if tonumber (bet) <= 0 or tonumber (bet) > 10000  then
-            initialiseInfobox("PvP", "Use a bet between 0$ and 10.000$!", 255, 50, 0, 1, 5)
+        if tonumber (bet) <= 0 or tonumber (bet) > 100000  then
+            initialiseInfobox("PvP", "Use a bet between 0$ and 100.000$!", 255, 50, 0, 1, 5)
             return
         end
         --getRounds
-        if tonumber (wins) <= 0 and tonumber (wins) > 5  then
-            initialiseInfobox("PvP", "User a win value between 0 and 5!", 255, 50, 0, 1, 5)
+        if tonumber (wins) <= 0 and tonumber (wins) > 20  then
+            initialiseInfobox("PvP", "User a win value between 0 and 20!", 255, 50, 0, 1, 5)
             return
         end
-        triggerServerEvent ( "onPlayerGetPvPRequest",getLocalPlayer(), bet, wins, targetPlayer)
+        triggerServerEvent("onPlayerGetPvPRequest", getLocalPlayer(), tonumber(bet), tonumber(wins), targetPlayer)
     end
 end
 
-function acceptPvPRequest ()
-    triggerServerEvent ( "onPlayerAcceptPvPRequest",getLocalPlayer())
+function acceptPvPRequest()
+    triggerServerEvent("onPlayerAcceptPvPRequest",getLocalPlayer())
 end
 
-function setPlayerNameToAcceptButton (name)
-    guiSetText ( GUIEditor_Label["pvpDescriptionRequests"],"Request from: "..string.gsub(name, '#%x%x%x%x%x%x', ''))
+function declinePvPRequest()
+    triggerServerEvent("onPlayerDeclinePvPRequest", getLocalPlayer())
+end
+
+function setPlayerNameToAcceptButton(name)
+    guiSetText(GUIEditor_Label["pvpDescriptionRequests"],"Request from: "..string.gsub(name, '#%x%x%x%x%x%x', ''))
 end
 addEvent("setPlayerNameToAcceptButton", true)
 addEventHandler("setPlayerNameToAcceptButton", getLocalPlayer(), setPlayerNameToAcceptButton)
 
-function setLabelForPvP ()
-    guiSetText ( GUIEditor_Label["pvpenemieName"],string.gsub(getPlayerName(getElementData(source,"pvpEnemie")), '#%x%x%x%x%x%x', '')..":")
-    guiSetText ( GUIEditor_Label["pvpenemie"],getElementData(getElementData(source,"pvpEnemie"),"pvpWins"))
-    guiSetText ( GUIEditor_Label["pvpme"],getElementData(source,"pvpWins"))
+function setLabelForPvP(tMe, tEnemy)
+    guiSetText(GUIEditor_Label["pvpenemieName"], removeColorCodes(getPlayerName(tMe.eTargetPlayer) .. ":"))
+    guiSetText(GUIEditor_Label["pvpenemie"], tEnemy.nCurrentWins)
+    guiSetText(GUIEditor_Label["pvpme"], tMe.nCurrentWins)
+    guiSetText(GUIEditor_Label["pvpNeedWins"], tMe.nNeedWins)
+    guiSetText(GUIEditor_Label["pvpBetValue"], tMe.nBet)
 end
 addEvent("setLabelsForPvP", true)
 addEventHandler("setLabelsForPvP", getLocalPlayer(), setLabelForPvP)
 
 function resetAllPvPLabels ()
-    guiSetText ( GUIEditor_Label["pvpenemieName"],"Enemie:")
-    guiSetText ( GUIEditor_Label["pvpenemie"],0)
-    guiSetText ( GUIEditor_Label["pvpme"],0)
-    guiSetText ( GUIEditor_Label["pvpDescriptionRequests"],"Request from: Nobody")
+        guiSetText(GUIEditor_Label["pvpenemieName"],"Enemie:")
+        guiSetText(GUIEditor_Label["pvpenemie"], "-")
+        guiSetText(GUIEditor_Label["pvpme"], "-")
+        guiSetText(GUIEditor_Label["pvpNeedWins"], "-")
+        guiSetText(GUIEditor_Label["pvpBetValue"], "-")
+
+        guiSetText(GUIEditor_Label["pvpDescriptionRequests"],"Request from: -")
 end
 addEvent("resetAllPvPLabels", true)
-addEventHandler("resetAllPvPLabels", getLocalPlayer(), resetAllPvPLabels)
+addEventHandler("resetAllPvPLabels", root, resetAllPvPLabels)
 
 
 
@@ -1634,6 +1662,7 @@ function onresourceStart ()
 
     addEventHandler ( "onClientGUIClick",GUIEditor_Button["pvpStart"],sendPvPInfos,false)
     addEventHandler ( "onClientGUIClick",GUIEditor_Button["pvpAccept"],acceptPvPRequest,false)
+    addEventHandler ( "onClientGUIClick",GUIEditor_Button["pvpDecline"],declinePvPRequest,false)
     addEventHandler ( "onClientGUIClick", GUIEditor_Button[67], clickbuy,false)
     addEventHandler ( "onClientGUIClick", GUIEditor_Button[68], clickspecialbuy,false )
 

@@ -75,7 +75,7 @@ function comp(w1,w2)
     end
 end
 
-function checkClient(source, client)
+function checkClient()
     if source ~= client then
         outputServerLog("AC-INFO: "
                 .. " source/client mismatch! "
