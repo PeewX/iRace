@@ -836,7 +836,7 @@ addEventHandler("onPlayerToptimeImprovement",getRootElement(),
                 triggerClientEvent("addClientMessage", getRootElement(), getPlayerName(source) .. "#ff0000 has gotten top time 1!", 255, 255, 255, "toptime")
                 addStat(account, "toptimes12", 1)
                 addStat(account, "cash", 2000)
-            elseif newPos < oldPos and newTime < oldTime then
+            elseif newPos < oldPos and newTime < oldTime then       --Todo: Attampt to compare number with boolean
                 triggerClientEvent("addClientMessage", getRootElement(), getPlayerName(source) .. "#ff5500 improved his top time [" .. newPos .. "]", 255, 255, 255, "toptime")
             else
                 triggerClientEvent("addClientMessage", getRootElement(), getPlayerName(source) .. "#ff5500 has gotten a top time [" .. newPos .. "]", 255, 255, 255, "toptime")

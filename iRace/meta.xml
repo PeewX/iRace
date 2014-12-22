@@ -81,6 +81,7 @@
             <script src="systems/tools/sPrivateMessage.lua"         type = "server" />
             <script src="systems/tools/sReload.lua"                 type = "server" />
             <script src="systems/tools/sShop.lua"                   type = "server" />
+            <script src="systems/tools/sMinigames.lua"              type = "server" />
             <script src="systems/tools/sNickchange.lua"             type = "server" />
             <script src="systems/tools/cDXDrawings.lua"             type = "client" cache = "false" />
             <script src="systems/tools/cInfobox.lua"                type = "client" cache = "false" />
