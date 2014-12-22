@@ -157,7 +157,7 @@ local targetError = "* Sorry, but your target is not logged in!"
 local registerError = "* Sorry, but you have to register to use this function!"
 local scriptcol = {{255,178,0,true},{255,0,0,true},{255,255,255,true}}
 beta = false
-version = "1.1.0.4"
+version = "1.1.1"
 --end utility--
 
 --[[*************************************************
