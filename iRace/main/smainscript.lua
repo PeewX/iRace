@@ -748,7 +748,7 @@ function racePlayerWasted(source)
                 if not (isGuestAccount(account)) then
                     if not getElementData(source, "AFK") then
                         local cash, levelCash = calcCash(2,source)
-                        triggerClientEvent("addClientMessage", source, "|Stats| #4ADE00You earned #ffffff" .. tostring(cash) .. "#4ADE00$ for rank #ffffff2#4ADE00! Level bonus: #ffffff" .. tostring(levelCash), 255, 255, 255)
+                        triggerClientEvent(source, "addClientMessage", root, "|Stats| #4ADE00You earned #ffffff" .. tostring(cash) .. "#4ADE00$ for rank #ffffff2#4ADE00! Level bonus: #ffffff" .. tostring(levelCash), 255, 255, 255)
 
 						if isMapType("DD") then addStat(account,"ddsplayed",1)
 						elseif isMapType("DM") then addStat(account,"dmsplayed",1)
@@ -766,7 +766,7 @@ function racePlayerWasted(source)
                     if not getElementData(source, "AFK") then
                         local rank = #alivePlayers + 1
                         local cash, levelCash = calcCash(rank,source)
-                        triggerClientEvent("addClientMessage", source, "|Stats| #4ADE00You earned #ffffff" .. tostring(cash) .. "#4ADE00$ for rank #ffffff" .. rank .. "#4ADE00! Level bonus: #ffffff" .. tostring(levelCash), 255, 255, 255)
+                        triggerClientEvent(source, "addClientMessage", root, "|Stats| #4ADE00You earned #ffffff" .. tostring(cash) .. "#4ADE00$ for rank #ffffff" .. rank .. "#4ADE00! Level bonus: #ffffff" .. tostring(levelCash), 255, 255, 255)
 
  						if isMapType("DD") then addStat(account,"ddsplayed",1)
 						elseif isMapType("DM") then addStat(account,"dmsplayed",1)
@@ -1776,30 +1776,3 @@ function AntiSpamCommand(cmd)
     end
 end
 addEventHandler("onPlayerCommand",getRootElement(),AntiSpamCommand)
-
---pvpwins
-local wrapTable = {"pvpWins"}
-addCommandHandler("wrap", function()
-    local sT = getTickCount()
-    for i, account in ipairs(getAccounts()) do
-        outputChatBox("Wraping account ID " .. i)
-        for _, data in ipairs(wrapTable) do
-            outputChatBox("Adding: " .. data)
-            setAccountData(account, data, 0)
-        end
-    end
-    outputChatBox("Wrapping done: " .. getTickCount() - sT .. "ms")
-end)
-
---[[local wrapTable = {"shootersplayed", "shooterswon", "huntersplayed", "hunterswon" }
-addCommandHandler("wrap", function()
-    local sT = getTickCount()
-    for i, account in ipairs(getAccounts()) do
-        outputChatBox("Wraping account ID " .. i)
-        for _, data in ipairs(wrapTable) do
-            outputChatBox("Adding: " .. data)
-            setAccountData(account, data, 0)
-        end
-    end
-    outputChatBox("Wrapping done: " .. getTickCount() - sT .. "ms")
-end)]]
