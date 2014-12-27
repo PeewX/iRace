@@ -6,6 +6,8 @@
 	<file src="snow/flakes/real_tile.png"/>
 	<script src="snow/script_c.lua" type="client"/>
 	
+	<script src="classlib.lua" type="shared" />
+	
 	<script src="tools/maptype_s.lua" />
 	<script src="_common.lua" type="server"/>
 	<script src="_joiner.lua" type="server"/>
@@ -27,6 +29,7 @@
 	<script src="rate_server.lua" type="server"/>
 	<script src="bottominterface.lua" type="client"/>
 	
+	<script src="CSprite.lua" type="client" cache="false" />
 	<script src="_common.lua" type="client"/>
 	<script src="_joiner_client.lua" type="client"/>
 	<script src="util_client.lua" type="client"/>

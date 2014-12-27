@@ -49,12 +49,12 @@ end
 addCommandHandler("vr",
     function(ePlayer)
         if not vrt.enabled then vrt.message("VoteRedo ist currently disabled!", ePlayer) return end
-        if #activePlayers < vrt.minPlayers then vrt.message(("More than %s players required!"):format(vrt.minPlayers), ePlayer) return end
-        if not vrt.isActivePlayer(ePlayer) then vrt.message("You are not a active player!", ePlayer) return end
-        if vrt.isPlayerInTable(ePlayer) then vrt.message("You are already voted!", ePlayer) return end
+        if #activePlayers < vrt.minPlayers then vrt.message(("More than %s players are required!"):format(vrt.minPlayers), ePlayer) return end
+        if not vrt.isActivePlayer(ePlayer) then vrt.message("You are not an active player!", ePlayer) return end
+        if vrt.isPlayerInTable(ePlayer) then vrt.message("You already voted!", ePlayer) return end
         if not vrt.mapAllowed then vrt.message("Map can be repeated only once!", ePlayer) return end
         if not vrt.mapRunning then vrt.message("You can only vote while a map is running!", ePlayer) return end
-        if vrt.mapRedo then vrt.message("Current map is already requeued!", ePlayer) return end
+        if vrt.mapRedo then vrt.message("Current map has already been requeued!", ePlayer) return end
 
         table.insert(vrt.players, ePlayer)
         vrt.check()

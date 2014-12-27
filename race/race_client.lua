@@ -151,6 +151,7 @@ end]]
 local mapInfos = {}
 TravelScreen = {}
 TravelScreen.startTime = 0
+TravelScreen.sprite = new(CSprite, "img/travelling.png", 3200, 2400, 10, 10, 100, 30)
 
 function TravelScreen.show( mapName, authorName )
 	--setSnowState(true)
@@ -158,12 +159,14 @@ function TravelScreen.show( mapName, authorName )
 	mapInfos["name"] = mapName
 	mapInfos["author"] = authorName or '- - -'
 	addEventHandler("onClientRender", getRootElement(), TravelScreen.render)
+	
+	local screenWidth, screenHeight = guiGetScreenSize()
+	TravelScreen.sprite:startRender(0, screenWidth/2-180, screenHeight/2-120, 360, 240)
 end
 
 function TravelScreen.render()
 	if not getElementData(g_Me, "isLogedIn") then return end
 	local screenWidth, screenHeight = guiGetScreenSize()
-	dxDrawImage(screenWidth/2-195, screenHeight/2-90, 390, 226, "img/travelling.png")
 	dxDrawText("Travelling to", 0, screenHeight/2-200, screenWidth, screenHeight, tocolor(255, 100, 0, 255), 1, OCRAStd_b, "center")
 	dxDrawText(mapInfos["name"], 0, screenHeight/2-160, screenWidth, screenHeight, tocolor(0, 90, 255, 255), 1, OCRAStd, "center")
 	dxDrawText("By: " .. mapInfos["author"], 0, screenHeight/2+160, screenWidth, screenHeight, tocolor(0, 100, 255, 255), 1, OCRAStd, "center")
@@ -171,6 +174,7 @@ end
 
 function TravelScreen.hide()
 	removeEventHandler("onClientRender", getRootElement(), TravelScreen.render)
+	TravelScreen.sprite:stopRender()
 end
 
 function TravelScreen.getTicksRemaining()
