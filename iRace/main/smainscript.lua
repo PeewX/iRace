@@ -612,22 +612,22 @@ function onPlayerWin()
             addStat(account,"cash",cash + levelCash)
         end
 
-        for theKey,thePlayer in ipairs(activePlayers) do
-            local hasbet = getElementData(thePlayer, "hasbet")
-
-            if hasbet then
-                local beton = getElementData (thePlayer,"beton")
-                local betcash = getElementData (thePlayer,"betmoney")
-
-                if source == beton then
-                    local account = getPlayerAccount(thePlayer)
-                    local cashToWin = math.floor(betcash * 2.5) --/ 2 * (#activePlayers*0.22)
-                    addStat(account,"cash", cashToWin)
-                    triggerClientEvent("addClientMessage", root, ("|Bets| %s#00ccff earned #ffffff%s#00ccff$ for his bet!"):format(getPlayerName(thePlayer), cashToWin), 255, 255, 255)
-                    --outputChatBox("|Bets| "..getPlayerName(thePlayer).."#00ccff earned " ..tostring(cashToWin).. "$ for his bet!", root, 255, 255, 255)
-                end
-            end
-
+        for theKey, thePlayer in ipairs(activePlayers) do
+            if isElement(thePlayer) then
+	            local hasbet = getElementData(thePlayer, "hasbet")
+	            if hasbet then
+	                local beton = getElementData (thePlayer,"beton")
+	                local betcash = getElementData (thePlayer,"betmoney")
+	
+	                if source == beton then
+	                    local account = getPlayerAccount(thePlayer)
+	                    local cashToWin = math.floor(betcash * 2.5) --/ 2 * (#activePlayers*0.22)
+	                    addStat(account,"cash", cashToWin)
+	                    triggerClientEvent("addClientMessage", root, ("|Bets| %s#00ccff earned #ffffff%s#00ccff$ for his bet!"):format(getPlayerName(thePlayer), cashToWin), 255, 255, 255)
+	                    --outputChatBox("|Bets| "..getPlayerName(thePlayer).."#00ccff earned " ..tostring(cashToWin).. "$ for his bet!", root, 255, 255, 255)
+	                end
+	            end
+	    	end
         end
     end
 end
@@ -1559,7 +1559,7 @@ function randomCashWin()
     if #activePlayers >= minPlayers then
         local randomCash = math.random(100,math.random(5000, 50000))
         local randomPlayer = activePlayers[math.random(1, #activePlayers)]
-        if not randomPlayer then return end
+        if not isElement(randomPlayer) then return end
         local account = getPlayerAccount (randomPlayer)
         if not isGuestAccount(account) then
             --outputChatBox("|iRace| #0066ff" .. getPlayerName(randomPlayer) .. "#0066ff won #ffffff" .. randomCash .. " #0066ff$!", getRootElement(), 255, 255, 255, true)
