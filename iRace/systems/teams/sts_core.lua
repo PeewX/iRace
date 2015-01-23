@@ -332,7 +332,7 @@ addEventHandler("onClientBuyTeamChange", resroot, function(tn, r,g,b)
 		end
         
 		local cr, cg, cb = getColorFromString(pTeam.datas.color)
-        local chgPrice = (math.abs(#tn-#pTeam.datas.name) + math.abs(cr-r) + math.abs(cg-g) + math.abs(cb-b))*10000
+        local chgPrice = (math.abs(#tn-#pTeam.datas.name) + math.abs(cr-r) + math.abs(cg-g) + math.abs(cb-b))*3000
 
         if chgPrice < pTeam.datas.cash then
             tst.outputTeamPlayers(pTeam, "Teamname or color changed!")

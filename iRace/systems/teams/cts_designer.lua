@@ -278,8 +278,8 @@ function tst.teamsettingsChanged()
         guiSetText(tst.GUI.labels[8], r) guiSetText(tst.GUI.labels[9], g) guiSetText(tst.GUI.labels[10], b) guiSetText(tst.GUI.labels[11], ("Hex: %s"):format(rgbToHex(r,g,b)))
         local cr,cg,cb = getColorFromString(tst.team.color)
         local t = #guiGetText(tst.GUI.edits[3])
-        local diff = math.abs(cr-r)/3 + math.abs(cg-g)/3 + math.abs(cb-b)/3 + math.abs(t-#tst.team.name)
-        guiSetText(tst.GUI.labels[12], convertNumber(diff*20000) .. "$")
+	local diff = (math.abs(t-#tst.team.name) + math.abs(cr-r) + math.abs(cg-g) + math.abs(cb-b))*3000
+        guiSetText(tst.GUI.labels[12], convertNumber(diff) .. "$")
     end
 end
 

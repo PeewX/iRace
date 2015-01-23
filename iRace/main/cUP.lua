@@ -9,7 +9,7 @@ addEvent("onDownloadFinished")
 local fixPrice = 3000
 local flipPrice = 2500
 local nitroPrice = 10000
-local BoomBoomSongPrice = 5000
+local BoomBoomSongPrice = 60000
 local ghostPrice = 5000
 local pulsatingHeadlightsPrice = 30000
 local wheelsPrice = 30000

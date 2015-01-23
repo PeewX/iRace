@@ -875,6 +875,8 @@ addEventHandler('onPlayerPickUpRacePickup', getRootElement(),
 						addStat(account, "cash", 10000)
 					end
 
+					fixVehicle(theVehicle)
+
 					if not getElementData(source, "AFK") then addStat(account, "mapsfinished", 1) end
 
 					local hunterreached = getResourceInfo (exports.mapmanager:getRunningGamemodeMap(),"hunterreached")
