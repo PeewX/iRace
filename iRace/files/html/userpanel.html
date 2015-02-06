@@ -1,0 +1,56 @@
+<html>
+
+    <head>
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/ripples.min.css" rel="stylesheet">
+        <link href="css/material-wfont.min.css" rel="stylesheet">
+	<link href="css/custom.css" rel="stylesheet">
+    </head>
+
+    <body>
+	<div id ="container" style="width:420px;height:375px;margin:0 auto;overflow:hidden;">
+		<div class="panel panel-success" style="width:400px;margin:10px;background-color:rgba(255,255,255,0);">
+			<div class="panel-heading" style="background-color:#FF5000;">
+				<h2 class="panel-title" style="padding:6px;"><i class="mdi-action-lock" style="font-size:30px;"></i><span style="position:relative;left:15px;bottom:6px;">Login</span></h2>
+			</div>
+			<div class="panel-body" style="padding-left:10px;padding-bottom:10px;background-color:#FFF;overflow:hidden;">
+				<h3>You already own an account. Use the form below to join.</h3>
+				<p class="errortext"></p>
+				<div class="form-group irace">
+				<input id="username" type="text" class="form-control floating-label" placeholder="Username">
+				<br>
+				<input id="password" type="password" class="form-control floating-label" placeholder="Password">
+				<br>
+				<a href="register.html">Click here, if you don't own an account.</a>
+				<p class="bs-component">
+					<a id="btn-login" href="javascript:void(0)" class="btn btn-success" style="width:100%;background-color:#FF5000">Login</a>
+				</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br>
+        <script src="js/jquery-1.10.2.min.js"></script>
+        <script src="sj/bootstrap.min.js"></script>
+
+        <script src="js/ripples.min.js"></script>
+        <script src="js/material.min.js"></script>
+	<script src="js/mod.js"></script>
+	
+	<script>
+            $(document).ready(function() {
+                $.material.init();
+            });
+
+			$( "#card" ).toggleClass( "flipped" );
+			
+			$( "#btn-login" ).click(function() {
+				mta.triggerEvent("onCEFLoginRegister", $('input:text[id=username]').val(), $('input:password[id=password]').val());
+			});
+
+    </script>
+    </body>
+
+</html>

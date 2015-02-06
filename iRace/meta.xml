@@ -1,6 +1,7 @@
 <meta>
     <info author="HorrorClown (PewX)" name="iRace" version="1.1.0" type="script" description="iRace addon"/>
     <min_mta_version server="1.4" client="1.4"></min_mta_version>
+	<oop>true</oop>
 
     <!--shared-->
     <script src="shared/sUtil.lua"	type = "server" />
@@ -19,7 +20,45 @@
     <script src="mysql/mysql.lua"		type = "server" />
     <!--<script src="mysql/sSettings.lua"	type = "server" />-->
 
+	<!-- HTML & UI -->
+
+	<!-- Fonts -->
+	<file src="files/html/fonts/Material-Design-Icons.eot" type = "client" cache = "false" />
+	<file src="files/html/fonts/Material-Design-Icons.svg" type = "client" cache = "false" />
+	<file src="files/html/fonts/Material-Design-Icons.ttf" type = "client" cache = "false" />
+	<file src="files/html/fonts/Material-Design-Icons.woff" type = "client" cache = "false" />
+	<file src="files/html/fonts/Roboto.ttf" type = "client" cache = "false" />
+	
+	<!-- CSS -->
+	<file src="files/html/css/bootstrap.min.css" type = "client" cache = "false" />
+	<file src="files/html/css/custom.css" type = "client" cache = "false" />
+	<file src="files/html/css/material.min.css" type = "client" cache = "false" />
+	<file src="files/html/css/material-wfont.min.css" type = "client" cache = "false" />
+	<file src="files/html/css/ripples.min.css" type = "client" cache = "false" />
+	
+	<!-- JS -->
+	<file src="files/html/js/jquery-1.10.2.min.js" type = "client" cache = "false" />
+	<file src="files/html/js/bootstrap.min.js" type = "client" cache = "false" />
+	<file src="files/html/js/ripples.min.js" type = "client" cache = "false" />
+	<file src="files/html/js/mod.js" type = "client" cache = "false" />
+	<file src="files/html/js/material.min.js" type = "client" cache = "false" />
+	<file src="files/html/js/particles.min.js" type = "client" cache = "false" />
+	
+	<!-- UIs -->
+	
+	<file src="files/html/background.html" type = "client" cache = "false" />
+	<file src="files/html/login.html" type = "client" cache = "false" />
+	<file src="files/html/register.html" type = "client" cache = "false" />
+	
+	<!-- Images -->
+	<file src="files/html/image/particle.png" type = "client" cache = "false" />
+	
     <!--Systems-->
+	<!-- Webui -->
+        <script src="systems/webui/FrameWebWindow.lua"             	type = "client" cache = "false" />
+        <script src="systems/webui/WebWindow.lua"             		type = "client" cache = "false" />
+        <script src="systems/webui/WebUIManager.lua"             	type = "client" cache = "false" />	
+
         <!--Login-->
         <script src="systems/login/sLogin.lua"                      type = "server" />
         <script src="systems/login/cLogin.lua"                      type = "client" cache = "false" />
@@ -89,6 +128,10 @@
             <script src="systems/tools/cMessages.lua"               type = "client" cache = "false" />
             <script src="systems/tools/cCarHide.lua"                type = "client" cache = "false" />
             <script src="systems/tools/cAntiBounce.lua"             type = "client" cache = "false" />
+			
+		<!-- Web Stuff -->
+			 <script src="systems/webstuff/9gag.lua"    	        type = "client" cache = "false" />
+		
     <!--//Systems-->
 
     <!--Files-->

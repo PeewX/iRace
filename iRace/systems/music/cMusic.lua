@@ -32,40 +32,17 @@ addEventHandler("onClientSoundStream", root,
     end
 )
 
-FMEnabled = true
-
-addCommandHandler("horrorfm",
-	function()
-		FMEnabled = not FMEnabled
-		
-		local state = "disabled"
-		if (FMEnabled) then
-			state = "enabled"
-		end
-		triggerEvent("addClientMessage", root, "|HorrorFM| has been "..state..".", 255, 255, 255)
-		
-		if (mt.play and isElement(mt.play)) then
-			destroyElement(mt.play)
-			mt.play = false
-		end
-	end
-)
 
 addEvent("onClientRaceStateChanging", true)
 addEventHandler("onClientRaceStateChanging", root,
     function(ns)
         if ns == "Running" then
             if mt.mapStreamFailed then
-				if (FMEnabled) then
-					if #mt.musicLists["irace_background"] == 0 then return end
-					local rnd, text = mt.getRandomMusic()
-					mt.play = playSound("http://pewx.de/res/sounds/irace_background/" .. rnd, true)
-					setElementData(mt.play, "mapmusic", true)
-					triggerEvent("addClientMessage", root, "|HorrorFM| #24BAE0" .. text, 255, 255, 255)
-					triggerEvent("addClientMessage", root, "|HorrorFM| #24BAE0Use /horrorfm to disable it.", 255, 255, 255)
-				else
-					triggerEvent("addClientMessage", root, "|HorrorFM| #24BAE0Is disabled. Use /horrorfm to enable it.", 255, 255, 255)
-				end
+                if #mt.musicLists["irace_background"] == 0 then return end
+                local rnd, text = mt.getRandomMusic()
+                mt.play = playSound("http://pewx.de/res/sounds/irace_background/" .. rnd, true)
+                setElementData(mt.play, "mapmusic", true)
+                triggerEvent("addClientMessage", root, "|HorrorFM| #24BAE0" .. text, 255, 255, 255)
             end
         elseif ns == "NoMap" then
             mt.mapStreamFailed = true

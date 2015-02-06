@@ -20,6 +20,23 @@ local function isPlayerRegistered(player)
     if #getAccountsBySerial(getPlayerSerial(player)) ~= 0 then return true else return false end
 end
 
+local function getPlayersFirstAccount(player)
+    if #getAccountsBySerial(getPlayerSerial(player)) ~= 0 then 
+		return getAccountsBySerial(getPlayerSerial(player))[1]
+	else 
+		return false
+	end
+end
+
+addEvent("onClientFinishedLoading", true)
+addEventHandler("onClientFinishedLoading", root,
+	function()
+		outputServerLog("Server")
+		triggerClientEvent(client, "onServerRequestLoginRegister", getRootElement(), getAccountName(getPlayersFirstAccount(client)))
+	end
+)
+
+
 local function isAccountRegistered(n)
 	local account = getAccount(n)
 	if account then	return true else return false end

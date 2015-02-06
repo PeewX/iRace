@@ -10,6 +10,10 @@ local function containsBadChars(n)
 	return false
 end
 
+function showErrorMessage(msg)
+	triggerEvent("showErrorMessage", me, msg)
+end
+
 function clientExecute(s, inputs)
 	if s == 1 then 												--Login
 		for _, t in ipairs(inputs) do
