@@ -35,7 +35,7 @@ end
 function evt.getAvailableMapTypes()
     local temp = {}
     for mapType, map in pairs(evt.maps) do
-        if #map > 0 then --minimum 5 maps to set maptype enabled
+        if #map > 10 then --minimum 10 maps to set maptype enabled
             table.insert(temp, mapType)
         end
     end
