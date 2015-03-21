@@ -34,7 +34,7 @@ function vrt.isActivePlayer(ePlayer)
 end
 
 function vrt.check()
-    if #vrt.players >= vrt.needPlayerCount then
+    if #vrt.players > vrt.needPlayerCount then
         vrt.mapRedo = true
         vrt.message("Voting success! Current map has been requeued.", root)
         triggerEvent("onVoteRedoSuccess", root)
@@ -77,7 +77,7 @@ addEventHandler("onRaceStateChanging", root,
             vrt.players = {}
             vrt.mapRedo = false
             if #activePlayers >= vrt.minPlayers then
-                vrt.needPlayerCount =  math.ceil(#activePlayers*0.6)
+                vrt.needPlayerCount =  math.ceil(#activePlayers*0.5)
                 vrt.mapRunning = true
             end
         else

@@ -265,13 +265,9 @@ function sendMemoandButtonDatasToClient()
         local cashforlevel = tonumber(tonumber(level*1.2)*1200)
         triggerClientEvent("setPanelObjects",source,cashforlevel,level)
     end
-    if getAccountData(account, "serialchecked") then
 
-    else
-        setAccountData(account, "serial", getPlayerSerial(source))
-        setAccountData(account, "ip", getPlayerIP(source))
-        setAccountData(account, "serialchecked", true)
-    end
+    setAccountData(account, "serial", getPlayerSerial(source))
+    setAccountData(account, "ip", getPlayerIP(source))
 end
 addEventHandler( "onPlayerLogin", root, sendMemoandButtonDatasToClient )
 
@@ -1007,6 +1003,8 @@ addCommandHandler("bet", function (playersource,command,target,amount)
     end
 end)
 
+
+
 --Unbet command
 addCommandHandler ("unbet",
     function (playersource,command)
@@ -1704,9 +1702,15 @@ function buyMap(mapName)
     if not (mapName == "") then
         if not (isGuestAccount(getPlayerAccount(client))) then
             if tonumber(level) >= tonumber(MapBuylevel) then
-                if pt < 1500 then outputChatBox("|Map| #FF9900You need at least 25h playtime!", client, 255, 255, 255, true) return end
+                if pt < 300 then outputChatBox("|Map| #FF9900You need at least 5h playtime!", client, 255, 255, 255, true) return end
 
-                if tonumber(cash) >= tonumber(MapBuyPrice) then
+
+                local plc = #getElementsByType("player")
+                if (plc > 15) then
+                    plc = 15
+                end
+                local nmapBuyPrice = interpolateBetween(0,0,0,10000,0,0, plc/15, "linear")
+                if tonumber(cash) >= tonumber(nmapBuyPrice) then
                     if getMapTypeByName(mapName) == "DD" then -- Überprüfen ob die zu kaufende Map eine DD ist
                         if not isTimer(ddMapTimer) then -- Wenn DD Map ist, und dd timer noch nicht läuft, sette map und starte timer
                             triggerEvent("onNextmapBuy",client,mapName)
@@ -1750,7 +1754,15 @@ end
 
 function onBuyMapReady()
     local account = getPlayerAccount(source)
-    addStat(account,"cash", -5000)
+
+    local plc = #getElementsByType("player")-1
+    if (plc > 15) then
+        plc = 15
+    end
+
+    local nmapBuyPrice = interpolateBetween(0,0,0,10000,0,0, plc/15, "Linear")
+
+    addStat(account,"cash", -nmapBuyPrice)
 end
 addEvent("setCashofBuyMap")
 addEventHandler( "setCashofBuyMap", getRootElement(), onBuyMapReady )

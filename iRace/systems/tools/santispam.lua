@@ -14,16 +14,16 @@ addEventHandler("onPlayerChat", root, function()
     if not isGuestAccount(sourceAccount) then
         if isTimer(antiSpam[source]) then
             cancelEvent()
-            outputChatBox("|AntiSpam| " .. getPlayerName(source) .. " #ff6600was muted for spam (2 min)!", root, 255, 255, 255, true)
+            outputChatBox("|AntiSpam| " .. getPlayerName(source) .. " #ff6600was muted for spam (5 min)!", root, 255, 255, 255, true)
             setPlayerMuted(source, true)
-            setTimer(UnmutePlayer, 120000, 1, source)
+            setTimer(UnmutePlayer, 300000, 1, source)
         else
-            antiSpam[source] = setTimer(function(source) antiSpam[source] = nil end, 400, 1, source)
+            antiSpam[source] = setTimer(function(source) antiSpam[source] = nil end, 300, 1, source)
         end
     end
 end)
 
---[[addEventHandler("onPlayerCommand", root, function(command)
+addEventHandler("onPlayerCommand", root, function(command)
     if isCommandUnlisted(command) then return end
 
     local sourceAccount = getPlayerAccount(source)
@@ -38,7 +38,7 @@ end)
     end
 
     outputServerLog("Command " .. command .. " was used by " .. removeColorCodes(getPlayerName(source)))
-end)]]
+end)
 
 function UnmutePlayer(player)
     if (isElement(player) and isPlayerMuted (player)) then
