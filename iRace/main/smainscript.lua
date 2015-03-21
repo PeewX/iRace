@@ -1709,11 +1709,12 @@ function buyMap(mapName)
                 if (plc > 15) then
                     plc = 15
                 end
-                local nmapBuyPrice = interpolateBetween(0,0,0,10000,0,0, plc/15, "linear")
+                local nmapBuyPrice = math.floor(interpolateBetween(0,0,0,10000,0,0, (plc-1)/15, "Linear"))
+                setElementData(client, "latestMapPrice", nmapBuyPrice)
                 if tonumber(cash) >= tonumber(nmapBuyPrice) then
                     if getMapTypeByName(mapName) == "DD" then -- Überprüfen ob die zu kaufende Map eine DD ist
                         if not isTimer(ddMapTimer) then -- Wenn DD Map ist, und dd timer noch nicht läuft, sette map und starte timer
-                            triggerEvent("onNextmapBuy",client,mapName)
+                            triggerEvent("onNextmapBuy",client, mapName)
                             ddMapTimer = setTimer(DDMapCanBoughtAgain, 600000, 1)
                         else -- Wenn dd timer schon läuft, map nicht kaufen und fehlermeldung
                             local tl = getTimerDetails(ddMapTimer)

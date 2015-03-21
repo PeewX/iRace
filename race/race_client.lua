@@ -160,10 +160,10 @@ function TravelScreen.show( mapName, authorName )
 	mapInfos["author"] = authorName or '- - -'
 	addEventHandler("onClientRender", getRootElement(), TravelScreen.render)
 
-    local _, sh = guiGetScreenSize()
+    local sw, sh = guiGetScreenSize()
     TravelScreen.sprite.RenderData = {
-        ["X"]=x or 0,
-        ["Y"]=y or sh/2-180,
+        ["X"]= (sw/2)-180,
+        ["Y"]= (sh/2)-120,
         ["Width"]= 360 ,
         ["Height"]= 240,
     }
@@ -175,6 +175,7 @@ end
 function TravelScreen.render()
 	if not getElementData(g_Me, "isLogedIn") then return end
 	local screenWidth, screenHeight = guiGetScreenSize()
+    dxDrawRectangle ( 0, 0, screenWidth, screenHeight, tocolor(0,0,0,255), false, false  )
 	dxDrawText("Travelling to", 0, screenHeight/2-200, screenWidth, screenHeight, tocolor(255, 100, 0, 255), 1, OCRAStd_b, "center")
 	dxDrawText(mapInfos["name"], 0, screenHeight/2-160, screenWidth, screenHeight, tocolor(0, 90, 255, 255), 1, OCRAStd, "center")
 	dxDrawText("By: " .. mapInfos["author"], 0, screenHeight/2+160, screenWidth, screenHeight, tocolor(0, 100, 255, 255), 1, OCRAStd, "center")

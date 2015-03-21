@@ -34,7 +34,6 @@ local infoMSGs = {
 "Nachts ist es kdlter als drau?en.",
 "Laut US-Studiean ist das Verstdndniss f?r hfhere Mathematik teilweise angeboren.",
 "Durch die Nieren des Kfrpers flie?en pro Tag 1500 Liter Blut.",
-"Nach einer Auswertung von 32.000.000 Datensdtzen ist das hdufigste Passwort im Internet "123455".",
 "Morgens ist man zwei Zentimeter grf?er als Abends",
 "die US-Armee verwendet Xbox.Controller zur Steuerung von Robotern.",
 "Wenn du in Japan bei der Arbeit schldfst, zeigt das deinem Cheff, dass du hart arbeitest.",
