@@ -159,11 +159,8 @@ function TravelScreen.show( mapName, authorName )
 	mapInfos["name"] = mapName
 	mapInfos["author"] = authorName or '- - -'
 	addEventHandler("onClientRender", getRootElement(), TravelScreen.render)
-	
-	local screenWidth, screenHeight = guiGetScreenSize()
 
     local _, sh = guiGetScreenSize()
-
     TravelScreen.sprite.RenderData = {
         ["X"]=x or 0,
         ["Y"]=y or sh/2-180,
