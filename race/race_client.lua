@@ -161,7 +161,18 @@ function TravelScreen.show( mapName, authorName )
 	addEventHandler("onClientRender", getRootElement(), TravelScreen.render)
 	
 	local screenWidth, screenHeight = guiGetScreenSize()
-	TravelScreen.sprite:startRender(0, screenWidth/2-180, screenHeight/2-120, 360, 240)
+
+    local _, sh = guiGetScreenSize()
+
+    TravelScreen.sprite.RenderData = {
+        ["X"]=x or 0,
+        ["Y"]=y or sh/2-180,
+        ["Width"]= 360 ,
+        ["Height"]= 240,
+    }
+    TravelScreen.sprite.RenderTimes = 0
+    TravelScreen.sprite.RenderStart = getTickCount()
+
 end
 
 function TravelScreen.render()
@@ -170,11 +181,11 @@ function TravelScreen.render()
 	dxDrawText("Travelling to", 0, screenHeight/2-200, screenWidth, screenHeight, tocolor(255, 100, 0, 255), 1, OCRAStd_b, "center")
 	dxDrawText(mapInfos["name"], 0, screenHeight/2-160, screenWidth, screenHeight, tocolor(0, 90, 255, 255), 1, OCRAStd, "center")
 	dxDrawText("By: " .. mapInfos["author"], 0, screenHeight/2+160, screenWidth, screenHeight, tocolor(0, 100, 255, 255), 1, OCRAStd, "center")
+    TravelScreen.sprite:onRender()
 end
 
 function TravelScreen.hide()
 	removeEventHandler("onClientRender", getRootElement(), TravelScreen.render)
-	TravelScreen.sprite:stopRender()
 end
 
 function TravelScreen.getTicksRemaining()
