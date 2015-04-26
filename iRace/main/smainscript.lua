@@ -147,7 +147,52 @@ local minPlayers = 3
 local playerTable = {}
 activePlayers = {}
 mapBuyEnabled = true
-g_muteTimers = {}
+
+mutedPlayers = {}
+
+function loadMuteFile()
+	if (not fileExists("mutes.json")) then
+		local nFile = fileCreate ("mutes.json")
+		if (nFile) then
+			fileWrite(nFile, toJSON({}))
+			fileClose(nFile)
+		end
+	end
+	
+	local mFile = fileOpen("mutes.json")
+	mutedPlayers = fromJSON(fileRead(mFile, fileGetSize(mFile)))
+	fileClose(mFile)
+end
+loadMuteFile()
+
+function saveMuteFile()
+	if (fileExists("mutes.json")) then
+		fileDelete("mutes.json")
+	end
+
+	local nFile = fileCreate ("mutes.json")
+	if (nFile) then
+		fileWrite(nFile, toJSON(mFile))
+		fileClose(nFile)
+	end
+end
+
+function globalMuteTimer()
+	local leTimestamp = getRealTime()["timestamp"]
+	
+	for k,v in ipairs(mutedPlayers) do
+		if (v < leTimestamp) then
+			if (getAccountPlayer(getAccount(k))) then
+				setPlayerMuted(getAccountPlayer(getAccount(k)), false)
+				outputChatBox("#707070|#ffffffAdmin#707070| #AA0000The player " .. getPlayerName(getAccountPlayer(getAccount(k))) .. " #AA0000can now write again.", getRootElement(), 0, 0, 0, true)
+			end
+			mutedPlayers[k] = nil
+		end
+	end
+	
+	saveMuteFile()
+end
+gMuteTimers = setTimer(globalMuteTimer, 60000, 0)
 
 local ghostDuration = 120000
 local countdownUsed = false
@@ -254,13 +299,10 @@ function sendMemoandButtonDatasToClient()
     local level = getAccountData(account, "level")
     local name = getAccountName(account)
 
-    if g_muteTimers[name] then
-        if isTimer(g_muteTimers[name]) then
-            setPlayerMuted(source, true)
-        else
-            setPlayerMuted(source, false)
-        end
+    if mutedPlayers[name] then
+        setPlayerMuted(source, true)
     end
+	
     if level then
         local cashforlevel = tonumber(tonumber(level*1.2)*1200)
         triggerClientEvent("setPanelObjects",source,cashforlevel,level)
