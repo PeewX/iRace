@@ -172,7 +172,7 @@ function saveMuteFile()
 
 	local nFile = fileCreate ("mutes.json")
 	if (nFile) then
-		fileWrite(nFile, toJSON(mFile))
+		fileWrite(nFile, toJSON(mutedPlayers))
 		fileClose(nFile)
 	end
 end
