@@ -180,7 +180,7 @@ end
 function globalMuteTimer()
 	local leTimestamp = getRealTime()["timestamp"]
 	
-	for k,v in ipairs(mutedPlayers) do
+	for k,v in pairs(mutedPlayers) do
 		if (v < leTimestamp) then
 			if (getAccountPlayer(getAccount(k))) then
 				setPlayerMuted(getAccountPlayer(getAccount(k)), false)
@@ -192,7 +192,7 @@ function globalMuteTimer()
 	
 	saveMuteFile()
 end
-gMuteTimers = setTimer(globalMuteTimer, 60000, 0)
+gMuteTimers = setTimer(globalMuteTimer, 30000, 0)
 
 local ghostDuration = 120000
 local countdownUsed = false

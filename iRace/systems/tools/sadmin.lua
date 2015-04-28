@@ -253,8 +253,8 @@ local function mutePlayer(thePlayer, _, targetPlayer, timeLength, timeUnit, ...)
             outputChatBox("#707070|#ffffffAdmin#707070| #AA0000The player " .. getPlayerName(targetPlayer) .. " #AA0000was muted by " .. thePlayerName .. "#AA0000 for " .. timeLength .. " " .. timeUnitText .. "!", getRootElement(), 0, 0, 0, true)
             outputChatBox("#AA0000Reason: #ffc400" .. reason, getRootElement(), 0, 0, 0, true)
 
-			mutedPlayers[getAccountName(getPlayerAccount(targetPlayer))] = (getRealTime()["timestamp"] + math.floor(calcedTimeLength/1000))
-			
+			mutedPlayers[getAccountName(getPlayerAccount(targetPlayer))] = (getRealTime()["timestamp"] + math.floor(calcedTimeLength/1000))		
+
             --setTimer(outputChatBox, calcedTimeLength, 1, "#707070|#ffffffAdmin#707070| #AA0000The player " .. getPlayerName(targetPlayer) .. " can now write again.", getRootElement(), 0, 0, 0, true)
             triggerEvent("outputLog", getRootElement(), "adminlog", "d", "The player " .. getPlayerName(targetPlayer) .. " was muted by " .. thePlayerName .. " for " .. timeLength .. " " .. timeUnitText .. " | Reason: " .. reason)
         else
@@ -263,6 +263,7 @@ local function mutePlayer(thePlayer, _, targetPlayer, timeLength, timeUnit, ...)
 			mutedPlayers[getAccountName(getPlayerAccount(targetPlayer))] = nil
             triggerEvent("outputLog", getRootElement(), "adminlog", "d", "The player " .. getPlayerName(targetPlayer) .. " was unmuted by " .. thePlayerName)
         end
+		saveMuteFile()
     else
         outputChatBox(g_noPermissions, thePlayer, 0, 0, 0, true)
     end
@@ -271,9 +272,11 @@ addCommandHandler("mute", mutePlayer)
 
 local function getMuteTime(thePlayer)
     if isPlayerMuted(thePlayer) then
-        local theTime = mutedPlayers[getAccountName(getPlayerAccount(thePlayer))]
-		if (theTime) then
+        local theTime = (mutedPlayers[getAccountName(getPlayerAccount(thePlayer))] - getRealTime()["timestamp"])
+		if (theTime and theTime > 0) then
 			outputChatBox("#707070|#ffffffAdmin#707070| #AA0000You can write again in " .. math.floor((theTime/60)+0.5) .. " minutes!", thePlayer, 0, 0, 0, true)
+		else
+			outputChatBox("#707070|#ffffffAdmin#707070| #AA0000You should be unmuted in a couple of seconds!", thePlayer, 0, 0, 0, true)
 		end
 	else
         outputChatBox("#707070|#ffffffAdmin#707070| #AA0000You are not muted.", thePlayer, 0, 0, 0, true)
