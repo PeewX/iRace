@@ -147,7 +147,52 @@ local minPlayers = 3
 local playerTable = {}
 activePlayers = {}
 mapBuyEnabled = true
-g_muteTimers = {}
+
+mutedPlayers = {}
+
+function loadMuteFile()
+	if (not fileExists("mutes.json")) then
+		local nFile = fileCreate ("mutes.json")
+		if (nFile) then
+			fileWrite(nFile, toJSON({}))
+			fileClose(nFile)
+		end
+	end
+	
+	local mFile = fileOpen("mutes.json")
+	mutedPlayers = fromJSON(fileRead(mFile, fileGetSize(mFile)))
+	fileClose(mFile)
+end
+loadMuteFile()
+
+function saveMuteFile()
+	if (fileExists("mutes.json")) then
+		fileDelete("mutes.json")
+	end
+
+	local nFile = fileCreate ("mutes.json")
+	if (nFile) then
+		fileWrite(nFile, toJSON(mutedPlayers))
+		fileClose(nFile)
+	end
+end
+
+function globalMuteTimer()
+	local leTimestamp = getRealTime()["timestamp"]
+	
+	for k,v in pairs(mutedPlayers) do
+		if (v < leTimestamp) then
+			if (getAccountPlayer(getAccount(k))) then
+				setPlayerMuted(getAccountPlayer(getAccount(k)), false)
+				outputChatBox("#707070|#ffffffAdmin#707070| #AA0000The player " .. getPlayerName(getAccountPlayer(getAccount(k))) .. " #AA0000can now write again.", getRootElement(), 0, 0, 0, true)
+			end
+			mutedPlayers[k] = nil
+		end
+	end
+	
+	saveMuteFile()
+end
+gMuteTimers = setTimer(globalMuteTimer, 30000, 0)
 
 local ghostDuration = 120000
 local countdownUsed = false
@@ -254,24 +299,17 @@ function sendMemoandButtonDatasToClient()
     local level = getAccountData(account, "level")
     local name = getAccountName(account)
 
-    if g_muteTimers[name] then
-        if isTimer(g_muteTimers[name]) then
-            setPlayerMuted(source, true)
-        else
-            setPlayerMuted(source, false)
-        end
+    if mutedPlayers[name] then
+        setPlayerMuted(source, true)
     end
+	
     if level then
         local cashforlevel = tonumber(tonumber(level*1.2)*1200)
         triggerClientEvent("setPanelObjects",source,cashforlevel,level)
     end
-    if getAccountData(account, "serialchecked") then
 
-    else
-        setAccountData(account, "serial", getPlayerSerial(source))
-        setAccountData(account, "ip", getPlayerIP(source))
-        setAccountData(account, "serialchecked", true)
-    end
+    setAccountData(account, "serial", getPlayerSerial(source))
+    setAccountData(account, "ip", getPlayerIP(source))
 end
 addEventHandler( "onPlayerLogin", root, sendMemoandButtonDatasToClient )
 
@@ -1005,6 +1043,8 @@ addCommandHandler("bet", function (playersource,command,target,amount)
     end
 end)
 
+
+
 --Unbet command
 addCommandHandler ("unbet",
     function (playersource,command)
@@ -1702,12 +1742,19 @@ function buyMap(mapName)
     if not (mapName == "") then
         if not (isGuestAccount(getPlayerAccount(client))) then
             if tonumber(level) >= tonumber(MapBuylevel) then
-                if pt < 1500 then outputChatBox("|Map| #FF9900You need at least 25h playtime!", client, 255, 255, 255, true) return end
+                if pt < 300 then outputChatBox("|Map| #FF9900You need at least 5h playtime!", client, 255, 255, 255, true) return end
 
-                if tonumber(cash) >= tonumber(MapBuyPrice) then
+
+                local plc = #getElementsByType("player")
+                if (plc > 15) then
+                    plc = 15
+                end
+                local nmapBuyPrice = math.floor(interpolateBetween(0,0,0,10000,0,0, (plc-1)/15, "Linear"))
+                setElementData(client, "latestMapPrice", nmapBuyPrice)
+                if tonumber(cash) >= tonumber(nmapBuyPrice) then
                     if getMapTypeByName(mapName) == "DD" then -- Überprüfen ob die zu kaufende Map eine DD ist
                         if not isTimer(ddMapTimer) then -- Wenn DD Map ist, und dd timer noch nicht läuft, sette map und starte timer
-                            triggerEvent("onNextmapBuy",client,mapName)
+                            triggerEvent("onNextmapBuy",client, mapName)
                             ddMapTimer = setTimer(DDMapCanBoughtAgain, 600000, 1)
                         else -- Wenn dd timer schon läuft, map nicht kaufen und fehlermeldung
                             local tl = getTimerDetails(ddMapTimer)
@@ -1748,7 +1795,15 @@ end
 
 function onBuyMapReady()
     local account = getPlayerAccount(source)
-    addStat(account,"cash", -5000)
+
+    local plc = #getElementsByType("player")-1
+    if (plc > 15) then
+        plc = 15
+    end
+
+    local nmapBuyPrice = interpolateBetween(0,0,0,10000,0,0, plc/15, "Linear")
+
+    addStat(account,"cash", -nmapBuyPrice)
 end
 addEvent("setCashofBuyMap")
 addEventHandler( "setCashofBuyMap", getRootElement(), onBuyMapReady )

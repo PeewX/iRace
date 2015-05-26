@@ -253,20 +253,17 @@ local function mutePlayer(thePlayer, _, targetPlayer, timeLength, timeUnit, ...)
             outputChatBox("#707070|#ffffffAdmin#707070| #AA0000The player " .. getPlayerName(targetPlayer) .. " #AA0000was muted by " .. thePlayerName .. "#AA0000 for " .. timeLength .. " " .. timeUnitText .. "!", getRootElement(), 0, 0, 0, true)
             outputChatBox("#AA0000Reason: #ffc400" .. reason, getRootElement(), 0, 0, 0, true)
 
-            g_muteTimers[getAccountName(getPlayerAccount(targetPlayer))] = setTimer(function(targetPlayer)
-                g_muteTimers[getAccountName(getPlayerAccount(targetPlayer))] = false
-                setPlayerMuted(targetPlayer, false)
-                outputChatBox("#707070|#ffffffAdmin#707070| #AA0000The player " .. getPlayerName(targetPlayer) .. " #AA0000can now write again.", getRootElement(), 0, 0, 0, true)
-            end, calcedTimeLength, 1, targetPlayer)--setTimer(setPlayerMuted, calcedTimeLength, 1, targetPlayer, false)
+			mutedPlayers[getAccountName(getPlayerAccount(targetPlayer))] = (getRealTime()["timestamp"] + math.floor(calcedTimeLength/1000))		
+
             --setTimer(outputChatBox, calcedTimeLength, 1, "#707070|#ffffffAdmin#707070| #AA0000The player " .. getPlayerName(targetPlayer) .. " can now write again.", getRootElement(), 0, 0, 0, true)
             triggerEvent("outputLog", getRootElement(), "adminlog", "d", "The player " .. getPlayerName(targetPlayer) .. " was muted by " .. thePlayerName .. " for " .. timeLength .. " " .. timeUnitText .. " | Reason: " .. reason)
         else
             setPlayerMuted(targetPlayer, false)
             outputChatBox("#707070|#ffffffAdmin#707070| #AA0000The player " .. getPlayerName(targetPlayer) .. " #AA0000 was unmuted by " .. thePlayerName .. "#AA0000!", getRootElement(), 0, 0, 0, true)
-            if isTimer(g_muteTimers[getAccountName(getPlayerAccount(targetPlayer))]) then killTimer(g_muteTimers[getAccountName(getPlayerAccount(targetPlayer))]) end
-            g_muteTimers[getAccountName(getPlayerAccount(targetPlayer))] = false
+			mutedPlayers[getAccountName(getPlayerAccount(targetPlayer))] = nil
             triggerEvent("outputLog", getRootElement(), "adminlog", "d", "The player " .. getPlayerName(targetPlayer) .. " was unmuted by " .. thePlayerName)
         end
+		saveMuteFile()
     else
         outputChatBox(g_noPermissions, thePlayer, 0, 0, 0, true)
     end
@@ -275,12 +272,13 @@ addCommandHandler("mute", mutePlayer)
 
 local function getMuteTime(thePlayer)
     if isPlayerMuted(thePlayer) then
-        local theTimer = g_muteTimers[getAccountName(getPlayerAccount(thePlayer))]
-        if isTimer(theTimer) then
-            local r, _, _ = getTimerDetails(theTimer)
-            outputChatBox("#707070|#ffffffAdmin#707070| #AA0000You can write again in " .. math.floor((r/1000/60)+0.5) .. " minutes!", thePlayer, 0, 0, 0, true)
-        end
-    else
+        local theTime = (mutedPlayers[getAccountName(getPlayerAccount(thePlayer))] - getRealTime()["timestamp"])
+		if (theTime and theTime > 0) then
+			outputChatBox("#707070|#ffffffAdmin#707070| #AA0000You can write again in " .. math.floor((theTime/60)+0.5) .. " minutes!", thePlayer, 0, 0, 0, true)
+		else
+			outputChatBox("#707070|#ffffffAdmin#707070| #AA0000You should be unmuted in a couple of seconds!", thePlayer, 0, 0, 0, true)
+		end
+	else
         outputChatBox("#707070|#ffffffAdmin#707070| #AA0000You are not muted.", thePlayer, 0, 0, 0, true)
     end
 end

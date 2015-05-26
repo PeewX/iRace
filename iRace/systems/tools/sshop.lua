@@ -4,9 +4,10 @@
 -- Date: 31.07.2014 - Time: 19:45
 -- iGaming-mta.de // iRace-mta.de // iSurvival.de // mtasa.de
 --
-local fixPrice = 3000
-local flipPrice = 2500
-local BoomBoomSongPrice = 5000
+
+local fixPrice = 15000
+local flipPrice = 10000
+local BoomBoomSongPrice = 60000
 local ghostPrice = 5000
 local pulsatingHeadlightsPrice = 30000
 local wheelsPrice = 30000

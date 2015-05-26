@@ -713,7 +713,7 @@ local function nextmapbuyperpanel(...)
 		g_ForcedNextMap = map
         nextmapbought = true
 
-        triggerClientEvent("addClientMessage", g_Root, ("|Map| %s #ff9900was bought by #ffffff%s"):format(getMapName(g_ForcedNextMap), getPlayerName(source)), 255, 255, 255, "map")
+        triggerClientEvent("addClientMessage", g_Root, ("|Map| %s #ff9900was bought by #ffffff%s #00FF00(%s $)"):format(getMapName(g_ForcedNextMap), getPlayerName(source), tostring(getElementData(source, "latestMapPrice"))), 255, 255, 255, "map")
 		setMapInCantBuyMap(g_ForcedNextMap)
 end
 addEvent("onNextmapBuy")

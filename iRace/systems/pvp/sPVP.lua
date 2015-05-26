@@ -173,11 +173,13 @@ function pvp.updateUserpanel(ePlayer)
 end
 
 addEventHandler("onServerGotMapType", root,
-    function()
-        pvp.deadPVPPlayers = {}
-        for _, ePlayer in ipairs(getElementsByType"player") do
-            if pvp.players[ePlayer] and pvp.players[ePlayer].isInPvP then
-                addEventHandler("onPlayerWasted", ePlayer, pvp.onPlayerWasted)
+    function(type)
+        if (type == "DM") then
+            pvp.deadPVPPlayers = {}
+            for _, ePlayer in ipairs(getElementsByType"player") do
+                if pvp.players[ePlayer] and pvp.players[ePlayer].isInPvP then
+                    addEventHandler("onPlayerWasted", ePlayer, pvp.onPlayerWasted)
+                end
             end
         end
     end

@@ -32,7 +32,7 @@ local function updateMapType(mapinfo)
     end]]
 
     triggerClientEvent("onServerSendMapType", root, map.current)
-    triggerEvent("onServerGotMapType", resroot)
+    triggerEvent("onServerGotMapType", resroot, map.current)
 end
 addEvent("onMapStarting")
 addEventHandler("onMapStarting",getRootElement(),updateMapType)

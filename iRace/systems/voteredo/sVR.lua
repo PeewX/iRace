@@ -77,7 +77,7 @@ addEventHandler("onRaceStateChanging", root,
             vrt.players = {}
             vrt.mapRedo = false
             if #activePlayers >= vrt.minPlayers then
-                vrt.needPlayerCount =  math.ceil(#activePlayers*0.6)
+                vrt.needPlayerCount =  math.floor(#activePlayers*0.5)+1
                 vrt.mapRunning = true
             end
         else

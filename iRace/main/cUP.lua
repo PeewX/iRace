@@ -732,7 +732,7 @@ addEventHandler("onDownloadFinished",resroot,
         mapgridlist = guiCreateGridList(0.6345,0.1776,0.2311,0.3516,true,GUIEditor_Window[7])
         guiGridListSetSortingEnabled(mapgridlist,false)
         GUIEditor_GridList[155] = guiGridListAddColumn (mapgridlist,"Map Name",1.9 )
-        mapbuybutton = guiCreateButton(0.6345,0.6700,0.2311,0.0592,"Buy Map (5000$)",true,GUIEditor_Window[7])
+        mapbuybutton = guiCreateButton(0.6345,0.6700,0.2311,0.0592,"Buy Map (up to 10.000$)",true,GUIEditor_Window[7])
         guiSetFont(mapbuybutton,ltfontspecial)
         mapsearchlist = guiCreateEdit(0.6345,0.5776,0.2311,0.04,"",true,GUIEditor_Window[7])
 

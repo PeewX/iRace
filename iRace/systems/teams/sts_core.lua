@@ -334,7 +334,9 @@ addEventHandler("onClientBuyTeamChange", resroot, function(tn, r,g,b)
 		local cr, cg, cb = getColorFromString(pTeam.datas.color)
         local chgPrice = (math.abs(#tn-#pTeam.datas.name) + math.abs(cr-r) + math.abs(cg-g) + math.abs(cb-b))*10000
 
-        if chgPrice < pTeam.datas.cash then
+        tn = tn:gsub( '#%x%x%x%x%x%x', '' )
+
+        if chgPrice <= pTeam.datas.cash then
             tst.outputTeamPlayers(pTeam, "Teamname or color changed!")
             pTeam.datas.cash = pTeam.datas.cash - chgPrice
             pTeam.datas.name = tn
@@ -423,7 +425,7 @@ addEventHandler("onClientUninviteMember", resroot, function(mName)
             if tpSource then triggerClientEvent(tpSource, "onClientDestroyTeamGUI", tpSource) tst.outputTeamPlayer(tpSource, "You was uninvited by " .. removeColorCodes(getPlayerName(client))) setPlayerTeam(tpSource, getTeamFromName("User")) end
             if tst.removePlayerFromTeam(mName, pTeam) then
                 tst.outputTeamPlayers(pTeam, ("Player '%s' was uninvited by '%s'"):format(mName, removeColorCodes(getPlayerName(client))))
-                tst.addLogMessage(pTeam, client, "uninvite", "", getPlayerName(tpSource) or pAN)
+                tst.addLogMessage(pTeam, client, "uninvite", "", getPlayerName(tpSource) or mName)
             end
         end
     end

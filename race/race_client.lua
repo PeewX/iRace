@@ -159,27 +159,27 @@ function TravelScreen.show( mapName, authorName )
 	mapInfos["name"] = mapName
 	mapInfos["author"] = authorName or '- - -'
 	addEventHandler("onClientRender", getRootElement(), TravelScreen.render)
-	
-	local screenWidth, screenHeight = guiGetScreenSize()
-	
-	TravelScreen.sprite.RenderTimes = 0
-	TravelScreen.sprite.RenderData = {
-		["X"]=screenWidth/2-180,
-		["Y"]=screenHeight/2-120,
-		["Width"]= 360,
-		["Height"]= 240,
-	}
-	
-	TravelScreen.sprite.RenderStart = getTickCount()
+
+    local sw, sh = guiGetScreenSize()
+    TravelScreen.sprite.RenderData = {
+        ["X"]= (sw/2)-180,
+        ["Y"]= (sh/2)-120,
+        ["Width"]= 360 ,
+        ["Height"]= 240,
+    }
+    TravelScreen.sprite.RenderTimes = 0
+    TravelScreen.sprite.RenderStart = getTickCount()
 end
 
 function TravelScreen.render()
 	if not getElementData(g_Me, "isLogedIn") then return end
 	local screenWidth, screenHeight = guiGetScreenSize()
-	TravelScreen.sprite:onRender()
+
+    dxDrawRectangle ( 0, 0, screenWidth, screenHeight, tocolor(0,0,0,255), false, false  )
 	dxDrawText("Travelling to", 0, screenHeight/2-200, screenWidth, screenHeight, tocolor(255, 100, 0, 255), 1, OCRAStd_b, "center")
 	dxDrawText(mapInfos["name"], 0, screenHeight/2-160, screenWidth, screenHeight, tocolor(0, 90, 255, 255), 1, OCRAStd, "center")
 	dxDrawText("By: " .. mapInfos["author"], 0, screenHeight/2+160, screenWidth, screenHeight, tocolor(0, 100, 255, 255), 1, OCRAStd, "center")
+    TravelScreen.sprite:onRender()
 end
 
 function TravelScreen.hide()
