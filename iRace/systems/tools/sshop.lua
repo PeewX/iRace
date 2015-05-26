@@ -4,6 +4,7 @@
 -- Date: 31.07.2014 - Time: 19:45
 -- iGaming-mta.de // iRace-mta.de // iSurvival.de // mtasa.de
 --
+
 local fixPrice = 15000
 local flipPrice = 10000
 local BoomBoomSongPrice = 60000
@@ -43,14 +44,10 @@ function buyShopItem(thePlayer, _, theObject)
         if not (tonumber(level) >= minLevelFix) then outputChatBox("#FFFFFF|Shop| #ff9900You need level " .. minLevelFix .. " to fix your vehicle!", thePlayer, 0, 0, 0, true) return end
         if not (tonumber(thePlayerCash) >= fixPrice) then outputChatBox("#FFFFFF|Shop| #ff9900You don't have enough money to fix your vehicle!", thePlayer, 0, 0, 0, true) return end
         if isPedInVehicle(thePlayer) then
-			if (getElementModel(getPedOccupiedVehicle(thePlayer)) ~= 425) then
-				fixVehicle(getPedOccupiedVehicle(thePlayer))
-				outputChatBox("#FFFFFF|Shop| #ff9900Your vehicle was successfully fixed", thePlayer, 0, 0, 0, true)
-				outputServerLog("[Shop| " .. removeColorCodes(getPlayerName(thePlayer)) .. " bought vehicle: fix")
-				addStat(theAccount, "cash", -fixPrice)
-			else
-				outputChatBox("#FFFFFF|Shop| #ff9900Hunters cannot be fixed!", thePlayer, 0, 0, 0, true)
-			end
+            fixVehicle(getPedOccupiedVehicle(thePlayer))
+            outputChatBox("#FFFFFF|Shop| #ff9900Your vehicle was successfully fixed", thePlayer, 0, 0, 0, true)
+            outputServerLog("[Shop| " .. removeColorCodes(getPlayerName(thePlayer)) .. " bought vehicle: fix")
+            addStat(theAccount, "cash", -fixPrice)
         else
             outputChatBox("#FFFFFF|Shop| #ff9900You are not in a vehicle!", thePlayer, 0, 0, 0, true)
         end
@@ -151,8 +148,7 @@ function buyPerPanel(theObject)
             outputChatBox("#FFFFFF|Shop| #ff9900You allready bought 'joinmessage'!", source, 0, 0, 0, true)
         end
     elseif theObject == "Ghost" then
-        --[[
-		if not isMapType("DD") then outputChatBox("#FFFFFF|Shop| #ff9900You can only buy ghost mode on DD maps!", source, 0, 0, 0, true) return end
+        if not isMapType("DD") then outputChatBox("#FFFFFF|Shop| #ff9900You can only buy ghost mode on DD maps!", source, 0, 0, 0, true) return end
         if not (tonumber(level) >= minLevelGhostmode) then outputChatBox("#FFFFFF|Shop| #ff9900You need level " .. minLevelGhostmode .. " to buy ghost-mode!", source, 0, 0, 0, true) return end
         if not (tonumber(thePlayerCash) >= ghostPrice) then outputChatBox("#FFFFFF|Shop| #ff9900You don't have enough money to buy ghost-mode!", source, 0, 0, 0, true) return end
         if not (call(getResourceFromName("race"), "getTimePassed") > 0) then outputChatBox("#FFFFFF|Shop| #ff9900You can only buy ghost mode, until the map is started!", source, 0, 0, 0, true) return end
@@ -160,22 +156,17 @@ function buyPerPanel(theObject)
         if getElementModel(getPedOccupiedVehicle(source)) == 425 then outputChatBox("#FFFFFF|Shop| #ff9900You can't buy ghost mode if your vehicle is a hunter!", source, 0, 0, 0, true) return end
 
         addStat(theAccount, "cash", -ghostPrice)
-        startBuyGhost(source)]]
-		outputChatBox("#FFFFFF|Shop| #ff9900Ghost has been disabled for a while!", source, 0, 0, 0, true)
+        startBuyGhost(source)
     elseif theObject == "Repair" then
         if not isMapType("DM") then outputChatBox("#FFFFFF|Shop| #ff9900You can only buy vehicle fix on DM maps!", source, 0, 0, 0, true) return end
 
         if not (tonumber(level) >= minLevelFix) then outputChatBox("#FFFFFF|Shop| #ff9900You need level " .. minLevelFix .. " to fix your vehicle!", source, 0, 0, 0, true) return end
         if not (tonumber(thePlayerCash) >= fixPrice) then outputChatBox("#FFFFFF|Shop| #ff9900You don't have enough money to fix your vehicle!", source, 0, 0, 0, true) return end
         if isPedInVehicle(source) then
-			if (getElementModel(getPedOccupiedVehicle(source)) ~= 425) then
-				fixVehicle(getPedOccupiedVehicle(source))
-				outputChatBox("#FFFFFF|Shop| #ff9900Your vehicle was successfully fixed", client, 0, 0, 0, true)
-				outputServerLog("[Shop| " .. removeColorCodes(getPlayerName(source)) .. " bought vehicle: fix")
-				addStat(theAccount, "cash", -fixPrice)
-			else
-				outputChatBox("#FFFFFF|Shop| #ff9900Hunters cannot be fixed!", client, 0, 0, 0, true)
-			end
+            fixVehicle(getPedOccupiedVehicle(source))
+            outputChatBox("#FFFFFF|Shop| #ff9900Your vehicle was successfully fixed", client, 0, 0, 0, true)
+            outputServerLog("[Shop| " .. removeColorCodes(getPlayerName(source)) .. " bought vehicle: fix")
+            addStat(theAccount, "cash", -fixPrice)
         else
             outputChatBox("#FFFFFF|Shop| #ff9900You are not in a vehicle!", client, 0, 0, 0, true)
         end
@@ -196,7 +187,7 @@ function buyPerPanel(theObject)
     elseif theObject == "Special Music" then
         --if not isMapType("DM") then outputChatBox("|Shop| #ff9900You can only play a special music on non DM maps!", client, 255, 255, 255, true) return end
         if not (tonumber(thePlayerCash) >= BoomBoomSongPrice) then outputChatBox("|Shop| #ff9900You don't have enough money!!", client, 255, 255, 255, true) return end
-        if isMusicPlaying then outputChatBox("|Shop| #ff9900The song can be bought only every 60 minutes!", client, 255, 255, 255, true) return end
+        if isMusicPlaying then outputChatBox("|Shop| #ff9900The song can be bought only every 5 minutes!", client, 255, 255, 255, true) return end
         isMusicPlaying = true
         local rndSongURL = getRandomSongURL()
         addStat(theAccount, "cash", -BoomBoomSongPrice)
@@ -204,7 +195,7 @@ function buyPerPanel(theObject)
         triggerClientEvent("addClientMessage", root, ("|Music| %s #ff9900started a special music :>"):format(getPlayerName(client)) , 255, 255, 255)
         setTimer(function()
             isMusicPlaying = false
-        end, 3600000, 1)
+        end, 300000, 1)
     end
 end
 addEvent("getSelectedBuyPerPanel", true)

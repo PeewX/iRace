@@ -1,0 +1,74 @@
+html {
+	width:100%;
+	height:100%;
+}
+
+body {
+	background-color: rgba(255,255,255,0);
+	width:420px;
+	height:365px;
+	margin:0 auto;
+}
+
+#container {
+	background-color: rgba(255,255,255,0);
+	position: relative;
+	perspective: 800px;
+}
+
+#card {
+	background-color: rgba(255,255,255,0);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	transform-style: preserve-3d;
+	transition: transform 1s 2s linear;
+}
+
+#card { transform-origin: right center; }
+
+#card  figure {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+#card .front {
+}
+#card .back {
+  transform: rotateY( 180deg );
+}
+
+#card.flipped {
+  
+  transform: translateX( -100% ) rotateY( -180deg );
+}
+
+.form-control-wrapper .material-input:before{
+	background-color:#FF5000;
+}
+
+.form-group.irace .material-input:before,
+.form-group.irace input.form-control:focus ~ .material-input:after,
+.form-group.irace input.form-control.focus ~ .material-input:after {
+  background: #ff5000;
+}
+.form-group.irace .control-label,
+.form-group.irace input.form-control:not(.empty) ~ .floating-label {
+  color: #ff5000;
+}
+
+a {
+	color: #ff5000;
+}
+
+a:hover {
+	color: #ff5000;
+	text-shadow:1px 1px 5px #000000;
+}
+
+.errortext {
+	color: #ff0000;
+}

@@ -1,4 +1,4 @@
---iR|HorrorClown (PewX) - iRace-mta.de--
+--[[iR|HorrorClown (PewX) - iRace-mta.de--
 local today = {time = "", date = ""}
 local w = {sX = math.random(0, x), sY = math.random(0, y), w = 0, h = 0, wA = 0, errorMsg = "", sub = {sX = x/2, sY = y/2-(50/1080*y), alpha = 0, tA = 255, selected = 1, sWH = 170/1080*y, items = {"Login", "Register", "Info"}}}
 local leftClick = false
@@ -398,4 +398,118 @@ addEventHandler("onClientSuccess", me, function()
     removeEventHandler("onClientKey", root, boundedKeys)
     if isTimer(addParticles) then killTimer(addParticles) end
     setTimer(function() removeEventHandler("onClientPreRender", root, renderBackground) end, 20000,  1)
-end)
+end) ]]
+
+-- Init Webstuff and trigger Server
+
+local checkDomainsTimer
+
+function startLoginProcedure()
+	showChat(false)
+	killTimer(checkDomainsTimer)
+	checkDomainsTimer = nil
+	WebUIManager:new()
+	triggerServerEvent("onClientFinishedLoading", getRootElement())
+end
+
+addEventHandler("onClientResourceStart", resourceRoot,
+	function()
+		showChat(true)
+		showPlayerHudComponent("all", false)
+		
+		-- Request Domains and stuff!
+		requestBrowserDomains({
+			"Please.press.remember.decision",
+			"rewrite.rocks", 
+			"www.pewx.de",
+			
+			--9gag
+			"m.9gag.com",
+			"t.9gag.com",
+			"assets-comment-lol.9cache.com",
+			"assets-9gag-ftw.9cache.com",
+			"img-9gag-ftw.9cache.com",
+		})
+		
+		showCursor(true)
+		
+		checkDomainsTimer = setTimer(
+		function()
+			if  not(isBrowserDomainBlocked ( "Please.press.remember.decision" )) then	
+				startLoginProcedure()
+			else
+				outputChatBox("Please accept our requested domains! Otherwise you will not be able to play!", 255,0,0)
+			end
+		end, 500, 0)
+		
+	end
+)
+
+addEvent("onServerRequestLoginRegister", true)
+addEventHandler("onServerRequestLoginRegister", getRootElement(),
+	function(accountName)
+
+		local screenWidth, screenHeight = guiGetScreenSize()
+		
+		local bgs = {
+			"http://rewrite.rocks/ir-gui/backgrounds/girls.html", --Nirvana - Girls
+			"http://rewrite.rocks/ir-gui/backgrounds/particles1.html", --Particles animation
+			"http://rewrite.rocks/ir-gui/backgrounds/particles2.html", --Particles audio visual 1
+			--"http://rewrite.rocks/ir-gui/backgrounds/particles3.html", --Particles audio visual 2
+			--"http://rewrite.rocks/ir-gui/backgrounds/equalizer1.html", --Ring equalizer
+			"http://rewrite.rocks/ir-gui/backgrounds/equalizer2.html", --particle equalizer
+			"http://rewrite.rocks/ir-gui/backgrounds/fastnfurious.html", --fast n furious dubstep montage		
+		}
+
+		local url = bgs[math.random(1, #bgs)]
+		
+		outputChatBox(url)
+
+		local bg = WebWindow:new(Vector2(0, 0), Vector2(screenWidth, screenHeight), url, false)
+		bg.m_Background = true
+
+		
+		local width, height = 430, 500
+		
+		local window = false
+		
+		if (accountName) then
+			window = WebWindow:new(Vector2(screenWidth/2-width/2, screenHeight/2-height/2), Vector2(width, height), "files/html/login.html", true)
+		else
+			window = WebWindow:new(Vector2(screenWidth/2-width/2, screenHeight/2-height/2), Vector2(width, height), "files/html/register.html", true)
+		end
+
+		
+		addEvent("onCEFLoginRegister")
+			addEventHandler("onCEFLoginRegister", window:getUnderlyingBrowser(),
+				function(username, password, passwordrepeat)
+					if (passwordrepeat) then
+						clientExecute(2, {username, password, passwordrepeat})
+					else
+						clientExecute(1, {username, password})
+					end
+				end
+		)
+		
+		addEvent("onClientSuccess", true)
+		addEventHandler("onClientSuccess", me, 
+			function()
+				showCursor(false)
+				showChat(true)
+				window:destroy()
+				bg:destroy()
+			end
+		)
+		
+		local function showErrorMessage(msg)
+			if msg ~= nil then
+				window:getUnderlyingBrowser():executeJavascript("$('.errortext').text('"..msg.."');")
+			end
+		end
+		addEvent("showErrorMessage", true)
+		addEventHandler("showErrorMessage", me , showErrorMessage)
+		
+		showCursor(true)
+	end
+)
+

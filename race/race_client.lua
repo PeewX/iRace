@@ -169,12 +169,12 @@ function TravelScreen.show( mapName, authorName )
     }
     TravelScreen.sprite.RenderTimes = 0
     TravelScreen.sprite.RenderStart = getTickCount()
-
 end
 
 function TravelScreen.render()
 	if not getElementData(g_Me, "isLogedIn") then return end
 	local screenWidth, screenHeight = guiGetScreenSize()
+
     dxDrawRectangle ( 0, 0, screenWidth, screenHeight, tocolor(0,0,0,255), false, false  )
 	dxDrawText("Travelling to", 0, screenHeight/2-200, screenWidth, screenHeight, tocolor(255, 100, 0, 255), 1, OCRAStd_b, "center")
 	dxDrawText(mapInfos["name"], 0, screenHeight/2-160, screenWidth, screenHeight, tocolor(0, 90, 255, 255), 1, OCRAStd, "center")
