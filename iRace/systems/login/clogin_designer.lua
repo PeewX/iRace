@@ -445,6 +445,8 @@ addEventHandler("onClientResourceStart", resourceRoot,
 	end
 )
 
+musicMuteTimer = false
+
 addEvent("onServerRequestLoginRegister", true)
 addEventHandler("onServerRequestLoginRegister", getRootElement(),
 	function(accountName)
@@ -462,8 +464,6 @@ addEventHandler("onServerRequestLoginRegister", getRootElement(),
 		}
 
 		local url = bgs[math.random(1, #bgs)]
-		
-		outputChatBox(url)
 
 		local bg = WebWindow:new(Vector2(0, 0), Vector2(screenWidth, screenHeight), url, false)
 		bg.m_Background = true
@@ -494,6 +494,7 @@ addEventHandler("onServerRequestLoginRegister", getRootElement(),
 		addEvent("onClientSuccess", true)
 		addEventHandler("onClientSuccess", me, 
 			function()
+				resumeAllSounds()
 				showCursor(false)
 				showChat(true)
 				window:destroy()
@@ -510,6 +511,28 @@ addEventHandler("onServerRequestLoginRegister", getRootElement(),
 		addEventHandler("showErrorMessage", me , showErrorMessage)
 		
 		showCursor(true)
+		
+		musicMuteTimer = setTimer(stopAllSounds, 1000, 0)
 	end
 )
 
+function stopAllSounds() 
+	for k,v in ipairs(getElementsByType("sound")) do
+		if (getSoundVolume(v) > 0) then
+			setElementData(v, "prevvol", getSoundVolume(v))
+		end
+		setSoundVolume(v,0)
+	end
+end
+
+function resumeAllSounds() 
+	if (musicMuteTimer) and (isTimer(musicMuteTimer)) then
+		killTimer(musicMuteTimer)
+		musicMuteTimer = false
+		for k,v in ipairs(getElementsByType("sound")) do
+			if (getElementData(v, "prevvol") > 0) then
+				setSoundVolume(v,getElementData(v, "prevvol"))
+			end
+		end
+	end
+end

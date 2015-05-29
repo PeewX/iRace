@@ -7,7 +7,7 @@
 local pvp = {}
 pvp.players = {}
 pvp.matches = {}
-pvp.enabled = true
+pvp.enabled = false
 pvp.debug = true
 pvp.prefix = "|PvP| #ff6600"
 pvp.maxBet = 100000
@@ -15,6 +15,9 @@ pvp.maxWins = 20
 
 addCommandHandler("togglepvp",
     function(ePlayer)
+		--DISABLED
+		outputChatBox("#00ccffThis function is temporary disabled!", ePlayer, true)
+		return true
         if hasUserPermissionTo(ePlayer, "togglePvpState") then
             pvp.enabled = not pvp.enabled
             pvp.message(("PvP was %s"):format(pvp.enabled and "enabled" or "disabled"), root)
