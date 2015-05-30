@@ -282,7 +282,7 @@ function buyNextLevel()
                 outputChatBox(("|Userpanel| #FF9900You need #ffffff%s#ff9900$ more to buy next level!"):format(cashforlevel-cash), client, 255, 255, 255, true)
             end
         else
-            setAccountData(account,	"level", 0)
+            setAccountData(account,	"level", 5)
         end
     end
 end
@@ -1449,7 +1449,11 @@ addCommandHandler("bets",
 
 
 addCommandHandler("donate", function (playersource, cmd, object, amount, ...)
-    local target = object
+	--DISABLED
+	outputChatBox("#FFFFFF|Donate| #00ccffThis function is temporary disabled!", playersource, unpack(scriptcol[2]))
+	return true
+    --[[
+	local target = object
     local account = getPlayerAccount(playersource)
     local reason = table.concat({...}, " ")
     if not (isGuestAccount(account)) then
@@ -1491,7 +1495,7 @@ addCommandHandler("donate", function (playersource, cmd, object, amount, ...)
         end
     else
         outputChatBox(registerError, playersource, unpack(scriptcol[2]))
-    end
+    end]]
 end)
 
 
@@ -1742,14 +1746,14 @@ function buyMap(mapName)
     if not (mapName == "") then
         if not (isGuestAccount(getPlayerAccount(client))) then
             if tonumber(level) >= tonumber(MapBuylevel) then
-                if pt < 300 then outputChatBox("|Map| #FF9900You need at least 5h playtime!", client, 255, 255, 255, true) return end
-
+                --DISABLED
+				--if pt < 300 then outputChatBox("|Map| #FF9900You need at least 5h playtime!", client, 255, 255, 255, true) return end
 
                 local plc = #getElementsByType("player")
-                if (plc > 15) then
-                    plc = 15
+                if (plc > 26) then
+                    plc = 26
                 end
-                local nmapBuyPrice = math.floor(interpolateBetween(0,0,0,10000,0,0, (plc-1)/15, "Linear"))
+                local nmapBuyPrice = math.floor(interpolateBetween(0,0,0,19999,0,0, (plc-1)/25, "Linear"))
                 setElementData(client, "latestMapPrice", nmapBuyPrice)
                 if tonumber(cash) >= tonumber(nmapBuyPrice) then
                     if getMapTypeByName(mapName) == "DD" then -- Überprüfen ob die zu kaufende Map eine DD ist
