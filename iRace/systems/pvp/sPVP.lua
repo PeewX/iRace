@@ -18,10 +18,12 @@ addCommandHandler("togglepvp",
 		--DISABLED
 		outputChatBox("#00ccffThis function is temporary disabled!", ePlayer, true)
 		return true
+		--[[
         if hasUserPermissionTo(ePlayer, "togglePvpState") then
             pvp.enabled = not pvp.enabled
             pvp.message(("PvP was %s"):format(pvp.enabled and "enabled" or "disabled"), root)
         end
+		]]
     end
 )
 

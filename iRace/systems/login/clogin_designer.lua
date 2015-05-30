@@ -530,7 +530,7 @@ function resumeAllSounds()
 		killTimer(musicMuteTimer)
 		musicMuteTimer = false
 		for k,v in ipairs(getElementsByType("sound")) do
-			if (getElementData(v, "prevvol") > 0) then
+			if (getElementData(v, "prevvol") and getElementData(v, "prevvol") > 0) then
 				setSoundVolume(v,getElementData(v, "prevvol"))
 			end
 		end

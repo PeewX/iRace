@@ -1452,7 +1452,8 @@ addCommandHandler("donate", function (playersource, cmd, object, amount, ...)
 	--DISABLED
 	outputChatBox("#FFFFFF|Donate| #00ccffThis function is temporary disabled!", playersource, unpack(scriptcol[2]))
 	return true
-    local target = object
+    --[[
+	local target = object
     local account = getPlayerAccount(playersource)
     local reason = table.concat({...}, " ")
     if not (isGuestAccount(account)) then
@@ -1494,7 +1495,7 @@ addCommandHandler("donate", function (playersource, cmd, object, amount, ...)
         end
     else
         outputChatBox(registerError, playersource, unpack(scriptcol[2]))
-    end
+    end]]
 end)
 
 
