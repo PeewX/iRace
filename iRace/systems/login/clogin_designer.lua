@@ -426,9 +426,15 @@ addEventHandler("onClientResourceStart", resourceRoot,
 			--9gag
 			"m.9gag.com",
 			"t.9gag.com",
+			"assets-comment-ftw.9cache.com",
+			"assets-comment-fun.9cache.com",
 			"assets-comment-lol.9cache.com",
 			"assets-9gag-ftw.9cache.com",
+			"assets-9gag-fun.9cache.com",
+			"assets-9gag-lol.9cache.com",
 			"img-9gag-ftw.9cache.com",
+			"img-9gag-fun.9cache.com",
+			"img-9gag-lol.9cache.com"
 		})
 		
 		showCursor(true)
