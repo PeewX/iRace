@@ -170,7 +170,7 @@ table.insert(randSymbols, 5)
 table.insert(randSymbols, 5)
 table.insert(randSymbols, 5)
 
---Queen		6:27
+--Queen		2:9
 table.insert(randSymbols, 6)
 table.insert(randSymbols, 6)
 table.insert(randSymbols, 6)
@@ -178,7 +178,7 @@ table.insert(randSymbols, 6)
 table.insert(randSymbols, 6)
 table.insert(randSymbols, 6)
 
---Joker		6:27
+--Joker		2:9
 table.insert(randSymbols, 7)
 table.insert(randSymbols, 7)
 table.insert(randSymbols, 7)
@@ -217,16 +217,90 @@ function generateWinTable()
 end
 
 local lineCount = 20
-function getWinTableValue(rateTable)
+function getWinTableValue(rateTable, tokens)
+	local winValue = 0
 	local winningLines = {}
 	
-	for k=1, lineCount, 1 do
-		
+	for k,v in ipairs(paylineCombos) do
+			cellList = {}
+            value = rateTable[v[1]+1][1];
+            numEqualSymbol = 1
+            startIndex = 1
+			
+			while ( (value == 8) and (startIndex <=5) ) do
+				numEqualSymbol = numEqualSymbol + 1
+				value = rateTable[v[startIndex + 1]][startIndex + 1]
+				table.insert(cellList, 
+					{
+						["row"] = v[startIndex], 
+						["col"] = startIndex,
+						["value"] = rateTable[v[startIndex]][startIndex]
+					}
+				)
+				startIndex = startIndex + 1
+			end
+			
+			for t = startIndex, 5, 1 do
+				if ( (rateTable[v[t]+1][t] == value) or ( rateTable[v[t]+1][t] == 8)) then
+					numEqualSymbol = numEqualSymbol + 1
+					table.insert(cellList, 
+						{
+							["row"] = v[t], 
+							["col"] = t,
+							["value"] = rateTable[v[t]+1][t]
+						}
+					)
+				else
+					break
+				end
+			end
+			
+			if ( symbolValue[value][numEqualSymbol] > 0 ) then
+				table.insert(winningLines, 
+					{
+						["line"] = k,
+						["amount"] = symbolValue[value][numEqualSymbol]*tokens,
+                        ["num_win"] = numEqualSymbol,
+						["value"] = value,
+						["list"] = cellList
+					}
+				)
+				winValue = winValue + (symbolValue[value][numEqualSymbol]*tokens)
+			end
 	end
+	
+	return winValue, winningLines
 end
 
 function clientWantsToPlay(tokens)
-	
+	if (getPlayerTokens(client) >= tokens) then
+		local tokensLeft = setPlayerTokens(client, getPlayerTokens(client) - tokens)
+		
+		local slotTable = generateWinTable()
+		local winAmount, winningLines = getWinTableValue(slotTable, tokens)
+		
+		triggerClientEvent(client, "onClientRecieveSlotWinnings", getRootElement(), true, winAmount, tokensLeft, slotTable, winningLines)
+	else
+		triggerClientEvent(client, "onClientRecieveSlotWinnings", getRootElement(), false)
+	end
 end
 addEvent("onClientWantsToRollTheSlots", true)
 addEventHandler("onClientWantsToRollTheSlots", getRootElement(), clientWantsToPlay)
+
+function getPlayerTokens(pl)
+	local acc = getPlayerAccount(pl)
+	if (type(getAccountData(acc, "slot_tokens")) == "number" ) then
+		return getAccountData(acc, "slot_tokens")
+	else
+		return setPlayerTokens(pl, 0)
+	end
+end
+
+function setPlayerTokens(pl, val)
+	local acc = getPlayerAccount(pl)
+	if (setAccountData(acc, "slot_tokens", val)) then
+		return val
+	else
+		return false
+	end
+end
