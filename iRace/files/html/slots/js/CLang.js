@@ -1,0 +1,12 @@
+TEXT_GAMEOVER  = "GAME OVER";
+TEXT_CONGRATS  = "CONGRATULATIONS";
+TEXT_MONEY     = "Token:";
+TEXT_PLAY      = "PLAY";
+TEXT_BET       = "BET";
+TEXT_COIN      = "COIN";
+TEXT_MAX_BET   = "TOKENS";
+TEXT_INFO      = "INFO";
+TEXT_LINES     = "LINES";
+TEXT_SPIN      = "SPIN";
+TEXT_WIN       = "WIN";
+TEXT_HELP_WILD = "This symbol is a joker which \ncan replace any other \nsymbol to make up a combo!";

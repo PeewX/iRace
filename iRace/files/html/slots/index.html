@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <link rel="stylesheet" href="css/reset.css" type="text/css">
+        <link rel="stylesheet" href="css/main.css" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+		<meta name="msapplication-tap-highlight" content="no"/>
+
+        <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="js/createjs-2013.09.25.min.js"></script>
+        <script type="text/javascript" src="js/ctl_utils.js"></script>
+        <script type="text/javascript" src="js/sprite_lib.js"></script>
+        <script type="text/javascript" src="js/settings.js"></script>
+        <script type="text/javascript" src="js/CSlotSettings.js"></script>
+        <script type="text/javascript" src="js/CLang.js"></script>
+        <script type="text/javascript" src="js/CPreloader.js"></script>
+        <script type="text/javascript" src="js/CMain.js"></script>
+        <script type="text/javascript" src="js/CTextButton.js"></script>
+        <script type="text/javascript" src="js/CGfxButton.js"></script>
+        <script type="text/javascript" src="js/CToggle.js"></script>
+        <script type="text/javascript" src="js/CBetBut.js"></script>
+        <script type="text/javascript" src="js/CMenu.js"></script>
+        <script type="text/javascript" src="js/CGame.js"></script>
+        <script type="text/javascript" src="js/CReelColumn.js"></script>
+        <script type="text/javascript" src="js/CInterface.js"></script>
+        <script type="text/javascript" src="js/CHelpPanel.js"></script>
+        <script type="text/javascript" src="js/CEndPanel.js"></script>
+        <script type="text/javascript" src="js/CPayTablePanel.js"></script>
+        <script type="text/javascript" src="js/CStaticSymbolCell.js"></script>
+        <script type="text/javascript" src="js/CTweenController.js"></script>
+        <script type="text/javascript" src="../../../js/processscript.js"></script>
+    </head>
+    <body ondragstart="return false;" ondrop="return false;" >
+          <script>
+            $(document).ready(function(){
+                     var oMain = new CMain({
+                                    min_reel_loop:2,          //NUMBER OF REEL LOOPS BEFORE SLOT STOPS  
+                                    reel_delay: 6,            //NUMBER OF FRAMES TO DELAY THE REELS THAT START AFTER THE FIRST ONE
+                                    time_show_win:2000,       //DURATION IN MILLISECONDS OF THE WINNING COMBO SHOWING
+                                    time_show_all_wins: 2000, //DURATION IN MILLISECONDS OF ALL WINNING COMBO
+                                    money:1                //STARING CREDIT FOR THE USER
+                                });
+
+                     $(oMain).on("game_start", function(evt) {
+                             logGame(getCookie("mobile"),"7311007");
+                     });
+
+                     $(oMain).on("end_bet", function(evt,iMoney,iBetWin) {
+                             //alert("iMoney: "+iMoney + " Win:"+iBetWin);
+                     });
+
+                     $(oMain).on("restart", function(evt) {
+                             //logGame(getCookie("mobile"),"7311007");
+                     });
+           });
+
+        </script>
+        <canvas id="canvas" class='ani_hack' width="1024" height="768"> </canvas>
+
+    </body>
+</html>

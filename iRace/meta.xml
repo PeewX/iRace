@@ -19,39 +19,6 @@
     <!--MySQL-->
     <script src="mysql/mysql.lua"		type = "server" />
     <!--<script src="mysql/sSettings.lua"	type = "server" />-->
-
-	<!-- HTML & UI -->
-
-	<!-- Fonts -->
-	<file src="files/html/fonts/Material-Design-Icons.eot" type = "client" cache = "false" />
-	<file src="files/html/fonts/Material-Design-Icons.svg" type = "client" cache = "false" />
-	<file src="files/html/fonts/Material-Design-Icons.ttf" type = "client" cache = "false" />
-	<file src="files/html/fonts/Material-Design-Icons.woff" type = "client" cache = "false" />
-	<file src="files/html/fonts/Roboto.ttf" type = "client" cache = "false" />
-	
-	<!-- CSS -->
-	<file src="files/html/css/bootstrap.min.css" type = "client" cache = "false" />
-	<file src="files/html/css/custom.css" type = "client" cache = "false" />
-	<file src="files/html/css/material.min.css" type = "client" cache = "false" />
-	<file src="files/html/css/material-wfont.min.css" type = "client" cache = "false" />
-	<file src="files/html/css/ripples.min.css" type = "client" cache = "false" />
-	
-	<!-- JS -->
-	<file src="files/html/js/jquery-1.10.2.min.js" type = "client" cache = "false" />
-	<file src="files/html/js/bootstrap.min.js" type = "client" cache = "false" />
-	<file src="files/html/js/ripples.min.js" type = "client" cache = "false" />
-	<file src="files/html/js/mod.js" type = "client" cache = "false" />
-	<file src="files/html/js/material.min.js" type = "client" cache = "false" />
-	<file src="files/html/js/particles.min.js" type = "client" cache = "false" />
-	
-	<!-- UIs -->
-	
-	<file src="files/html/background.html" type = "client" cache = "false" />
-	<file src="files/html/login.html" type = "client" cache = "false" />
-	<file src="files/html/register.html" type = "client" cache = "false" />
-	
-	<!-- Images -->
-	<file src="files/html/image/particle.png" type = "client" cache = "false" />
 	
     <!--Systems-->
 	<!-- Webui -->
@@ -130,7 +97,11 @@
             <script src="systems/tools/cAntiBounce.lua"             type = "client" cache = "false" />
 			
 		<!-- Web Stuff -->
-			 <script src="systems/webstuff/9gag.lua"    	        type = "client" cache = "false" />
+			<script src="systems/webstuff/9gag.lua"    	        	type = "client" cache = "false" />
+		
+		<!-- Slots -->
+			<script src="systems/slots/slots_c.lua"    	        	type = "client" cache = "false" />
+			<script src="systems/slots/slots_s.lua.lua"             type = "server" />
 		
     <!--//Systems-->
 
@@ -140,6 +111,132 @@
     <!--<file src="files/images/download_rbar.png" />-->
     <!--<file src="files/images/download_lbar.png" />-->
 
+		<!-- HTML & UI -->
+			<!-- Login -->
+			<!-- Fonts -->
+			<file src="files/html/fonts/Material-Design-Icons.eot" type = "client" cache = "false" />
+			<file src="files/html/fonts/Material-Design-Icons.svg" type = "client" cache = "false" />
+			<file src="files/html/fonts/Material-Design-Icons.ttf" type = "client" cache = "false" />
+			<file src="files/html/fonts/Material-Design-Icons.woff" type = "client" cache = "false" />
+			<file src="files/html/fonts/Roboto.ttf" type = "client" cache = "false" />
+			
+			<!-- CSS -->
+			<file src="files/html/css/bootstrap.min.css" type = "client" cache = "false" />
+			<file src="files/html/css/custom.css" type = "client" cache = "false" />
+			<file src="files/html/css/material.min.css" type = "client" cache = "false" />
+			<file src="files/html/css/material-wfont.min.css" type = "client" cache = "false" />
+			<file src="files/html/css/ripples.min.css" type = "client" cache = "false" />
+			
+			<!-- JS -->
+			<file src="files/html/js/jquery-1.10.2.min.js" type = "client" cache = "false" />
+			<file src="files/html/js/bootstrap.min.js" type = "client" cache = "false" />
+			<file src="files/html/js/ripples.min.js" type = "client" cache = "false" />
+			<file src="files/html/js/mod.js" type = "client" cache = "false" />
+			<file src="files/html/js/material.min.js" type = "client" cache = "false" />
+			<file src="files/html/js/particles.min.js" type = "client" cache = "false" />
+			
+			<!-- UIs -->
+			
+			<file src="files/html/background.html" type = "client" cache = "false" />
+			<file src="files/html/login.html" type = "client" cache = "false" />
+			<file src="files/html/register.html" type = "client" cache = "false" />
+			
+			<!-- Images -->
+			<file src="files/html/image/particle.png" type = "client" cache = "false" />
+	
+			<!-- Slots -->
+			<!-- HTML -->
+			<file src="files/html/slots/index.html" type = "client" cache = "false" />
+			<!-- CSS -->
+			<file src="files/html/slots/css/main.css" type = "client" cache = "false" />
+			<file src="files/html/slots/css/reset.css" type = "client" cache = "false" />
+			<!-- JS -->
+			<file src="files/html/slots/js/CBetBut.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/CEndPanel.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/CGame.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/CGfxButton.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/CHelpPanel.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/CInterface.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/CLang.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/CMain.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/CMenu.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/CPayTablePanel.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/CPreloader.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/createjs-2013.09.25.min.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/CReelColumn.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/CSlotSettings.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/CStaticSymbolCell.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/CTextButton.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/ctl_utils.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/CToggle.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/CTweenController.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/jquery-2.0.3.min.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/settings.js" type = "client" cache = "false" />
+			<file src="files/html/slots/js/sprite_lib.js" type = "client" cache = "false" />
+			<!-- Sound -->
+			<file src="files/html/slots/sounds/explosion.mp3" type = "client" cache = "false" />
+			<file src="files/html/slots/sounds/explosion.ogg" type = "client" cache = "false" />
+			<file src="files/html/slots/sounds/move.mp3" type = "client" cache = "false" />
+			<file src="files/html/slots/sounds/move.ogg" type = "client" cache = "false" />
+			<file src="files/html/slots/sounds/press_but.mp3" type = "client" cache = "false" />
+			<file src="files/html/slots/sounds/press_but.ogg" type = "client" cache = "false" />
+			<file src="files/html/slots/sounds/reel_stop.mp3" type = "client" cache = "false" />
+			<file src="files/html/slots/sounds/reel_stop.ogg" type = "client" cache = "false" />
+			<file src="files/html/slots/sounds/reels.mp3" type = "client" cache = "false" />
+			<file src="files/html/slots/sounds/reels.ogg" type = "client" cache = "false" />
+			<file src="files/html/slots/sounds/soundtrack.mp3" type = "client" cache = "false" />
+			<file src="files/html/slots/sounds/soundtrack.ogg" type = "client" cache = "false" />
+			<file src="files/html/slots/sounds/start_reel.mp3" type = "client" cache = "false" />
+			<file src="files/html/slots/sounds/start_reel.ogg" type = "client" cache = "false" />
+			<file src="files/html/slots/sounds/win.mp3" type = "client" cache = "false" />
+			<file src="files/html/slots/sounds/win.ogg" type = "client" cache = "false" />
+			<!-- Sprites & Images -->
+			<file src="files/html/slots/sprites/audio_icon.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/bg_menu.jpg" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/but_exit.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/but_info_bg.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/but_maxbet_bg.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/but_play_bg.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/but_spin_bg.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/mask_slot.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/payline_1.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/payline_2.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/payline_3.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/payline_4.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/payline_5.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/payline_6.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/payline_7.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/payline_8.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/payline_9.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/payline_10.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/payline_11.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/payline_12.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/payline_13.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/payline_14.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/payline_15.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/payline_16.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/payline_17.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/payline_18.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/payline_19.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/payline_20.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/paytable.jpg" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/symbol_1.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/symbol_1_anim.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/symbol_2.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/symbol_2_anim.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/symbol_3.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/symbol_3_anim.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/symbol_4.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/symbol_4_anim.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/symbol_5.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/symbol_5_anim.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/symbol_6.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/symbol_6_anim.png" type = "client" cache = "false"/>
+			<file src="files/html/slots/sprites/symbol_7.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/symbol_7_anim.png" type = "client" cache = "false"/>
+			<file src="files/html/slots/sprites/symbol_8.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/symbol_8_anim.png" type = "client" cache = "false" />
+			<file src="files/html/slots/sprites/win_frame_anim.png" type = "client" cache = "false" />
 
     <export function="hasBoughtLMS" type="server" />
     <export function="hasBoughtLMS" type="server" />
