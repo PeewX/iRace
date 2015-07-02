@@ -13,6 +13,19 @@ addEvent("onGamemodeStop")
 addEvent("onGamemodeMapStart")
 addEvent("onGamemodeMapStop")
 
+--MTA 1.5 object bug workaround
+local _startResource = startResource
+function startResource(rResource, ...)
+    local o = getElementsByType("object")
+    if #o > 0 then
+        outputChatBox(("There are '%s' non deleted objects!"):format(tostring(#o)))
+        for _, object in ipairs(o) do
+            outputChatBox("Deleted: " .. tostring(destroyElement(object)))
+        end
+    end
+    return _startResource(rResource, ...)
+end
+
 addEventHandler("onResourcePreStart", rootElement,
 	function (startingResource)
 		--Is starting resource a gamemode?
