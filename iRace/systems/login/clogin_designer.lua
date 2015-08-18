@@ -461,12 +461,12 @@ addEventHandler("onServerRequestLoginRegister", getRootElement(),
 		
 		local bgs = {
 			"http://rewrite.rocks/ir-gui/backgrounds/girls.html", --Nirvana - Girls
-			"http://rewrite.rocks/ir-gui/backgrounds/particles1.html", --Particles animation
-			"http://rewrite.rocks/ir-gui/backgrounds/particles2.html", --Particles audio visual 1
+			--"http://rewrite.rocks/ir-gui/backgrounds/particles1.html", --Particles animation
+			--"http://rewrite.rocks/ir-gui/backgrounds/particles2.html", --Particles audio visual 1
 			--"http://rewrite.rocks/ir-gui/backgrounds/particles3.html", --Particles audio visual 2
 			--"http://rewrite.rocks/ir-gui/backgrounds/equalizer1.html", --Ring equalizer
-			"http://rewrite.rocks/ir-gui/backgrounds/equalizer2.html", --particle equalizer
-			"http://rewrite.rocks/ir-gui/backgrounds/fastnfurious.html", --fast n furious dubstep montage		
+			--"http://rewrite.rocks/ir-gui/backgrounds/equalizer2.html", --particle equalizer
+			--"http://rewrite.rocks/ir-gui/backgrounds/fastnfurious.html", --fast n furious dubstep montage
 		}
 
 		local url = bgs[math.random(1, #bgs)]

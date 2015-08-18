@@ -146,7 +146,7 @@ addEventHandler("onAdminWin", root,
                     end
                 end
             end
-            local adminmusic = playSound("http://www.irace-mta.de/servermusic/adminmusic/" .. accName .. ".mp3", false)
+            local adminmusic = playSound("http://www.pewx.de/res/irace/adminmusic/" .. accName .. ".mp3", false)
             setElementData(adminmusic, "winsound", true)
         end
     end

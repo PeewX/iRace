@@ -90,7 +90,7 @@ addEventHandler("onClientExecute", root, function(s, inputs)
             logIn(client, nA, inputs[2])
             triggerClientEvent(client, "onClientSuccess", client)
             setPlayerTeam(client, getTeamFromName("User"))
-			setAccountData(nA, "cash", 250000)
+			--setAccountData(nA, "cash", 250000)
 			triggerClientEvent(client, "onClientSuccess", client)
         else
             triggerClientEvent(client, "showErrorMessage", client, "An error occupied while creating account.")

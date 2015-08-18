@@ -4,6 +4,7 @@
 -- Date: 26.07.2014 - Time: 17:24
 -- iGaming-mta.de // iRace-mta.de // iSurvival.de // mtasa.de
 --
+local eventDebug = false
 local evt = {enabled = true, prefix = "|Event| #d4ff00", players = {}, teams = {}, current = {}, event = {}, pickedPlayers = {}, availableTeams = {}, points = {10, 6, 3 }}
 gevt = {}
 
@@ -35,7 +36,7 @@ end
 function evt.getAvailableMapTypes()
     local temp = {}
     for mapType, map in pairs(evt.maps) do
-        if #map > 0 then --minimum 5 maps to set maptype enabled
+        if #map > 5 then --minimum 5 maps to set maptype enabled
             table.insert(temp, mapType)
         end
     end
@@ -221,12 +222,21 @@ function gevt.onPlayerWasted(player)
         local rank = evt.getPlayerRank()
         --if rank > 3 then return end
 
-
         for _, item in ipairs(evt.event.items) do
             if item.source == player then
                 --item.points = item.points + evt.points[rank]
-                item.points = item.points + (#activePlayers - evt.getPlayerRank())
-                changed = true
+
+                if eventDebug then
+                    outputChatBox("|Debug| Event stats for player: " .. tostring(getPlayerName(item.source)))
+                    outputChatBox("|Debug| cnt activePlayers: " .. tostring(#activePlayers))
+                    outputChatBox("|Debug| Rank: " .. tostring(evt.getPlayerRank()))
+                    outputChatBox("|Debug| Current points: " .. tostring(item.points))
+                    outputChatBox("|Debug| Calculated points: " .. tostring((#activePlayers - evt.getPlayerRank())))
+                    outputChatBox("|Debug| New points: " .. tostring(item.points + (#activePlayers - evt.getPlayerRank())))
+
+                    item.points = item.points + (#activePlayers - evt.getPlayerRank())
+                    changed = true
+                end
             end
         end
 
@@ -287,6 +297,11 @@ addCommandHandler("event", function(pl)
     else
         outputChatBox(evt.prefix .. "Event starts in " .. secondsToTimeDesc(evt.event.start-evt.getRealTime().timestamp), pl, 255, 255, 255, true)
     end
+end)
+
+addCommandHandler("debugevent", function()
+    eventDebug = not eventDebug
+    outputChatBox("|Debug| EventSystem debugging " .. eventDebug == true and "enabled" or "disabled")
 end)
 
 addCommandHandler("cEvent",
