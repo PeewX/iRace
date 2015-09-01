@@ -874,15 +874,17 @@ addEventHandler("onPlayerToptimeImprovement",getRootElement(),
                 triggerClientEvent("addClientMessage", getRootElement(), getPlayerName(source) .. "#ff0000 has gotten top time 1!", 255, 255, 255, "toptime")
                 addStat(account, "toptimes12", 1)
                 addStat(account, "cash", 2000)
+            elseif not oldTime or not oldPos then
+                triggerClientEvent("addClientMessage", root, getPlayerName(source) .. "#aaff00 has gotten a new top time [" .. newPos .. "]", 255, 255, 255, "toptime")
             elseif newPos < oldPos and newTime < oldTime then       --Todo: Attampt to compare number with boolean
-                triggerClientEvent("addClientMessage", getRootElement(), getPlayerName(source) .. "#ff5500 improved his top time [" .. newPos .. "]", 255, 255, 255, "toptime")
+                triggerClientEvent("addClientMessage", root, getPlayerName(source) .. "#ff5500 improved his top time [" .. newPos .. "]", 255, 255, 255, "toptime")
             else
-                triggerClientEvent("addClientMessage", getRootElement(), getPlayerName(source) .. "#ff5500 has gotten a top time [" .. newPos .. "]", 255, 255, 255, "toptime")
+                triggerClientEvent("addClientMessage", root, getPlayerName(source) .. "#ff5500 has gotten a top time [" .. newPos .. "]", 255, 255, 255, "toptime")
             end
         elseif not oldTime or not oldPos then
             triggerClientEvent("addClientMessage", root, getPlayerName(source) .. "#aaff00 has gotten a new hunter time [" .. newPos .. "]", 255, 255, 255, "toptime")
         elseif newPos < oldPos and newTime < oldTime then
-            triggerClientEvent("addClientMessage", getRootElement(), getPlayerName(source) .. "#aaff00 improved his hunter timer [" .. newPos .. "]", 255, 255, 255, "toptime")
+            triggerClientEvent("addClientMessage", root, getPlayerName(source) .. "#aaff00 improved his hunter timer [" .. newPos .. "]", 255, 255, 255, "toptime")
         end
     end)
 
@@ -908,8 +910,7 @@ addEventHandler('onPlayerPickUpRacePickup', getRootElement(),
 					triggerClientEvent("addClientMessage", root, ("|Hunter| %s #ff9900has reached the hunter!"):format(getPlayerName(source)), 255, 255, 255)
 					--outputChatBox ("|Hunter| "..getPlayerName(source).." #ff9900has reached the hunter!", getRootElement(), 255, 255, 255, true )
 					if gevt.getEventType() == "DM" then
-						triggerClientEvent(source, "|Event| #7788EEYou get #ffffff10.000$#7788EE for reaching the hunter while event!", source, 255, 255, 255)
-						--outputChatBox("|Event| #7788EEYou get 10.000$ for reaching the Hunter while DM-Event!", source, 255, 255, 255, true)
+						triggerClientEvent(source, "addClientMessage", source, "|Event| #7788EEYou get #ffffff10.000$#7788EE for reaching the hunter while event!", 255, 255, 255)
 						addStat(account, "cash", 10000)
 					end
 
@@ -1167,7 +1168,7 @@ function setwheels(wheels)
             return
         end
 		
-		local wheelID = wheelsIDs[wheels]
+		local wheelID = wheelIDs[wheels]
 		if wheelID then
 			addVehicleUpgrade(vehicle, wheelID)
 			setAccountData(account, "wheels", wheelID)
@@ -1337,9 +1338,11 @@ addEventHandler ( "onPlayerDestructionDerbyWin", getRootElement(), outputTheWinT
 --check joined player for join msg
 function checkJoinMsg(old, account)
     local lastPlayerName = getAccountData(account, "lastPlayerName")
-    showNickchange = false
-    setPlayerName(source, lastPlayerName)
-    showNickchange = true
+    if lastPlayerName then
+        showNickchange = false
+        setPlayerName(source, lastPlayerName)
+        showNickchange = true
+    end
     setPlayerNametagShowing(source, false)
 
     local joinmsg = getAccountData(account, "JoinText")

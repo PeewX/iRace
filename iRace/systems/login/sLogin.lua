@@ -31,8 +31,8 @@ end
 addEvent("onClientFinishedLoading", true)
 addEventHandler("onClientFinishedLoading", root,
 	function()
-		outputServerLog("Server")
-		triggerClientEvent(client, "onServerRequestLoginRegister", getRootElement(), getAccountName(getPlayersFirstAccount(client)))
+		local firstAccount = getPlayersFirstAccount(client)
+		triggerClientEvent(client, "onServerRequestLoginRegister", getRootElement(), firstAccount and getAccountName(firstAccount) or false)
 	end
 )
 
