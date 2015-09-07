@@ -1718,11 +1718,13 @@ addEventHandler("onDownloadFinished", resroot, onresourceStart)
 
 function showWintextInfo ()
     local x,y = getCursorPosition()
-    wintextInfo = guiCreateStaticImage(x,y-0.075,0.125,0.075,"files/button_standart.png", true)
-    wintextInfoLabel = guiCreateLabel(0.025,0.025,0.975,0.975,"*DM* - Your DM wins\n*DD* - Your DD wins\n*MAPS* - Maps finished\n*CASH* - You cash\n*EARNED* - Complete earned money\n*LEVEL* - Your level",true,wintextInfo)
+    wintextInfo = guiCreateStaticImage(x,y-0.075,0.125,0.075,"files/images/environment/background.png", true)
+    wintextInfoLabel = guiCreateLabel(0.025,0.025,0.975,0.975,"*WINS* - Show all wins\n*DM* - Your DM wins\n*DD* - Your DD wins\n*MAPS* - Maps finished\n*CASH* - You cash\n*EARNED* - Complete earned money\n*LEVEL* - Your level",true,wintextInfo)
     guiSetFont(wintextInfoLabel,ltfontspecial)
 end
 
 function removeWintextInfo ()
-    destroyElement(wintextInfo)
+	if wintextInfo and isElement(wintextInfo) then
+    		destroyElement(wintextInfo)
+    	end
 end
