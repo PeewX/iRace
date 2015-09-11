@@ -5,7 +5,7 @@
 -- iGaming-mta.de // iRace-mta.de // iSurvival.de // mtasa.de
 --
 
-local fixPrice = 15000
+local fixPrice = 11999
 local flipPrice = 10000
 local BoomBoomSongPrice = 60000
 local ghostPrice = 5000

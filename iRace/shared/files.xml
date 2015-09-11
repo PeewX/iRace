@@ -162,6 +162,17 @@
         <file src="avatars/yoshi.png" />
         <file src="avatars/zelda.png" />
         <file src="avatars/settings.png" />
+
+        <!--Keys-->
+        <file src = "keys/key_bg.png" />
+        <file src = "keys/key_space_bg.png" />
+        <file src = "keys/key_arrow.png" />
+        <file src = "keys/key_W.png" />
+        <file src = "keys/key_A.png" />
+        <file src = "keys/key_S.png" />
+        <file src = "keys/key_D.png" />
+        <file src = "keys/key_lctrl.png" />
+        <file src = "keys/key_space.png" />
 	</images>
 	<shader>
 	</shader>

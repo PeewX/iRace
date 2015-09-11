@@ -4,6 +4,7 @@
 	<oop>true</oop>
 
     <!--shared-->
+    <script src="shared/classlib.lua" type = "shared" />
     <script src="shared/sUtil.lua"	type = "server" />
     <script src="shared/cUtil.lua"	type = "client" cache = "false" />
     <script src="shared/shared.lua"	type = "shared" cache = "false" />
@@ -54,7 +55,7 @@
 	<file src="files/html/image/particle.png" type = "client" cache = "false" />
 	
     <!--Systems-->
-	<!-- Webui -->
+	    <!-- Webui -->
         <script src="systems/webui/FrameWebWindow.lua"             	type = "client" cache = "false" />
         <script src="systems/webui/WebWindow.lua"             		type = "client" cache = "false" />
         <script src="systems/webui/WebUIManager.lua"             	type = "client" cache = "false" />	
@@ -106,6 +107,10 @@
         <!--VoteRedo System-->
         <script src="systems/voteredo/sVR.lua"                      type = "server" />
         <script src="systems/voteredo/cVR_designer.lua"             type = "client" cache = "false" />
+
+        <!--KeyDisplay -->
+        <script src = "systems/keyDisplay/KeyDisplay_server.lua"    type = "server" />
+        <script src = "systems/keyDisplay/KeyDisplay_client.lua"    type = "client" cache = "false" />
 
         <!--AFK-->
         <script src="systems/afk/sAFK.lua"                          type = "server" />
