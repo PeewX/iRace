@@ -336,7 +336,7 @@ end
 addEvent("betamodus", true)
 addEventHandler("betamodus", root, betamodusC)
 
-function reenablefire ()
+--[[function reenablefire ()
     toggleControl("vehicle_fire", true)
 end
 
@@ -369,7 +369,7 @@ function hunterantispray ()
 end
 
 bindKey("vehicle_fire", "down", hunterantispray)
-bindKey("vehicle_secondary_fire", "down", hunterantispray)
+bindKey("vehicle_secondary_fire", "down", hunterantispray)]]
 
 function paydaysound ()
     playSound("files/payday.mp3")
