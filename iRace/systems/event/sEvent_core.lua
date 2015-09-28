@@ -233,10 +233,10 @@ function gevt.onPlayerWasted(player)
                     outputChatBox("|Debug| Current points: " .. tostring(item.points))
                     outputChatBox("|Debug| Calculated points: " .. tostring((#activePlayers - evt.getPlayerRank())))
                     outputChatBox("|Debug| New points: " .. tostring(item.points + (#activePlayers - evt.getPlayerRank())))
-
+                end
                     item.points = item.points + (#activePlayers - evt.getPlayerRank())
                     changed = true
-                end
+                --end
             end
         end
 
