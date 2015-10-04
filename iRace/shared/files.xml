@@ -4,19 +4,6 @@
 		<file src="downloader/download_lbar.png"/>
 		<file src="downloader/download_rbar.png"/>
 
-        <!--Login-->
-		<file src="login/pixel.png" />
-		<file src="login/donut.png" />
-		<file src="login/love.png" />
-		<file src="login/christmas.png" />
-		<file src="login/dot.png" />
-		<file src="login/login.png" />
-		<file src="login/register.png" />
-		<file src="login/info.png" />
-		<file src="login/execute.png" />
-		<file src="login/egg.png" />
-		<file src="login/halloween.png" />
-
         <!--Event-->
         <file src="event/bg.png" />
 
@@ -28,6 +15,7 @@
         <file src="environment/unlocked.png"/>
         <file src="environment/star.png"/>
         <file src="environment/tab.png"/>
+        <file src="environment/timeBG.png"/>
 
         <!--Avatars-->
         <file src="avatars/ReWrite.png" />
@@ -180,4 +168,7 @@
 	</sounds>
 	<mods>
 	</mods>
+    <html>
+
+    </html>
 </files>

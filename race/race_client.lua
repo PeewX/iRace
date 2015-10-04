@@ -38,17 +38,15 @@ addEventHandler('onClientResourceStart', g_ResRoot,
       --g_dxGUI.ranksuffix:color( 255, 255, 255,255)
         g_dxGUI.checkpoint:color( 0, 204, 255,255)
        -- g_dxGUI.mapdisplay:color( 0, 204, 255,255)
-	   outputDebugString("=============================================================================")
+
 		g_GUI = {
-			
 			healthbar = FancyProgress.create(250, 1000, 'img/progress_health_bg.png', -65, 60, 123, 30, 'img/progress_health.png', 8, 8, 108, 15),
 			speedbar = FancyProgress.create(0, 1.5, 'img/progress_speed_bg.png', -65, 90, 123, 30, 'img/progress_speed.png', 8, 8, 108, 15),
 		}
 		g_GUI.speedbar:setProgress(0)
 		
 		hideGUIComponents('healthbar', 'speedbar', 'ranknum', 'ranksuffix', 'checkpoint')--timeleftbg hidden
-		g_drawTimeleftBool = false
-		
+
 		--hideGUIComponents('ranknum', 'ranksuffix', 'checkpoint')
         RankingBoard.precreateLabels(10)
 		
@@ -62,7 +60,7 @@ addEventHandler('onClientResourceStart', g_ResRoot,
 			engineImportTXD(engineLoadTXD('model/' .. name .. '.txd'), id)
 			engineReplaceModel(engineLoadDFF('model/' .. name .. '.dff', id), id)
 			-- Double draw distance for pickups
-			engineSetModelLODDistance( id, 60 )
+			engineSetModelLODDistance(id, 300)
 		end
 
 		if isVersion101Compatible() then
@@ -276,10 +274,6 @@ function initRace(vehicle, checkpoints, objects, pickups, mapoptions, ranked, du
 	end
 	
 	-- GUI
-	--guiSetText(g_GUI.timepassed,'0:00:00')
-	g_TimePassed = "0:00:00"
-	hideGUIComponents('timepassed', 'timeleft')--timeleftbg hidden
-	g_drawTimeleftBool = false
 	if ranked then
 		showGUIComponents('ranknum', 'ranksuffix')
 	else
@@ -342,13 +336,7 @@ function launchRace(duration)
 	g_Players = getElementsByType('player')
 	
 	if type(duration) == 'number' then
-		showGUIComponents('timepassed', 'timeleft') --timeleftbg showen
-		g_drawTimeleftBool = true
-		g_ShowGUIs = true
-		--guiLabelSetColor(g_GUI.timeleft, 255, 102, 0)
-		--guiLabelSetColor(g_GUI.timepassed, 255, 102, 0)
 		g_Duration = duration
-		addEventHandler('onClientRender', g_Root, updateTime)
 	end
 	
 	setVehicleDamageProof(g_Vehicle, false)
@@ -363,7 +351,7 @@ addEventHandler('onClientElementStreamIn', g_Root,
 		if colshape then
 			local pickup = g_Pickups[colshape]
 			if pickup.label then
-				pickup.label:color(255, 80, 50, 0)
+				pickup.label:color(255, 80, 50, 255)
 				pickup.label:visible(false)
 				pickup.labelInRange = false
 			end
@@ -577,14 +565,15 @@ end
 function updateTime()
 	local tick = getTickCount()
 	local msPassed = tick - g_StartTick
+
 	if not isPlayerFinished(g_Me) then
-		--guiSetText(g_GUI.timepassed,msToTimeStr(msPassed))
-		g_TimePassed = msToTimeStr(msPassed)
+		g_TimePassedDead = msToTimeStr(msPassed)
 	end
 	
 	local timeLeft = g_Duration - msPassed
-	--guiSetText(g_GUI.timeleft, msToTimeStr(timeLeft > 0 and timeLeft or 0))
+	g_TimePassed = msToTimeStr(msPassed)
 	g_TimeLeft = msToTimeStr(timeLeft > 0 and timeLeft or 0)
+
 	if g_HurryDuration and g_GUI.hurry == nil and timeLeft <= g_HurryDuration then
 		startHurry()
 	end
@@ -1229,7 +1218,7 @@ function remoteSoonFadeIn( bNoCameraMove )
 end
 -----------------------------------------------------------------------
 function raceTimeout()
-	removeEventHandler('onClientRender', g_Root, updateTime)
+	--removeEventHandler('onClientRender', g_Root, updateTime)
 	if g_CurrentCheckpoint then
 		destroyCheckpoint(g_CurrentCheckpoint)
 		destroyCheckpoint(g_CurrentCheckpoint + 1)
@@ -1269,13 +1258,12 @@ function unloadAll()
 	setElementData(g_Me, 'race.checkpoint', nil)
 	
 	g_Vehicle = nil
-	removeEventHandler('onClientRender', g_Root, updateTime)
+	--removeEventHandler('onClientRender', g_Root, updateTime)
 	
 	toggleAllControls(true)
 	
 	if g_GUI then
 		hideGUIComponents('healthbar', 'speedbar', 'ranknum', 'ranksuffix', 'checkpoint', 'timepassed', 'timeleft')--timeleftbg hidden
-		g_drawTimeleftBool = false
 		if g_GUI.hurry then
 			Animation.createAndPlay(g_GUI.hurry, Animation.presets.guiFadeOut(500), destroyElement)
 			g_GUI.hurry = nil
@@ -1544,50 +1532,3 @@ local screenWidth, screenHeight = guiGetScreenSize()
 		resize = false
 	end
 end
-
-
---------------------------------------
---MapInfo
---------------------------------------
-function sendClientMapInfo(hunterReached,mapRate,ratedTimes)
-huntersReached = hunterReached
-mapRates = mapRate
-ratedTimess = ratedTimes
-end
-addEvent("sendClientMapInfo",true)
-addEventHandler("sendClientMapInfo",getLocalPlayer(),sendClientMapInfo)
-
-local name, author, lastTimePlayed, playedCount, modename,hunterreached
-local startTick
-local month = {"January","February","March","April","May","June","Juli","August","September","October","November","December"}
-local screenWidth, screenHeight = guiGetScreenSize()
-local endPosition = screenHeight-140
-local moveback = false
-
-function timestampToDate(stamp)
-	local time = getRealTime(stamp)
-	return string.format("%d %s %02d:%02d",time.monthday,month[time.month+1],time.hour,time.minute)
-end
-
-function isDM()
-	for i, pu in pairs (getElementsByType("racepickup")) do
-		local puType = getElementData(pu, "type")
-		if (puType == "vehiclechange") then
-			local puVehicle = tonumber(getElementData(pu, "vehicle"))
-			if puVehicle == 425 then
-				return true
-			end
-		end
-	end
-	return false
-end
-
---[[addEvent("addClientVehicle", true)
-addEventHandler("addClientVehicle", getRootElement(), function(vehicle)
-	g_Vehicle = vehicle
-end)
-
-addEvent("unloadClientVehicle", true)
-addEventHandler("unloadClientVehicle", getRootElement(), function()
-	vehicleUnloading()
-end)]]

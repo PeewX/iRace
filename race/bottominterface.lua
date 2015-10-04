@@ -568,20 +568,11 @@ local infoMSGs = {
 "In Alaska ist es verboten lebende Elche aus sich bewegenden Flugzeugen zu werfen",
 }
 
-function setRaceGuiEnabled(state)
-	if state then
-		addEventHandler("onClientRender", getRootElement(), drawBottom)
-		addEventHandler("onClientRender", getRootElement(), drawTimeleft)
-		addEventHandler("onClientHUDRender", getRootElement(), drawRadar)
-	else
-		removeEventHandler("onClientRender", getRootElement(), drawBottom)
-		removeEventHandler("onClientRender", getRootElement(), drawTimeleft)
-		removeEventHandler("onClientHUDRender", getRootElement(), drawRadar)
-	end
-end
+
 
 
 function drawBottom()
+    if true then return end
     if not getElementData(g_Me, "isLogedIn") then return end
 	dxDrawImage(0, (screenHeight-((40/1080)*screenHeight)), screenWidth, (48/1080)*screenHeight, "img/bottominterface.png")
 	cInfosWidth = dxGetTextWidth("FPS: " .. frames .. " Hunter: " .. distanceToHunter .. " Current map: " .. currentMap .. " Next map: " .. nextMap, 1, calibri)
@@ -591,6 +582,7 @@ end
 addEventHandler("onClientRender", getRootElement(), drawBottom)
 
 function drawTimeleft()
+    if true then return end
     if not getElementData(g_Me, "isLogedIn") then return end
 	if g_drawTimeleftBool then
 		dxDrawImage((screenWidth/2)-(300/2), screenHeight-((40/1080)*screenHeight)-34, 300, 34, "img/timeleft.png")

@@ -374,8 +374,7 @@ addEventHandler('onClientRequestToptimesUpdates', getRootElement(),
 addCommandHandler( "deltime",
 	function( player, cmd, place )
 		--if isPlayerInACLGroup(player, g_Settings.admingroup)
-		if isPlayerInACLGroup(player, "Projektleiter") or isPlayerInACLGroup(player, "Admin") or isPlayerInACLGroup(player, "Super-Moderator") then
-		elseif not _TESTING then
+		if not isPlayerInACLGroup(player, "Projektleiter") or isPlayerInACLGroup(player, "Admin") or isPlayerInACLGroup(player, "Super-Moderator") then
 			return
 		end
 		if g_SToptimesManager and g_SToptimesManager.mapTimes then

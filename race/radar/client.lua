@@ -157,3 +157,11 @@ function compareDimensions(lpD, pD)
 	end
 	return false
 end
+
+function setRaceGuiEnabled(state)
+	if state then
+		addEventHandler("onClientHUDRender", getRootElement(), drawRadar)
+	else
+		removeEventHandler("onClientHUDRender", getRootElement(), drawRadar)
+	end
+end

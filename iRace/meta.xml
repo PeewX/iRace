@@ -19,7 +19,10 @@
 
     <!--MySQL-->
     <script src="mysql/mysql.lua"		type = "server" />
-    <!--<script src="mysql/sSettings.lua"	type = "server" />-->
+
+    <!--Core-->
+    <script src = "server/system/CCore.lua" type = "server" />
+    <script src = "client/system/CCore.lua" type = "client" cache = "false" />
 
 	<!-- HTML & UI -->
 
@@ -58,7 +61,7 @@
 	    <!-- Webui -->
         <script src="systems/webui/FrameWebWindow.lua"             	type = "client" cache = "false" />
         <script src="systems/webui/WebWindow.lua"             		type = "client" cache = "false" />
-        <script src="systems/webui/WebUIManager.lua"             	type = "client" cache = "false" />	
+        <script src="systems/webui/WebUIManager.lua"             	type = "client" cache = "false" />
 
         <!--Login-->
         <script src="systems/login/sLogin.lua"                      type = "server" />
@@ -108,9 +111,20 @@
         <script src="systems/voteredo/sVR.lua"                      type = "server" />
         <script src="systems/voteredo/cVR_designer.lua"             type = "client" cache = "false" />
 
+        <!--Animation Class-->
+        <script src = "client/classes/CAnimations.lua"              type = "client" cache = "false" />
+
         <!--KeyDisplay -->
-        <script src = "systems/keyDisplay/KeyDisplay_server.lua"    type = "server" />
-        <script src = "systems/keyDisplay/KeyDisplay_client.lua"    type = "client" cache = "false" />
+        <script src = "server/classes/CKeyDisplay.lua"              type = "server" />
+        <script src = "client/classes/CKeyDisplay.lua"              type = "client" cache = "false" />
+
+        <!--BottomInterface-->
+        <script src = "server/classes/CBottomInterface.lua"          type = "server" />
+        <script src = "client/classes/CBottomInterface.lua"          type = "client" cache = "false" />
+
+        <!--Nickname-->
+        <script src = "server/classes/CNickname.lua"                type = "server" />
+        <script src = "client/classes/CNickname.lua"                type = "client" cache = "false" />
 
         <!--AFK-->
         <script src="systems/afk/sAFK.lua"                          type = "server" />

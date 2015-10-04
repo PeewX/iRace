@@ -170,6 +170,7 @@ function CKeyDisplay:onReceiveKeys(tKeys)
 end
 
 function CKeyDisplay:updateRenderTarget()
+    if not getElementData(localPlayer, "isLogedIn") then return end
     if not self.renderTarget then return end
 
     --Test here if the spectated player was changed and disable Display
@@ -247,12 +248,3 @@ end
 function CKeyDisplay:render()
     dxDrawImage(x/2-self.width/2, 0, self.width, self.height, self.renderTarget)
 end
-
---addEventHandler("onClientResourceStart", resourceRoot, function() new(CKeyDisplay) end)
-
-addEvent("onClientSuccess", true)
-addEventHandler("onClientSuccess", localPlayer,
-    function()
-        new(CKeyDisplay)
-    end
-)

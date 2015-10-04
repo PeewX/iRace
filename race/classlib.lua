@@ -262,7 +262,7 @@ oop.prepareClass = function(name)
 	local mt = debug.getregistry().mt[name]
 	
 	if not mt then
-		outputDebugString("No such class mt "..tostring(name))
+		--outputDebugString("No such class mt "..tostring(name))
 		return
 	end
 	

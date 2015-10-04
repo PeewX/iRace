@@ -1,3 +1,11 @@
+iDEBUG = true
+
+function debugOutput(sText, nType, cr, cg, cb)
+	if iDEBUG then
+		outputDebugString(("[%s] %s"):format(SERVER and "Server" or "Client", tostring(sText)), nType or 3, cr, cg, cb)
+	end
+end
+
 function toboolean(x)
 	if x == "true" or x == 1 or x == "1" or x == true then
 		return true
@@ -46,6 +54,17 @@ local function getMonth(n) return m[n] end
 function getRealTimeString(ts)
     local time = getRealTime(ts)
     return ("%s.%s.%s - %s:%s"):format(includeZero(time.monthday), getMonth(time.month), time.year + 1900, includeZero(time.hour), includeZero(time.minute))
+end
+
+local month = {"January","February","March","April","May","June","Juli","August","September","October","November","December"}
+function timestampToDate(stamp)
+	local time = getRealTime(stamp)
+	return string.format("%d %s %02d:%02d",time.monthday,month[time.month+1],time.hour,time.minute)
+end
+
+function msToTimeString(ms)
+	if not ms then return '' end
+	return string.format("%01d:%02d:%03d", ms/1000/60, math.fmod(ms/1000, 60), math.fmod(ms, 1000))
 end
 
 --[[

@@ -61,9 +61,10 @@ function evt.initialiseNextEvent(h)
     local h = tonumber(h) or math.random(48, 144)
     local d = math.random(1, math.random(1, 3)) --idk why^^...
 
-    evt.event.price = math.random(25000, 1000000)
-    evt.event.pot = math.random(1,2) -- Players or Team (1 = players, 2 = team)
-    evt.event.cm = math.random(2, 5)
+    evt.event.price = math.random(100000, 1000000)
+    --evt.event.pot = math.random(1,2) -- Players or Team (1 = players, 2 = team)
+    evt.event.pot = 1
+    evt.event.cm = math.random(3, 6)
     evt.event.start = evt.getRealTime().timestamp+(h*60*60)
     evt.event.stop  = evt.getRealTime().timestamp+((h+d)*60*60)
     evt.event.type  = evt.getAvailableMapTypes()[math.random(1, #evt.getAvailableMapTypes())]
@@ -104,11 +105,13 @@ function evt.showEventWinner()
         if ePlayer.points < 50 then outputChatBox(evt.prefix .. "No player has more than 50 points.", root, 255, 255, 255, true) return end
 
         local ac = getPlayerAccount(ePlayer.source)
-        local avatar = getAccountData(ac, "avatar")
+        local avatar = getAccountData(ac, "avatar") or ("files/images/avatars/smile%s.png"):format(math.random(1, 80))
         local text = ("Player %s won the %s-Event and got %s$"):format(removeColorCodes(getPlayerName(ePlayer.source)), evt.event.type, convertNumber(evt.event.price))
 
         evt.triggerClientEvent("onClientShowEndScreen", text, avatar)
-        addStat(ac, "cash", evt.event.price)
+
+        evt.giveAwayPriceMoney()
+        --addStat(ac, "cash", evt.event.price)
     else
         local eTeam = evt.event.items[1]
         if eTeam.points < 250 then outputChatBox(evt.prefix .. "No team has more than 250 points.", root, 255, 255, 255, true) return end
@@ -120,7 +123,23 @@ function evt.showEventWinner()
         for _, team in ipairs(evt.event.items) do
             if team == eTeam then gtst.addTeamEventStats(true, team.datas, team.points, evt.event.type, evt.event.price) else gtst.addTeamEventStats(false, team.datas, team.points, evt.event.type) end
         end
+
         gtst.sortTopTeams(true)
+    end
+end
+
+function evt.giveAwayPriceMoney()
+    local mostPoints = evt.event.items[1].points
+
+    for i, ePlayer in ipairs(evt.event.items) do
+        local eventMoney = math.floor(evt.event.price/mostPoints*ePlayer.points)
+        if i > 5 then eventMoney = eventMoney/10 end
+
+        if isElement(ePlayer.source) then
+            triggerClientEvent(ePlayer.source, "addClientMessage", ePlayer.source, ("%sYou get #ffffff%s#d4ff00$ for #ffffff%s #d4ff00points!"):format(evt.prefix, eventMoney, ePlayer.points), 255, 255, 255)
+        end
+
+        addStat(ePlayer.account, "cash", eventMoney)
     end
 end
 
@@ -234,8 +253,9 @@ function gevt.onPlayerWasted(player)
                     outputChatBox("|Debug| Calculated points: " .. tostring((#activePlayers - evt.getPlayerRank())))
                     outputChatBox("|Debug| New points: " .. tostring(item.points + (#activePlayers - evt.getPlayerRank())))
                 end
-                    item.points = item.points + (#activePlayers - evt.getPlayerRank())
-                    changed = true
+
+                item.points = item.points + (#activePlayers - evt.getPlayerRank())
+                changed = true
                 --end
             end
         end

@@ -104,14 +104,14 @@ function cacheGameOptions()
 	g_GameOptions.defaultrespawnmode	= 'none' --getString('race.respawnmode','none')
 	g_GameOptions.defaultrespawntime	= getNumber('race.respawntime',5) * 1000
 	g_GameOptions.defaultduration		= getNumber('race.duration',6000) * 1000
-	g_GameOptions.ghostmode				= getBool('race.ghostmode',false)
+	g_GameOptions.ghostmode				= true--getBool('race.ghostmode',false)
 	g_GameOptions.ghostalpha			= getBool('race.ghostalpha',false)
 	g_GameOptions.randommaps			= true  --getBool('race.randommaps',false)
 	g_GameOptions.statskey				= getString('race.statskey','name')
 	g_GameOptions.vehiclecolors			= getString('race.vehiclecolors','file')
 	g_GameOptions.skins					= getString('race.skins','cj')
 	g_GameOptions.autopimp				= false--getBool('race.autopimp',true)
-	g_GameOptions.vehicleweapons		= getBool('race.vehicleweapons',true)
+	g_GameOptions.vehicleweapons		= true--getBool('race.vehicleweapons',true)
 	g_GameOptions.firewater				= getBool('race.firewater',false)
 	g_GameOptions.classicchangez		= getBool('race.classicchangez',false)
 	g_GameOptions.admingroup			= getString('race.admingroup','Admin')
@@ -121,9 +121,9 @@ function cacheGameOptions()
 	g_GameOptions.stealthspectate		= getBool('race.stealthspectate',true)
 	g_GameOptions.countdowneffect		= getBool('race.countdowneffect',true)
 	g_GameOptions.showmapname			= getBool('race.showmapname',true)
-	g_GameOptions.hunterminigun			= getBool('race.hunterminigun',true)
+	g_GameOptions.hunterminigun			= false --getBool('race.hunterminigun',true)
 	g_GameOptions.securitylevel			= getNumber('race.securitylevel',2)
-	g_GameOptions.anyonecanspec			= getBool('race.anyonecanspec',true)
+	g_GameOptions.anyonecanspec			= false--getBool('race.anyonecanspec',true)
 	g_GameOptions.norsadminspectate		= getBool('race.norsadminspectate',false)
 	g_GameOptions.racerespawn			= false --getBool('race.racerespawn',true)
 	g_GameOptions.joinrandomvote		= getBool('race.joinrandomvote',true)
@@ -145,6 +145,17 @@ function cacheGameOptions()
 end
 
 
+local mapTypes = {"DM", "DD", "SHOOTER", "HUNTER"}
+function getMapTypeByName(mapName)
+	if not mapName then return false end
+	for _, t in ipairs(mapTypes) do
+		if string.find(string.upper(mapName:sub(1, string.len(t)+2)), t, 1, true) then
+			return t
+		end
+	end
+	return false
+end
+
 function cacheMapOptions(map)
 	g_MapOptions = {}
 	
@@ -157,9 +168,9 @@ function cacheMapOptions(map)
 	g_MapOptions.weather		= map.weather or 0
 	g_MapOptions.skins			= map.skins or 'cj'
 	g_MapOptions.vehicleweapons = map.vehicleweapons == 'true'
-	g_MapOptions.ghostmode		= map.ghostmode == 'true'
 	g_MapOptions.firewater		= map.firewater == 'true'
 	g_MapOptions.classicchangez	= map.classicchangez == 'true'
+	g_MapOptions.ghostmode		= getMapTypeByName(map.name) == "DM" and true or false
 
 	outputDebug("MISC", "duration = "..g_MapOptions.duration.."  respawn = "..g_MapOptions.respawn.."  respawntime = "..tostring(g_MapOptions.respawntime).."  time = "..g_MapOptions.time.."  weather = "..g_MapOptions.weather)
 	
@@ -223,6 +234,11 @@ function loadMap(res)
     g_MapInfo.name      = map.info['name'] or 'unnamed'
 	g_MapInfo.author    = map.info['author'] or ''
     g_MapInfo.resname   = map.info['resname'] or getResourceName(res)
+	g_MapInfo.huntersReached = getResourceInfo(res, "hunterreached") or "-"
+
+	local rating = getMapRating(g_MapInfo.resname)
+	g_MapInfo.mapRating = ("%s%s"):format(rating and getRatingColorAsHex(rating.average) or "", rating and rating.average or "-")
+	g_MapInfo.mapRatingCount = rating and rating.count or "-"
 
 	g_SavedMapSettings = {}
 	g_SavedMapSettings.duration			= map.duration
@@ -238,6 +254,7 @@ function loadMap(res)
 	g_SavedMapSettings.classicchangez	= map.classicchangez
 	g_SavedMapSettings.firewater		= map.firewater
 	g_SavedMapSettings.hunterminigun	= map.hunterminigun
+	g_SavedMapSettings.name 			= map.info['name'] or '' --Only needed to handle ghostmode
 
 	cacheMapOptions(g_SavedMapSettings)
 
@@ -895,7 +912,7 @@ addEventHandler('onRequestKillPlayer', g_Root,
 )
 
 function toggleServerGhostmode(player)
-	if not _TESTING and not isPlayerInACLGroup(player, g_GameOptions.admingroup) then
+	if not isPlayerInACLGroup(player, g_GameOptions.admingroup) then
 		return
 	end
 	g_MapOptions.ghostmode = not g_MapOptions.ghostmode
@@ -1370,10 +1387,10 @@ addCommandHandler('restartracemode',
 	end
 )
 
-
 addCommandHandler('pipedebug',
 	function(player, command, arg)
 		if not _TESTING and not isPlayerInACLGroup(player, g_GameOptions.admingroup) then
+			outputChatBox("Not in testing mode or no permissions!", player)
 			return
 		end
         if g_PipeDebugTo then
@@ -1507,12 +1524,12 @@ function resetHunterTabels()
 	hunterlabel = false
 	hunteronlylabel = false
 	huntersInGame = 0
-	local hunterreached = getResourceInfo (exports.mapmanager:getRunningGamemodeMap(),"hunterreached")
+	--[[local hunterreached = getResourceInfo (exports.mapmanager:getRunningGamemodeMap(),"hunterreached")
 	local name = getResourceName(exports.mapmanager:getRunningGamemodeMap())
 	local ratedTimes = getResourceInfo (exports.mapmanager:getRunningGamemodeMap(),"ratedTimes") or 0
 	local rating = getMapRating(name)
 	mapRate = rating and getRatingColorAsHex(rating.average)..""..rating.average or "-"
-	triggerClientEvent("sendClientMapInfo",getRootElement(),hunterreached,mapRate,ratedTimes)
+	triggerClientEvent("sendClientMapInfo",getRootElement(),hunterreached,mapRate,ratedTimes)]]
 end
 addEvent("onMapStarting",true)
 addEventHandler("onMapStarting",g_Root,resetHunterTabels)

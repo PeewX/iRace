@@ -27,7 +27,6 @@
 	<script src="override_server.lua" type="server"/>
 	<script src="editor_support_server.lua" type="server"/>
 	<script src="rate_server.lua" type="server"/>
-	<script src="bottominterface.lua" type="client"/>
 	
 	<script src="CSprite.lua" type="client" cache="false" />
 	<script src="_common.lua" type="client"/>

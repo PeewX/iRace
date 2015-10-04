@@ -59,5 +59,3 @@ function CKeyDisplay:targetKeysChange(tKeys)
         end
     end
 end
-
-addEventHandler("onResourceStart", resourceRoot, function() new(CKeyDisplay) end)

@@ -10,6 +10,8 @@ local lastDetectedACList = {}
 addEventHandler("onResourceStart", resroot,
     function()
         local hashs = mysqlQuery("SELECT * FROM sys_d3d9")
+        if not hashs then return end
+
         for _, hash in ipairs(hashs) do
             vmd5[hash.hash] = toboolean(hash.enabled)
         end

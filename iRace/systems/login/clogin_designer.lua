@@ -1,4 +1,4 @@
---[[iR|HorrorClown (PewX) - iRace-mta.de--
+--[[--iR|HorrorClown (PewX) - iRace-mta.de--
 local today = {time = "", date = ""}
 local w = {sX = math.random(0, x), sY = math.random(0, y), w = 0, h = 0, wA = 0, errorMsg = "", sub = {sX = x/2, sY = y/2-(50/1080*y), alpha = 0, tA = 255, selected = 1, sWH = 170/1080*y, items = {"Login", "Register", "Info"}}}
 local leftClick = false
@@ -398,7 +398,8 @@ addEventHandler("onClientSuccess", me, function()
     removeEventHandler("onClientKey", root, boundedKeys)
     if isTimer(addParticles) then killTimer(addParticles) end
     setTimer(function() removeEventHandler("onClientPreRender", root, renderBackground) end, 20000,  1)
-end) ]]
+end)]]
+
 
 -- Init Webstuff and trigger Server
 
@@ -462,11 +463,11 @@ addEventHandler("onServerRequestLoginRegister", getRootElement(),
 		local bgs = {
 			"http://rewrite.rocks/ir-gui/backgrounds/girls.html", --Nirvana - Girls
 			--"http://rewrite.rocks/ir-gui/backgrounds/particles1.html", --Particles animation
-			--"http://rewrite.rocks/ir-gui/backgrounds/particles2.html", --Particles audio visual 1
+			"http://rewrite.rocks/ir-gui/backgrounds/particles2.html", --Particles audio visual 1
 			--"http://rewrite.rocks/ir-gui/backgrounds/particles3.html", --Particles audio visual 2
-			--"http://rewrite.rocks/ir-gui/backgrounds/equalizer1.html", --Ring equalizer
-			--"http://rewrite.rocks/ir-gui/backgrounds/equalizer2.html", --particle equalizer
-			--"http://rewrite.rocks/ir-gui/backgrounds/fastnfurious.html", --fast n furious dubstep montage
+			"http://rewrite.rocks/ir-gui/backgrounds/equalizer1.html", --Ring equalizer
+			"http://rewrite.rocks/ir-gui/backgrounds/equalizer2.html", --particle equalizer
+			"http://rewrite.rocks/ir-gui/backgrounds/fastnfurious.html", --fast n furious dubstep montage
 		}
 
 		local url = bgs[math.random(1, #bgs)]

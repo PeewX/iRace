@@ -209,12 +209,6 @@ version = "1.1.1"
 *        Part I: general, start etc.                *
 *****************************************************]]
 
-addEventHandler("onResourceStart", resroot, function()
-    outputChatBox ("* #ffffffiRace system started!", root, 0, 255, 0, true)
-    outputChatBox ("* #ffffffVersion "..version, root, 0, 255, 0, true)
-end)
-
-
 addEvent("onRaceStateChanging")
 addEventHandler("onRaceStateChanging", root, function(ns, os)
     g_racestate = ns
@@ -1337,12 +1331,6 @@ addEventHandler ( "onPlayerDestructionDerbyWin", getRootElement(), outputTheWinT
 
 --check joined player for join msg
 function checkJoinMsg(old, account)
-    local lastPlayerName = getAccountData(account, "lastPlayerName")
-    if lastPlayerName then
-        showNickchange = false
-        setPlayerName(source, lastPlayerName)
-        showNickchange = true
-    end
     setPlayerNametagShowing(source, false)
 
     local joinmsg = getAccountData(account, "JoinText")

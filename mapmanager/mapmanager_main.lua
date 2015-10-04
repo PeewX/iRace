@@ -409,7 +409,7 @@ function outputMapManager(message, toElement)
 	if getElementType(toElement) == "console" then
 		outputServerLog(message)
 	else
-		triggerClientEvent(toElement, "addClientMessage", toElement, ("|MapManager| "..message) , r, g, b)
+		triggerClientEvent(toElement, "addClientMessage", toElement, "|MapManager| #ff8000" .. message , 255, 255, 255)
 		if toElement == rootElement then
 			outputServerLog(message)
 		end

@@ -12,6 +12,16 @@ local mapRedo = false
 local voteRedo = false
 local g_ForcedNextMap
 
+
+local function sendMapInformations()
+	if not isMapmanagerAvailable() then return end
+
+	local nextMapName = getNextMap()
+	for _, p in ipairs(getElementsByType"player") do
+		triggerClientEvent(p, "onServerSendNextMapName", p, nextMapName)
+	end
+end
+
 ----------------------------------------------------------------------------
 -- displayHilariarseMessage
 --
@@ -75,6 +85,7 @@ addEventHandler('midMapVoteResult', getRootElement(),
 			local query = votemapnext
 			local map, errormsg = findMap( query )
 				g_ForcedNextMap = map
+				sendMapInformations()
 			else
 				displayKillerPunchLine()
 			end
@@ -259,6 +270,8 @@ function nextmapsetauto()
     local map = getRandomMapCompatibleWithGamemode(getThisResource())
     g_ForcedNextMap = map
     nextmapbought = false
+
+	sendMapInformations()
 end
 addEvent("onMapStarting",true)
 addEventHandler ( "onMapStarting", getRootElement(), nextmapsetauto )
@@ -325,6 +338,8 @@ addEventHandler('midMapRestartVoteResult', getRootElement(),
 					local map, errormsg = findMap( query )
 					g_ForcedNextMap = map
 					nextmapbought = true
+
+					sendMapInformations()
 					outputChatBox("|Vote| "..getMapName( g_ForcedNextMap ).." #00FF00was set as nextmap. ",g_Root,255,255,255,true)
 			else
 				local query = votemapnext
@@ -392,6 +407,7 @@ addEventHandler('onResourceStop', getRootElement(),
 )
 
 function getRandomMapCompatibleWithGamemode(gamemode) --Function made by PewX
+	if not isMapmanagerAvailable() then return end
     local compatibleMaps = exports.mapmanager:getMapsCompatibleWithGamemode(gamemode)
     if #compatibleMaps == 0 then outputChatBox("|Race| Error: No compatible maps!", getRootElement(), 255, 0, 0) return end
 
@@ -652,6 +668,8 @@ addCommandHandler('nextmap',
 
 		g_ForcedNextMap = map
         nextmapbought = true
+
+		sendMapInformations()
         triggerClientEvent("addClientMessage", g_Root, ("|Map| #00FF11Next map set to #ffffff%s #00FF11 by #ffffff%s"):format(getMapName(g_ForcedNextMap), getPlayerName(player)), 255, 255, 255, "map")
 	end
 )
@@ -705,13 +723,13 @@ local function nextmapbuyperpanel(...)
 		local timeToRemain = isMapinCantBuylist(map)
 		if timeToRemain then 
 			outputChatBox(("|Map| %s #FF9900 can be bought again in #FFFFFF%s#FF9900 min."):format(getMapName(map), timeToRemain), source, 255, 255, 255, true)
-            --outputChatBox("|Map| "..getMapName(map).."#FF9900 can be bought again in #FFFFFF"..timeToRemain.."#FF9900 min. ",source,255,255,255,true)
 			return
         end
 
         triggerEvent("setCashofBuyMap",source)
 		g_ForcedNextMap = map
         nextmapbought = true
+		sendMapInformations()
 
         triggerClientEvent("addClientMessage", g_Root, ("|Map| %s #ff9900was bought by #ffffff%s #00FF00(%s $)"):format(getMapName(g_ForcedNextMap), getPlayerName(source), tostring(getElementData(source, "latestMapPrice"))), 255, 255, 255, "map")
 		setMapInCantBuyMap(g_ForcedNextMap)
@@ -728,6 +746,8 @@ function setNextEMap(...)
 	end
 
     g_ForcedNextMap = map
+
+	sendMapInformations()
 end
 addEvent("setNextEventMap")
 addEventHandler("setNextEventMap", getRootElement(), setNextEMap)
@@ -785,6 +805,10 @@ function findMaps( query )
 end
 
 function getMapName( map )
+	if not map then
+		return "-"
+	end
+
 	return getResourceInfo( map, "name" ) or getResourceName( map ) or "unknown"
 end
 
@@ -792,8 +816,9 @@ function getNextMap()
 	if (g_ForcedNextMap) then
 		return getMapName(g_ForcedNextMap)
 	else
-		--nextmapsetauto()
-		return "#Error -Please wait"
+	--Todo: re enabled nextmapsetauto function, idk why this was disabled, so.. let see what happens
+		nextmapsetauto()
+		return "#Error - Please wait"
 	end
 end
 
@@ -804,8 +829,20 @@ function math.round(number, decimals, method)
     else return tonumber(("%."..decimals.."f"):format(number)) end
 end
 
---Trigger for Labels
+function isMapmanagerAvailable()
+	for _, resource in ipairs(getResources()) do
+		if getResourceName(resource) == "mapmanager" then
+			if getResourceState(resource) ~= "running" then
+				return false
+			end
+		end
+	end
+	return true
+end
+--[[
 local function sendInfoToClient()
+	if not isMapmanagerAvailable() then return end
+
 	local map = getMapName (exports.mapmanager:getRunningGamemodeMap())
 	local nextmap =  getNextMap()
 	if voteRedo then nextmap = map .. " <Redo>" end
@@ -814,5 +851,5 @@ local function sendInfoToClient()
 		triggerClientEvent(p, "update_client_infos", p, ping, map, nextmap)
 	end
 end
-setTimer(sendInfoToClient, 3000, 0)
+setTimer(sendInfoToClient, 3000, 0)]]
 

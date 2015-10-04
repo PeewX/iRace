@@ -36,8 +36,8 @@ end
 
 local function dxDrawCountdownLine(lx, ly, lwidth)
     ly = math.floor(ly)
-    dxDrawLine(lx, ly, lx+lwidth, ly, tocolor(150, 20, 20, 255), 1)
-    --dxDrawLine(lx, ly+1, lx+lwidth, ly+1, tocolor(100, 100, 100, 255), 1)
+    dxDrawLine(lx, ly, lx+lwidth, ly, tocolor(0, 0, 0, 255), 1)
+    --dxDrawLine(lx, ly-1, lx+lwidth, ly-1, tocolor(100, 100, 100, 255), 1)
 end
 
 local cd = {}
@@ -47,8 +47,9 @@ addEventHandler("drawNextMapCountdown", root, function()
         if not getElementData(me, "isLogedIn") then return end
         local progress = (getTickCount()-cd.sT)/(cd.eT-cd.sT)
         local width, _, _ = interpolateBetween(cd.sX, 0, 0, cd.eX, 0, 0, progress, "InOutQuad")
-        if not g_Userpanel then	dxDrawCountdownLine(0, y-(40/1080)*y, width) end
-        if progress >= 1 then removeEventHandler("onClientRender", root, render) end
+
+        if not g_Userpanel then	dxDrawCountdownLine(0, Interface.startY, width) end
+        if progress >= 1.5 then removeEventHandler("onClientRender", root, render) end
     end
     cd.sX, cd.eX = 0, x
     cd.sT = getTickCount()
