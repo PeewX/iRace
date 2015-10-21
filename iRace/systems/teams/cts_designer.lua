@@ -284,7 +284,8 @@ function tst.teamsettingsChanged()
 end
 
 function tst.upgradePrice(s)
-    return 1000000+(1000000/100*(s^2))
+    --return 1000000+(1000000/100*(s^2))
+    return 10000*(s^2)
 end
 
 function tst.notesSave()

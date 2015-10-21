@@ -34,11 +34,9 @@ function CNickname:onApplyChange(bState)
 
     if bState then
         showNickchange = false
-        outputChatBox("apply change")
         setPlayerName(client, lastPlayerName)
         showNickchange = true
     elseif not bState then
-        outputChatBox("Set last player name to: " .. tostring(client.name))
         setAccountData(eAccount, "lastPlayerName", client.name)
     end
 end

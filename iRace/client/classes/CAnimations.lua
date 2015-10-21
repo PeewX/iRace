@@ -4,7 +4,6 @@
 -- Date: 30.09.2015 - Time: 22:28
 -- pewx.de // iGaming-mta.de // iRace-mta.de // iSurvival.de // mtasa.de
 --
-
 CAnimation = {}
 
 function CAnimation:constructor(CInstance, ...)
@@ -24,7 +23,7 @@ function CAnimation:startAnimation(nDuration, sAnimationType, ...)
     self.startTick = getTickCount()
     self.endTick = self.startTick + nDuration
     self.animationType = sAnimationType
-    self.tbl_animateTo = {... }
+    self.tbl_animateTo = {...}
 
     if #self.tbl_Objects ~= #self.tbl_animateTo then
         outputDebugString("Invalid animations to object count")

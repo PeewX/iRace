@@ -15,7 +15,6 @@
         <file src="environment/unlocked.png"/>
         <file src="environment/star.png"/>
         <file src="environment/tab.png"/>
-        <file src="environment/timeBG.png"/>
 
         <!--Avatars-->
         <file src="avatars/ReWrite.png" />

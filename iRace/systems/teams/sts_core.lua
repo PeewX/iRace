@@ -201,7 +201,8 @@ function tst.outputTeamPlayer(player, message)
 end
 
 function tst.upgradePrice(s)
-    return 1000000+(1000000/100*(s^2))
+    --return 1000000+(1000000/100*(s^2))
+    return 10000*(s^2)
 end
 
 function tst.isTeamnameAvailable(n)
@@ -447,7 +448,8 @@ addEventHandler("onClientSetMemberRank", resroot, function(mName, n)
         elseif cRank == 3 then
             if tpRank == 4 then tst.outputTeamPlayer(client, "You can't change the rank from your leader!") return end
             if (tpRank + n) == 4 then tst.outputTeamPlayer(client, "Rank 3 is the highest rank which you can assign!") return end
-            if (tpRank + n) == 0 then tst.outputTeamPlayer(client, "Rank 1 is the lowest rank which you can assign!") return end
+            if n < 0 then tst.outputTeamPlayer(client, "You can't downrank") return end
+            --if (tpRank + n) == 0 then tst.outputTeamPlayer(client, "Rank 1 is the lowest rank which you can assign!") return end
             tst.setPlayerStat(mName, pTeam, "rank", (tpRank + n))
         else
             tst.outputTeamPlayer(client, "You are not allowed to change ranks!")
@@ -472,7 +474,7 @@ addEventHandler("onClientSetTeamcash", resroot, function(m, st)
                 tst.addLogMessage(pTeam, client, "cash", "#00ff00", "+" .. tostring(m))
             end
         else
-            if tst.getPlayerStat(getAccountName(pA), pTeam, "rank") < 3 then tst.outputTeamPlayer(client, "Sorry, I can't let you do this :(") return end
+            if tst.getPlayerStat(getAccountName(pA), pTeam, "rank") ~= 4 then tst.outputTeamPlayer(client, "Sorry, I can't let you do this :(") return end
             if pTeam.datas.cash < m then tst.outputTeamPlayer(client, "Your team don't have enough money!") return end
             if setAccountData(pA, "cash", (pMoney+m)) then
                 pTeam.datas.cash = tonumber(pTeam.datas.cash) - m

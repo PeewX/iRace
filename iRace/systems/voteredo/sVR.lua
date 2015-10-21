@@ -65,7 +65,6 @@ addCommandHandler("vr",
 addEvent("onMapStarting")
 addEventHandler("onMapStarting", root,
     function(tMap)
-        if not vrt.lastMap then return end
         vrt.lastMap = vrt.currentMap
         vrt.currentMap = tMap
         vrt.mapAllowed = not (vrt.lastMap.name == vrt.currentMap.name)

@@ -763,10 +763,12 @@ addEventHandler("onPlayerWasted", root, function()
         setTimer(function(source)
             --triggerClientEvent(source, "showRespawnModes", source, true) --dev!
             if g_racestate == "Running" then
-                triggerClientEvent(source, "showRespawnModes", source, true)
-                if #getRaceAlivePlayers() >= 1 then triggerClientEvent(source, "showRespawnModes", source, true) end
+                if isElement(source) then
+                    --triggerClientEvent(source, "showRespawnModes", source, true)
+                    if #getRaceAlivePlayers() >= 1 then triggerClientEvent(source, "showRespawnModes", source, true) end
+                end
             end
-        end, 3000, 1, source)
+        end, 1500, 1, source)
     end
 end)
 
