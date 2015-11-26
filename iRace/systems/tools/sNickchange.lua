@@ -17,6 +17,8 @@ function checkNickOnChange(old, new)
         else
             outputChatBox("|Nickchange| #ff6600You changed your nick to #ffffff" .. new, source, 255, 255, 255, true)
         end
+
+        exports.pxlog:add("nickchange", ("%s -> %s"):format(tostring(old), tostring(new)))
     end
 end
 addEventHandler("onPlayerChangeNick", root, checkNickOnChange)

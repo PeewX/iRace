@@ -51,15 +51,19 @@ addCommandHandler("afk",
         if getElementData(player, "AFK") == false then
             local afkMessage = table.concat({...}, " ")
             if string.len(afkMessage) > 20 then afkMessage = string.sub(afkMessage, 1, 20) end
-            if g_ruhe or isPlayerMuted(player) then afkMessage = "" elseif afkMessage ~= "" then afkMessage = string.format("(%s)", afkMessage) end
 
             setElementData(player, "AFK", true)
-            triggerClientEvent("addClientMessage", root, ("|AFK| %s #ff9900is now AFK %s"):format(getPlayerName(player), afkMessage), 255, 255, 255)
             triggerClientEvent(player, "onClientAFKStateChanged", player, "afk")
+            if afkMessage ~= "" then afkMessage = string.format("(%s)", afkMessage) end
+            if g_ruhe or isPlayerMuted(player) then return end
+
+            triggerClientEvent("addClientMessage", root, ("|AFK| %s #ff9900is now AFK %s"):format(getPlayerName(player), afkMessage), 255, 255, 255)
         else
             setElementData(player, "AFK", false)
-            triggerClientEvent("addClientMessage", root, ("|AFK| %s #ff9900is back!"):format(getPlayerName(player)), 255, 255, 255)
             triggerClientEvent(player, "onClientAFKStateChanged", player, "none")
+
+            if g_ruhe or isPlayerMuted(player) then return end
+            triggerClientEvent("addClientMessage", root, ("|AFK| %s #ff9900is back!"):format(getPlayerName(player)), 255, 255, 255)
         end
     end
 )

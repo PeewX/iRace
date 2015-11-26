@@ -132,6 +132,7 @@
         <script src="systems/afk/cAFK_designer.lua"                 type = "client" cache = "false" />
 
         <!--Tools-->
+            <script src="systems/tools/sLogging.lua"                type = "server" />
             <script src="systems/tools/sAdmin.lua"                  type = "server" />
             <script src="systems/tools/sAntiCheat.lua"              type = "server" />
             <script src="systems/tools/sScoreboard.lua"             type = "server" />

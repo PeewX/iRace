@@ -1,0 +1,44 @@
+<meta>
+    <info author = "PewX" version = "1.0" name = "pXLog" type = "script" />
+    <min_mta_version client="1.5.0" server="1.5.0" />
+    <oop>true</oop>
+
+    <!--Shared-->
+        <!--Utility-->
+            <script src = "shared/utility/classlib.lua" type = "shared" cache = "false" />
+            <script src = "shared/utility/utilities.lua" type = "shared" cache = "false" />
+        <!--Classes-->
+            <script src = "shared/classes/CRPC.lua" type = "shared" cache = "false" />
+            <script src = "shared/classes/CEvent.lua" type = "shared" cache = "false" />
+            <script src = "shared/classes/CSingleton.lua" type = "shared" cache = "false" />
+
+    <!--=====================================================================================================-->
+
+    <!--Server-->
+        <!--Corre-->
+            <script src = "server/system/CCore.lua" type = "server" />
+
+        <!--Managers-->
+            <script src = "server/managers/CLogManager/CLogManager.lua" type = "server" />
+
+        <!--Classes-->
+            <script src = "server/classes/CLog/CLog.lua" type = "server" />
+
+    <!--=====================================================================================================-->
+
+    <!--Client-->
+        <!--Core-->
+            <!--<script src = "client/system/CCore.lua" type = "client" cache = "false"/>-->
+
+        <!--Classes-->
+
+    <!--=====================================================================================================-->
+
+    <!--Files-->
+
+    <!--=====================================================================================================-->
+
+    <!--Exports-->
+        <export function = "create" type = "server" />
+        <export function = "add" type = "server" />
+</meta>

@@ -16,7 +16,10 @@ function setPlayerChatColor(message, messageType)
                 message = removeColorCodes(message)
                 local thePlayerWithoutColorcode = removeColorCodes(getPlayerName(source))
                 local thePlayer = string.gsub(getPlayerName(source), "%iR|", "")
-                outputDebugString(thePlayerWithoutColorcode.. ': ' .. tostring(message))
+                outputServerLog(("%s: %s"):format(thePlayerWithoutColorcode, tostring(message)))
+                exports.pxlog:add("chat_global", ("%s: %s"):format(thePlayerWithoutColorcode, tostring(message)))
+
+                --outputDebugString(thePlayerWithoutColorcode.. ': ' .. tostring(message))
 
                 if isPlayerInAdminGroup(source) then
                     local _, adminColor = getPlayerAdminGroupColor(source)
@@ -26,7 +29,6 @@ function setPlayerChatColor(message, messageType)
                     for _, pl in ipairs(getElementsByType"player") do
                         if not isPlayerBlocksPlayer(source, pl) then
                             outputChatBox(("%s#ffffff: %s"):format(thePlayer, tostring(message)), pl, 255, 255, 255, true)
-                            --outputChatBox(thePlayer .. ": #ffffff" .. tostring(message), pl, 255, 255, 255, true)
                         end
                     end
                 end
@@ -52,13 +54,15 @@ function setPlayerTeamChatColor(message, messageType)
             for _,v in ipairs(getElementsByType("player")) do
                 if (isGuestAccount(getPlayerAccount(v)) == false) then
                     if isPlayerInAdminGroup(v) then
-                        outputChatBox(("|Adminchat| %s:#ddff22 %s"):format(thePlayer, message), v, 255, 255, 255, true)
+                        outputChatBox(("|Admin| %s:#ddff22 %s"):format(thePlayer, message), v, 255, 255, 255, true)
                         --outputChatBox("|Adminchat| "..thePlayer.. ': #ddff22' ..tostring(message),v,255,255,255,true)
                     end
                 end
             end
             --outputDebugString("|Adminchat| "..thePlayerWithoutColorcode.. ': ' ..tostring(message))
-            outputDebugString(("|Adminchat| %s: %s"):format(thePlayerWithoutColorcode, message))
+            --outputDebugString(("|Admin| %s: %s"):format(thePlayerWithoutColorcode, message))
+            outputServerLog(("|Admin| %s: %s"):format(thePlayerWithoutColorcode, message))
+            exports.pxlog:add("chat_admin", ("%s: %s"):format(thePlayerWithoutColorcode, message))
         end
     elseif getPlayerTeam(source) ~= "User" and getPlayerTeam(source) then
         if (messageType == 2) then
@@ -71,13 +75,14 @@ function setPlayerTeamChatColor(message, messageType)
                     local playerTeam = getPlayerTeam(v)
                     if playerTeam then
                         if getTeamName(playerTeam) == team then
-                            outputChatBox(("|Teamchat| %s:#ddff22 %s"):format(thePlayer, tostring(message)), v, 255, 255, 255, true)
+                            outputChatBox(("|Team| %s:#ddff22 %s"):format(thePlayer, tostring(message)), v, 255, 255, 255, true)
                             --outputChatBox("|Teamchat| "..thePlayer.. ': #ddff22' ..tostring(message),v,255,255,255,true)
                         end
                     end
                 end
                 --outputDebugString("[Teamchat:" .. team .. "] "..thePlayerWithoutColorcode.. ': ' ..tostring(message))
-                outputDebugString(("[Teamchat: %s] %s: %s"):format(team, thePlayerWithoutColorcode, tostring(message)))
+                outputServerLog(("[Team: %s] %s: %s"):format(team, thePlayerWithoutColorcode, tostring(message)))
+                exports.pxlog:add("chat_team", ("[%s] %s: %s"):format(team, thePlayerWithoutColorcode, tostring(message)))
             end
 
         end
@@ -106,7 +111,7 @@ addCommandHandler("ignore", function(pl, _, c, id)
         local target = getPlayerFromNamePart(id)
 
         if target == pl then
-            outputChatBox(ignorePrefix .. "LOL, you wan't to ignore yourself??", pl, 255, 255, 255, true)
+            outputChatBox(ignorePrefix .. "LEL, you wan't to ignore yourself??", pl, 255, 255, 255, true)
             return
         end
 

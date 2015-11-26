@@ -468,7 +468,7 @@ function checkAchivementState(player)
     end
     --Noob Racer | achive2
     if not getAccountData(account,"achive2") then
-        if tonumber(dmswon) >= 1  then -- QUESTION
+        if tonumber(dmswon) and tonumber(dmswon) >= 1  then -- QUESTION
             setAccountData(account,"achive2",true)
             outputChatBox("|Userpanel|"..getPlayerName(player).." #FF9900unlocked achievement #FFFFFFNoob Racer!",getRootElement(),255,255,255,true)
         end
@@ -645,21 +645,22 @@ function onPlayerWin()
         end
 
         for theKey,thePlayer in ipairs(activePlayers) do
-            local hasbet = getElementData(thePlayer, "hasbet")
+            if isElement(thePlayer) then
+                local hasbet = getElementData(thePlayer, "hasbet")
 
-            if hasbet then
-                local beton = getElementData (thePlayer,"beton")
-                local betcash = getElementData (thePlayer,"betmoney")
+                if hasbet then
+                    local beton = getElementData (thePlayer,"beton")
+                    local betcash = getElementData (thePlayer,"betmoney")
 
-                if source == beton then
-                    local account = getPlayerAccount(thePlayer)
-                    local cashToWin = math.floor(betcash * 2.5) --/ 2 * (#activePlayers*0.22)
-                    addStat(account,"cash", cashToWin)
-                    triggerClientEvent("addClientMessage", root, ("|Bets| %s#00ccff earned #ffffff%s#00ccff$ for his bet!"):format(getPlayerName(thePlayer), cashToWin), 255, 255, 255)
-                    --outputChatBox("|Bets| "..getPlayerName(thePlayer).."#00ccff earned " ..tostring(cashToWin).. "$ for his bet!", root, 255, 255, 255)
+                    if source == beton then
+                        local account = getPlayerAccount(thePlayer)
+                        local cashToWin = math.floor(betcash * 2.5) --/ 2 * (#activePlayers*0.22)
+                        addStat(account,"cash", cashToWin)
+                        triggerClientEvent("addClientMessage", root, ("|Bets| %s#00ccff earned #ffffff%s#00ccff$ for his bet!"):format(getPlayerName(thePlayer), cashToWin), 255, 255, 255)
+                        --outputChatBox("|Bets| "..getPlayerName(thePlayer).."#00ccff earned " ..tostring(cashToWin).. "$ for his bet!", root, 255, 255, 255)
+                    end
                 end
             end
-
         end
     end
 end
@@ -1592,7 +1593,7 @@ function randomCashWin()
     if #activePlayers >= minPlayers then
         local randomCash = math.random(100,math.random(5000, 50000))
         local randomPlayer = activePlayers[math.random(1, #activePlayers)]
-        if not randomPlayer then return end
+        if not isElement(randomPlayer) then return end
         local account = getPlayerAccount (randomPlayer)
         if not isGuestAccount(account) then
             --outputChatBox("|iRace| #0066ff" .. getPlayerName(randomPlayer) .. "#0066ff won #ffffff" .. randomCash .. " #0066ff$!", getRootElement(), 255, 255, 255, true)

@@ -29,6 +29,9 @@ function privateMessage(thePlayer, _, target, ...)
     local thePlayerName = removeColorCodes(getPlayerName(thePlayer))
     outputChatBox(pmPrefix .. thePlayerName .. ": " .. removeColorCodes(text), targetPlayer, 255, 255, 255, true)
     outputChatBox(pmPrefix .. thePlayerName .. " -> " .. removeColorCodes(getPlayerName(targetPlayer)) .. ": " .. removeColorCodes(text), thePlayer, 255, 255, 255, true)
-    outputDebugString("|PM| " .. thePlayerName .. " -> " .. removeColorCodes(getPlayerName(targetPlayer)) .. ": " .. removeColorCodes(text))
+    --outputDebugString("|PM| " .. thePlayerName .. " -> " .. removeColorCodes(getPlayerName(targetPlayer)) .. ": " .. removeColorCodes(text))
+    outputServerLog("|PM| " .. thePlayerName .. " -> " .. removeColorCodes(getPlayerName(targetPlayer)) .. ": " .. removeColorCodes(text))
+
+    exports.pxlog:add("chat_pm", ("%s -> %s: %s"):format(thePlayerName, removeColorCodes(getPlayerName(targetPlayer)), removeColorCodes(text)))
 end
 addCommandHandler("pm", privateMessage)

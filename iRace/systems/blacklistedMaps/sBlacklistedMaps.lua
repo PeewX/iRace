@@ -89,7 +89,7 @@ function isAllowedToUse(player)
     else
         local pA = getPlayerAccount(player)
         if not isGuestAccount(pA) then
-            if getAccountName(pA) == "HorrorClown" then
+            if getAccountName(pA) == "PewX" then
                 return true
             end
         end

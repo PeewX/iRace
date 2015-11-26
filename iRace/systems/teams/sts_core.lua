@@ -426,7 +426,7 @@ addEventHandler("onClientUninviteMember", resroot, function(mName)
             if tpSource then triggerClientEvent(tpSource, "onClientDestroyTeamGUI", tpSource) tst.outputTeamPlayer(tpSource, "You was uninvited by " .. removeColorCodes(getPlayerName(client))) setPlayerTeam(tpSource, getTeamFromName("User")) end
             if tst.removePlayerFromTeam(mName, pTeam) then
                 tst.outputTeamPlayers(pTeam, ("Player '%s' was uninvited by '%s'"):format(mName, removeColorCodes(getPlayerName(client))))
-                tst.addLogMessage(pTeam, client, "uninvite", "", getPlayerName(tpSource) or mName)
+                tst.addLogMessage(pTeam, client, "uninvite", "", tpSource and getPlayerName(tpSource) or mName)
             end
         end
     end
